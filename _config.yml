@@ -1,0 +1,38 @@
+﻿# Dependencies
+markdown:         redcarpet
+redcarpet:
+  extensions: ["tables"]
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Umut Özel
+tagline:          'A Curious Developer'
+url:              http://www.umutozel.com
+shorturl:         umutozel.com
+
+author:
+  name:           'Umut Özel'
+  url:            https://twitter.com/monoblaine
+
+paginate:         1
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           github.com/umutozel
+
+# This is the list of pages to include in the header of the website.
+pages_list:       
+  About: '/about/'
+  Archive: '/archive/'
+  Feed: '/atom.xml'
+
+# Allow URL Redirects: 
+#  * https://help.github.com/articles/redirects-on-github-pages
+gems:
+  - jekyll-redirect-from
+
+highlighter:	  rouge
