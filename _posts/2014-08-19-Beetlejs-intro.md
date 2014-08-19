@@ -11,7 +11,6 @@ permalink: beetlejs-intro
 [Beetle.js](http://beetlejs.com/ "Beetle.js") is a data manager for Javascript.
 The goal is to be able to work with data as easy as Entity Framework and LINQ.
 
-
 ##Features
 * Tracks objects and persists changes to server
 * Can work with Knockout and Angular objects (Backbone soon, and others can be implemented easily)
