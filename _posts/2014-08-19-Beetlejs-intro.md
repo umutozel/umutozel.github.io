@@ -29,6 +29,7 @@ The goal is to be able to work with data as easy as Entity Framework and LINQ.
 
 ##Current prerequisities
 All dependencies have base types so custom implementations can be made easily.
+
 * Entity Framework
 * WebApi or Asp.Net Mvc project for service
 * Knockout.js or EcmaScript5 Properties (for Angular) for providing observable objects
