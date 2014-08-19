@@ -35,4 +35,4 @@ pages_list:
 gems:
   - jekyll-redirect-from
 
-highlighter:	  rouge
+highlighter:	   rouge
