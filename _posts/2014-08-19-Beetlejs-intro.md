@@ -37,7 +37,7 @@ All dependencies have base types so custom implementations can be made easily.
 
 ##Usage
 * Create a Controller and inherit from BeetleApiController, generic argument tells we are using Entity Framework context handler with TestEntities context (DbContext)
-{% highlight csharp %}
+{% highlight cs %}
 public class BeetleTestController : BeetleApiController<EFContextHandler<TestEntities>> {
 		
 	[HttpGet]
@@ -47,7 +47,7 @@ public class BeetleTestController : BeetleApiController<EFContextHandler<TestEnt
 }
 {% endhighlight %}
 * Configure routing
-{% highlight csharp %}
+{% highlight cs %}
 public static class BeetleWebApiConfig {
 
 	public static void RegisterBeetlePreStart() {
