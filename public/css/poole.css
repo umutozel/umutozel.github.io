@@ -176,7 +176,7 @@ pre code {
   background-color: transparent;
 }
 .highlight {
-  margin-bottom: 1rem;
+  margin: 0 -2rem 1rem;
   border-radius: 4px;
 }
 .highlight pre {
