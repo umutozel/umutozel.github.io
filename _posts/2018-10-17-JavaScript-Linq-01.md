@@ -2,7 +2,7 @@
 layout: post
 title: JavaScript ile Linq yapalım!
 comments: true
-redirect_from: "/2014/08/19/JavaScript-Linq-01/"
+redirect_from: "/2018/10/17/JavaScript-Linq-01/"
 permalink: javascript-linq-01
 ---
 
@@ -112,6 +112,6 @@ Müthiş zekice, şöyle, çalışma zamanı yukarıdaki IL Assembly kodu yerine
 ```
 Tüm detayları şimdiden vermek istemedim :)
 
-[İkinci yazıda](/javascript-linq-02) görüşmek üzere.
+[İkinci yazıda Expression'ları detaylı inceleyeceğiz](/javascript-linq-02), görüşmek üzere.
 
 > “Knowledge is power.” – Francis Bacon
