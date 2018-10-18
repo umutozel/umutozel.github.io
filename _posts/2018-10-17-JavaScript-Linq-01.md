@@ -10,11 +10,11 @@ Tek bir yazıya sığmayacak tabii ki, kemerleri bağlayın :)
 
 1. Linq gerçekte nedir? **(You are here)**
 2. [Expression'lar](/javascript-linq-02)
-3. IQueryable ve IQueryProvider](/javascript-linq-03)
-4. Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-04)
-5. Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-05)
-6. Jinqu - JavaScript ile Linq](/javascript-linq-06)
-7. Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-07)
+3. [IQueryable ve IQueryProvider](/javascript-linq-03)
+4. [Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-04)
+5. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-05)
+6. [Jinqu - JavaScript ile Linq](/javascript-linq-06)
+7. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-07)
 
 C# ile uğraşan herkesin Linq hakkında az çok fikir sahibi olduğuna eminim. .Net Framework 3.5 ile 2007 yılında kullanımımıza sunulan Linq, benim için C# dilindeki ikinci en güzel özellik (beni tanıyanlar Generic'leri ne kadar sevdiğimi bilir).
 
