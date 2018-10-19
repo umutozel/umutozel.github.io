@@ -24,7 +24,7 @@ Böyle bir yeteneğe JavaScript ile geliştirme yaparken de sahip olsak ne kadar
 
 <sup>[xkcd - standards](https://xkcd.com/927/ "xkcd - standards")<sup>
 
-Linq - Language Integrated Query, yani Dile Entegre Sorgu sistemi. İlk duyduğumda bana da bir şey ifade etmemişti. Ancak öğrendikçe ilk hissettiğim diğer bazı dillerde ne kadar karışık işler için ne kadar estetik çözümlere sahip oldukları için içerlemiştim. 
+Linq - Language Integrated Query, yani Dile Entegre Sorgu sistemi. İlk duyduğumda bana da bir şey ifade etmemişti. Ancak öğrendikçe ilk hissettiğim bu özelliklerin esinlenildiği programlama dillerini ne kadar estetik çözümlere sahip oldukları için kıskanmak olmuştu. 
 
 Biliyorsunuz, Linq sorgularını iki tür yazabiliyoruz;
 
