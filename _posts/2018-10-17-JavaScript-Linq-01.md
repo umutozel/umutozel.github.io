@@ -23,19 +23,22 @@ Böyle bir yeteneğe JavaScript ile geliştirme yaparken de sahip olsak ne kadar
 
 ![Standards]( https://imgs.xkcd.com/comics/standards.png)
 
-<sup>[xkcd - standards](https://xkcd.com/927/ "xkcd - standards")<sup>
+[xkcd - standards](https://xkcd.com/927/ "xkcd - standards")
 
 Linq - Language Integrated Query, yani Dile Entegre Sorgu sistemi. İlk duyduğumda bana da bir şey ifade etmemişti. Ancak öğrendikçe ilk hissettiğim bu özelliklerin esinlenildiği programlama dillerini ne kadar estetik çözümlere sahip oldukları için kıskanmak olmuştu. 
 
 Biliyorsunuz, Linq sorgularını iki tür yazabiliyoruz;
 
-**Query Syntax**
+Query Syntax
+
 ```csharp
 var products = from p in Products
                where p.StockOnHand == 0
                select p;
 ```
-**Method Syntax**
+
+Method Syntax
+
 ```csharp
 var products = Products.Where(p => p.StockOnHand == 0);
 ```
@@ -49,6 +52,7 @@ Elimizde bir Product listesi olsun, aşağıdaki gibi;
 ```csharp
 List<Product> products = GetProducts();  // bizim için Product listesi üreten sihirli fonksiyon
 ```
+
 ve Id değeri 3'ten büyük elemanları filtrelemek istiyorsunuz;
 
 ```csharp
@@ -66,7 +70,8 @@ public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source
 
 İkisi de birer [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ancak bir tanesi filtre parametresi (Predicate) olarak Func alırken diğer Expression<Func> alıyor. 
 
-### Func
+# Func
+
 **Func** tahmin etmiş olacağınız üzere bir fonksiyonu temsil ediyor, ancak önemli nokta derlenmiş bir fonksiyonu temsil ediyor. Derlenmiş bir fonksiyon demek, o an çalışılan işlemci için hazırlanmış, tekrar yorumlaması çok zor bir parça IL (Intermediate Language) Assembly kodu demek. Aşağıdaki gibi;
 
 ```csharp
@@ -89,7 +94,8 @@ public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source
 Ne yapalım şimdi bunu değil mi?
 Bu çağrı bir liste üzerinde filtreleme yapmak istediğimizde tabii ki yeterli, ancak...
 
-### Expression<Func>
+# Expression\<Func>
+
 Peki şöyle bir düşünelim, bir yerde veriler var, belki bir veritabanı tablolalarında, belki bir Xml dosyasında, sorgulanmak için sabırsızlıkla bekliyorlar. Microsoft'un elinde de veri sorgulamak için gerekli olduğunu düşündükleri [bir dolu metod](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable) var. Derleyici de ellerinde olunca bir akıllı demiş ki, 
 
 > Biz bu kodu tam derlemesek, kodun **ifade** ettiği yapıyı bir şekilde saklasak, eğer Func olarak kullanmak gerekirse bu **ifadeyi** IL koduna tekrar derleriz?!?!
@@ -111,6 +117,7 @@ Müthiş zekice, şöyle, çalışma zamanı yukarıdaki IL Assembly kodu yerine
     ...
 }
 ```
+
 Tüm detayları şimdiden vermek istemedim :)
 
 [İkinci yazıda Expression'ları detaylı inceleyeceğiz](/javascript-linq-02), görüşmek üzere.

@@ -19,6 +19,10 @@ JavaScript ile Linq yazı serimizin üçüncüsüne hoş geldiniz.
 
 Bu yazıda ExpressionVisitor sınıfı ile bir Expression'ı modifiye edeceğiz.
 
+## ExpressionVisitor sınıfı
+Expression'lar immutable'dır (değiştirilemez). Yani bir kere oluşturduysak üzerlerinde değişiklik yapmamız mümkün olmaz.
+Daha önce bahsetmiştik, Expression'lar bir ağaç şeklinde yazdığımız kodu **ifade** eder. 
+
 [Dördüncü yazıda IQueryable ve IQueryProvider ile artık sorgulama işine el atacağız](/javascript-linq-04), görüşmek üzere.
 
 > “Before software can be reusable it first has to be usable.” – Ralph Johnson
