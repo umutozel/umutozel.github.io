@@ -10,11 +10,12 @@ JavaScript ile Linq yazı serimizin ikincisine hoş geldiniz.
 
 1. [Linq gerçekte nedir?](/javascript-linq-01)
 2. Expression'lar **(You are here)**
-3. [IQueryable ve IQueryProvider](/javascript-linq-03)
-4. [Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-04)
-5. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-05)
-6. [Jinqu - JavaScript ile Linq](/javascript-linq-06)
-7. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-07)
+3. [ExpressionVisitor sınıfı](/javascript-linq-03)
+4. [IQueryable ve IQueryProvider](/javascript-linq-04)
+5. [Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-05)
+6. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-06)
+7. [Jinqu - JavaScript ile Linq](/javascript-linq-07)
+8. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-08)
 
 Bu yazıda Expression'ları inceleyeceğiz. Öncelikle Statement ve Expression arasındaki farkı açıklayarak başlayalım.
 
@@ -206,6 +207,6 @@ var lambda = Expression.Lambda(
 
 Daha başka bir çok ExpressionType mevcut ancak bize şimdilik bu kadarı yeterli. İleride göreceksiniz, ben de geliştirdiğim projelerde tümünü desteklemedim. Yukarıda gördüğünüz yaklaşım hepsi için geçerli, çok ufak bir çalışma ile ya da açık kaynak .Net kodlarını inceleyerek hızlıca hepsini öğrenebilirsiniz.
 
-[Üçüncü yazıda IQueryable ve IQueryProvider ile sorgu mevzusuna gireceğiz](/javascript-linq-03), görüşmek üzere.
+[Üçüncü yazıda ExpressionVisitor sınıfı ile Expression modifiye edeceğiz](/javascript-linq-03), görüşmek üzere.
 
 > “Before software can be reusable it first has to be usable.” – Ralph Johnson
