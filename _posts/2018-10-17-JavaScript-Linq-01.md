@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript ile Linq yapalım!
+title: Linq Nedir?
 comments: true
 redirect_from: "/2018/10/17/JavaScript-Linq-01/"
 permalink: javascript-linq-01

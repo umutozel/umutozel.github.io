@@ -1,8 +1,8 @@
 ---
 layout: post
-title: JavaScript ile Linq yapalım!
+title: Expression'lar
 comments: true
-redirect_from: "/2018/10/18/JavaScript-Linq-01/"
+redirect_from: "/2018/10/18/JavaScript-Linq-02/"
 permalink: javascript-linq-02
 ---
 
