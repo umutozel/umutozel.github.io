@@ -41,7 +41,7 @@ Bizim işimiz Expression'lar ile, çünkü Linq ile kullanacağımız metodlar S
 
 Expression sınıfı ***abstract***, yani ondan türeyen Expression'lar için bir alt sınıf özelliği taşıyor. Ne özellikleri mi var?
 
-### NodeType
+### .NodeType
 
 Expression tipini öğrenebileceğimiz özellik, desteklenen tiplerden bir kısmını aşağıda listeliyorum ([80+ tüm liste burada](https://github.com/Microsoft/referencesource/blob/master/System.Core/Microsoft/Scripting/Ast/ExpressionType.cs)!);
 
@@ -72,7 +72,7 @@ public enum ExpressionType {
 
 Tahmin edeceğiniz gibi, aslında yazdığımız tüm kodlar bu listedeki Expression'lardan oluşuyor. Linq geliştirmemiz sırasında atamalar gibi bir çoğunu göz ardı edeceğiz.
 
-### Type
+### .Type
 
 Expression bir değer dönebilen ufak kod parçasıdır demiştik, Type bize dönüş değerinin tipini veriyor. Bir Predicate için bu tip ***bool*** olacaktır.
 
@@ -114,11 +114,7 @@ MemberInfo ise, ulaşmak istediğimiz Member'ı temsil ediyor, yukarıdaki kod p
 
 Yavaş yavaş başta verdiğimiz **Id > 3** fonksiyonunu hazırlamaya devam ediyoruz. C# dilindeki iki Expression ile yaptığımız operasyonlar BinaryExpression olarak adlandırılıyor. Burada özellikle **iki** diyorum dikkat ettiyseniz, şimdi biraz durup nasıl her zaman iki ifade olduğunu düşünebilirsiniz, beklemek istemeyenler neden böyle dediğimi açıkladığım alt tarafa geçebilirler.
 
-Evet C# yaptığınız her operasyonu Left ve Right olmak üzere iki Expression üzerinden tutar.
-
-### .NodeType
-
-İki Expression üzerinde yapılan operasyonu temsil eder. Ekleme, çarpma, atama, büyüktür gibi bir değer alır. Tüm seçenekler [burada](https://docs.microsoft.com/en-us/dotnet/api/system.linq.expressions.binaryexpression?view=netcore-2.1).
+Evet C# yaptığınız her operasyonu Left ve Right olmak üzere iki Expression üzerinden tutar. Ekleme, çarpma, atama, büyüktür gibi bir değer alır. Tüm seçenekler [burada](https://docs.microsoft.com/en-us/dotnet/api/system.linq.expressions.binaryexpression?view=netcore-2.1).
 
 ### .Left
 
