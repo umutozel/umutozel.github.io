@@ -21,7 +21,7 @@ C# ile uğraşan herkesin Linq hakkında az çok fikir sahibi olduğuna eminim. 
 
 Böyle bir yeteneğe JavaScript ile geliştirme yaparken de sahip olsak ne kadar güzel olur değil mi? Sizi duyar gibiyim, bir çok kütüphane kendilerince bir yöntemle Linq metodlarını JavaScript ile kullanımımıza sunmuş durumda ([linq.js](https://archive.codeplex.com/?p=linqjs), [jslinq](https://archive.codeplex.com/?p=jslinq), [jlinq](https://github.com/hugoware/jlinq-beta) ve [ES6 ile gelen foksiyonel programlamadan esinlenilen metodlar](https://ardalis.com/javascript-es6-linq-equivalents)). Ancak hiç birisi Linq'nun gerçek gücünü yansıtmıyor. Ben yine de her "ne gerek vardı?" sorusuna verdiğim referansı yapıştırayım.
 
-![Standards]( https://imgs.xkcd.com/comics/standards.png)
+![Standards](https://imgs.xkcd.com/comics/standards.png)
 
 [xkcd - standards](https://xkcd.com/927/ "xkcd - standards")
 
