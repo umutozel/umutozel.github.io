@@ -56,6 +56,7 @@ var query = companies.AsQueryable().Where(c => c.Name.StartsWith("Net"));
 ```
 
 Bu sorguyu bu hali ile çalıştırdığımızda aşağıdaki sonucu alırız
+
 ![Sorgu Sonucu](https://image.ibb.co/iNJeJA/Query-Result.png)
 
 Şimdi yapmak istediğimiz, sorgumuzun sadece aktif kayıtları getirmesini sağlamak.
@@ -133,6 +134,7 @@ var modifiedResult = modifiedQuery.ToList();
 ```
 
 Değiştirilmiş sorgumuzun sonucunu da aşağıda görebilirsiniz
+
 ![Değiştirilmiş Sorgu Sonucu](https://image.ibb.co/eSqOBV/Modified-Query-Result.png)
 
 Konu üzerinde daha fazla çalıştığında örneğimizde atladığımız bazı kontroller olduğunu göreceksiniz, örneğin bir tanesi ISoftDeletable interface'inin Explicit bir şekilde implemente edilme durumu. Kod üzerinde çalışarak ve farklı sorgular için 
