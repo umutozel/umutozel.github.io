@@ -123,17 +123,17 @@ lambda değeri aşağıdaki gibi çok basit bir obje:
 
 ```json
 {
-    "type": "Func",     // ExpressionType.Func
+    "type": "Func",
     "parameters": ["a", "b"],
     "body": {
-        "type": "Binary",   // ExpressionType.Binary
+        "type": "Binary",
         "operator": "<",
         "left": {
-            "type": "Variable",     // ExpressionType.Variable
+            "type": "Variable",
             "name": "a"
         },
         "right": {
-            "type": "Variable",     // ExpressionType.Variable
+            "type": "Variable",
             "name": "b"
         }
     }
