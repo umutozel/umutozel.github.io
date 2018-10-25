@@ -121,7 +121,7 @@ const lambda = tokenize<FuncExpression>('(a, b) => a < b');
 
 lambda değeri aşağıdaki gibi çok basit bir obje:
 
-```JSON
+```json
 {
     "type": "Func",     // ExpressionType.Func
     "parameters": ["a", "b"],
@@ -209,19 +209,19 @@ Cursor'ın gösterdiği karakterin geçerli bir JavaScript değişken karakteri 
 Tüm dillerde yapılan Binary işlemler için [öncelik sırası](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) vardır.
 Aşağıdaki gibi bir işlemi yorumlayalım:
 
-```JavaScript
+```javascript
 4 + 2*5 - 1
 ```
 
 eğer öncelik düzeltmesi yapmazsak bu ifade aşağıdaki gibi yorulanır:
 
-```JavaScript
+```javascript
 (((4 + 2)*5) - 1)     // 29
 ```
 
 düzeltme sonucu ise aşağıdaki gibi olur:
 
-```JavaScript
+```javascript
 (4 + (2*5) - 1)     // 13 - olması gerektiği gibi
 ```
 
@@ -242,7 +242,7 @@ function getExp(): Expression {
     // eğer bir Expression bulamazsan dön
     if (!e) return e;
     // Expression bilinen (true, false, null gibi) bir değer mi?
-    e = tryKnown(e) || e;
+    e = tryKnown(e) || e;
 
     let r: Expression;
     do {
@@ -256,7 +256,7 @@ function getExp(): Expression {
             || tryFunc(e)
             || tryCall(e)
             || tryTernary(e)
-            || tryBinary(e);
+            || tryBinary(e);
     } while (e)
 
     return r;
@@ -265,7 +265,7 @@ function getExp(): Expression {
 
 Algoritmamız deneme üzerine kurulu. Önce tek başına kullanılabilen Expression'ları deniyoruz, sonra bunu birleşik Expression oluşturmada kullanıyoruz. Örneğin:
 
-```JavaScript
+```javascript
 a + 42
 ```
 
@@ -367,7 +367,7 @@ protected visitCall(exp: CallExpression, scopes: any[]) {
 Yazmadığımız diğer Expression tipleri için yazılması gereken kodu tahmin edebilirsiniz ya da kodları inceleyebilirsiniz.
 Burada önemli bir nokta **scopes** parametreleri, Expression parse ettiğimizde Variable değerlerini dışarıdan beslememiz gerekiyor.
 
-```JavaScript
+```javascript
 a + 42
 ```
 
@@ -378,14 +378,14 @@ Yukarıdaki gibi bir Expression'ı parse ettiğimizde **a** değişkeninin değe
 Tek bir fonksiyonu kullanıma sunduğumuz bu dosyanın içeriği çok basit.
 
 ```typescript
-export function evaluate(exp: Expression | string, ...scopes: any[]) {
+export function evaluate(exp: Expression | string, ...scopes: any[]) {
     return new ExpressionVisitor().process(typeof exp === 'string' ? tokenize(exp) : exp, scopes);
 }
 ```
 
 Çalıştırmak istediğimiz Expression'ı **string** ya da parse edilmiş **Expression** olarak gönderiyoruz ve gerekli **scope**'ları sağlıyoruz ve bize sonucu dönyor. Hemen bir örnek yapalım:
 
-```JavaScript
+```typescript
 // değerlendirilmesini istediğimiz karşılaştırma ifademiz
 // ikinci parametrede verdiğimiz obje "v1" ve "v2" değişkenlerini aramak için kullanılacak
 const value = evaluate('v1 >= v2', { v1: 5, v2: 3 });
