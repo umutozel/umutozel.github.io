@@ -46,7 +46,7 @@ Yeni bir JavaScript projesine başlamak biraz uğraş gerektiriyor, projelerime 
 
 # Proje Yapısı
 
-Acelesi olanlar projenin bitmiş halini https://github.com/umutozel/jokenizer adresinden inceleyebilir.
+Acelesi olanlar projenin bitmiş halini [https://github.com/umutozel/jokenizer](https://github.com/umutozel/jokenizer) adresinden inceleyebilir.
 
 ![Proje Yapısı](/assets/jokenizer-structure.png)
 
@@ -60,7 +60,6 @@ Acelesi olanlar projenin bitmiş halini https://github.com/umutozel/jokenizer ad
 ## ./lib/types.ts
 
 Yukarıda da dediğimiz gibi JavaScript ile Expression tipleri olmadığından biz tanımlıyoruz.
-
 
 ```JavaScript
 // İlk tanımımız ExpressionType, hatırlarsınız C# için 80+ adet vardı, desteklediğimiz tüm Expression türleri aşağıdakiler:
@@ -159,13 +158,13 @@ Gördüğünüz gibi, JavaScript bize bu konuda yardımcı oluyor, **toString** 
 
 ## Parser
 
-Amacım çok basit olduğundan [Ejderhalı Kitap](https://www.amazon.com/Compilers-Principles-Techniques-Tools-2nd/dp/0321486811) gibi kaynakların yöntemlerinden farklı kendimce bir yol izledim, ancak mantık aynı.
+Amacımız çok basit olduğundan [Ejderhalı Kitap](https://www.amazon.com/Compilers-Principles-Techniques-Tools-2nd/dp/0321486811) gibi kaynakların yöntemlerinden farklı kendimce bir yol izledim, ancak mantık aynı.
 
 Bu tür ifadeleri parse edebilmek için [Scanner](https://medium.com/dailyjs/gentle-introduction-into-compilers-part-1-lexical-analysis-and-scanner-733246be6738) denilen bir yapıya ihtiyaç duyarız. Scanner bizim parametre aldığımız string üzerinde gezmemizi sağlar. Ben Scan işini JavaScript [Closure](https://medium.freecodecamp.org/javascript-closures-simplified-d0d23fa06ba4) ile kapsadığım bir fonksiyon içinde hallettim.
 
 ---
 
-Bazı önemli fonksiyonlar ile nasıl yaklaşık 450 satır kod ile bu işi nasıl yaptığımı görelim.
+Bazı önemli yardımcı fonksiyonları listeleyelim.
 
 ### move(count: number = 1)
 
