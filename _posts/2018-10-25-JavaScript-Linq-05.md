@@ -183,8 +183,8 @@ Boşluklar atlandığında gelinen karakter dizisi gönderilen değere eşit de�
 // parse etmek istediğimiz ifade
 str = "function (a, b) { return a + b };"
 
-// praser "function" ifadesi ile karşılaşınca artık bir anonim fonksiyon parse etme moduna girer
-// to('/') çağrısı ile "function" ifadesinden sonra parantez açılan noktaya gider, gidemez ise hata oluşur
+// praser "function" ifadesi ile karşılaşınca fonksiyon parse etme moduna girer
+// to('{') çağrısı ile "function" ifadesinden sonra parantez arar, bulamaz ise hata fırlatır
 ```
 
 ### isSpace()
