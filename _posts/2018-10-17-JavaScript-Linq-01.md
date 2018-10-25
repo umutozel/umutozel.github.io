@@ -103,7 +103,7 @@ Peki şöyle bir düşünelim, bir yerde veriler var, belki bir veritabanı tabl
 
 Müthiş zekice, şöyle, çalışma zamanı yukarıdaki IL Assembly kodu yerine aşağıdaki gibi bir objeye sahip oluyoruz (kabaca, anlaşılır olması için JSON syntax ile yazıyorum);
 
-```JavaScript
+```JSON
 {
     NodeType: "Lambda",
     Parameters: ["a"],

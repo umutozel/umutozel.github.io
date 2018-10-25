@@ -175,11 +175,11 @@ Bu fonksiyon **cursor** değerini verilen parametre kadar ileri taşıyor. Curso
 
 Cursor bulunduğu noktada aranan değer var ise Cursor aranan değer kadar ilerler ve **true** döner, yok ise **false** döner.
 
-### skip()
+### skip()
 
 Boşluk, tab gibi bir anlam ifade etmeyen karakterleri (Whitespace) atlar.
 
-### eq(idx: number, target: string)
+### eq(idx: number, target: string)
 
 Gönderilen indeks değerinden aranan değer olup olmadığını döner, Cursor ilerletmez.
 
