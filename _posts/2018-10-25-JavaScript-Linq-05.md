@@ -1,9 +1,9 @@
 ---
 layout: post
-title: IQueryable ve IQueryProvider
+title: Jokenizer - JavaScript Expression'larını parse edelim
 comments: true
-redirect_from: "/2018/10/22/JavaScript-Linq-04/"
-permalink: javascript-linq-04
+redirect_from: "/2018/10/25/JavaScript-Linq-05/"
+permalink: javascript-linq-05
 ---
 
 JavaScript ile Linq yazı serimizin beşincisine hoş geldiniz.
