@@ -23,7 +23,7 @@ Artık yazılar teorik anlatımlardan sert bir dönüş ile geliştirmeye yönel
 
 Expression nedir öğrendik, peki JavaScript için durum nedir? Zor. JavaScript tip sistemsiz (arkadaşlarla tipsiz de deriz) bir dil olduğu için Expression gibi bir sınıfa sahip değil, Reflection gibi bir yapı da yok haliyle. Şöyle ki:
 
-```javascript
+```typescript
 // sum isminde bir Lambda tanımlıyoruz
 const sum = (a, b) => a + b;
 console.log(typeof sum);    // "function"
@@ -59,7 +59,7 @@ Yeni bir JavaScript projesine başlamak biraz uğraş gerektiriyor, projelerime 
 
 Yukarıda da dediğimiz gibi JavaScript ile Expression tipleri olmadığından biz tanımlıyoruz.
 
-```TypeScript
+```typescript
 // İlk tanımımız ExpressionType, hatırlarsınız C# için 80+ adet vardı, desteklediğimiz tüm Expression türleri aşağıdakiler:
 export const enum ExpressionType {
     Literal = 'Literal',    // 42, "Marvin"
@@ -109,13 +109,13 @@ export interface BinaryExpression extends Expression {
 
 Bu dosyamızda Expression parse işlemini yapıyoruz. Kullanıma açtığımız tek metodumuz aşağıdaki gibi:
 
-```TypeScript
+```typescript
 export function tokenize<T extends Expression = Expression>(exp: string): T
 ```
 
 Bir **string** parametre alıyor ve Expression tipinde obje dönüyor. Hemen bir örnek ile görelim:
 
-```TypeScript
+```typescript
 const lambda = tokenize<FuncExpression>('(a, b) => a < b');
 ```
 
@@ -143,7 +143,7 @@ lambda değeri aşağıdaki gibi çok basit bir obje:
 
 Peki C#'ta olduğu gibi Expression<Func..> desteği olmayan bir dilde bir fonksiyonu nasıl parse edilebilir hale getiriyoruz?
 
-```TypeScript
+```typescript
 const lambda = (a, b) => a < b;
 console.log(lambda.toString());     // "(a, b) => a < b"
 
@@ -179,7 +179,7 @@ Gönderilen indeks değerinden aranan değer olup olmadığını döner, Cursor 
 
 Boşluklar atlandığında gelinen karakter dizisi gönderilen değere eşit değil ise hata fırlatır, eşit ise Cursor'ı ilerletir. Örnek:
 
-```TypeScript
+```typescript
 // parse etmek istediğimiz ifade
 str = "function (a, b) { return a + b };"
 
@@ -227,7 +227,7 @@ düzeltme sonucu ise aşağıdaki gibi olur:
 
 Yardımcı fonksiyonlarımız bu kadardı. Şimdi esas işi yapan metodumuza bir bakalım, basitliği sizi şaşırtacak diye umuyorum.
 
-```TypeScript
+```typescript
 function getExp(): Expression {
     skip();     // boşlukları atla
 
@@ -275,7 +275,7 @@ En son **Binary** olarak yorumlamak istediğinde "+" operatorü ile karşılaşt
 
 Peki bu deneme metodları nasıl? Bir örnek görelim:
 
-```TypeScript
+```typescript
 function tryObject() {
     // "{" ile başlaması gerekiyor, yoksa başarısız
     if (!get('{')) return null;
@@ -323,7 +323,7 @@ Diğer Expression'lar da buna benzer bir yapıda, kodu okuyarak çok rahat anlay
 
 Expression'larımız C#'ta olduğu gibi bir ağaç şeklinde. Dolayısıyla parse ettiğimiz bir Expression'ı çalıştırabilmek için bizim de bu ağacı recursive bir şekilde gezecek bir yapıya ihtiyacımız var, o da ExpressionVisitor. Nasıl çalıştığına yine ufak bir kod üzerinden bakalım:
 
-```TypeScript
+```typescript
 protected visit(exp: Expression, scopes: any[]) {
     switch (exp.type) {
         // desteklenen her Expression'ı ziyaret ediyoruz
@@ -377,7 +377,7 @@ Yukarıdaki gibi bir Expression'ı parse ettiğimizde **a** değişkeninin değe
 
 Tek bir fonksiyonu kullanıma sunduğumuz bu dosyanın içeriği çok basit.
 
-```TypeScript
+```typescript
 export function evaluate(exp: Expression | string, ...scopes: any[]) {
     return new ExpressionVisitor().process(typeof exp === 'string' ? tokenize(exp) : exp, scopes);
 }
