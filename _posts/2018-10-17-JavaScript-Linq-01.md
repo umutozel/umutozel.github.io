@@ -14,8 +14,9 @@ Tek bir yazıya sığmayacak tabii ki, kemerleri bağlayın :)
 4. [IQueryable ve IQueryProvider](/javascript-linq-04)
 5. [Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-05)
 6. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-06)
-7. [Jinqu - JavaScript ile Linq](/javascript-linq-07)
-8. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-08)
+7. [DynamicQueryable ile Jokenizer.Net dinamik sorgu oluşturalım](/javascript-linq-07)
+8. [Jinqu - JavaScript ile Linq](/javascript-linq-08)
+9. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-09)
 
 C# ile uğraşan herkesin Linq hakkında az çok fikir sahibi olduğuna eminim. .Net Framework 3.5 ile 2007 yılında kullanımımıza sunulan Linq, benim için C# dilindeki ikinci en güzel özellik (beni tanıyanlar Generic'leri ne kadar sevdiğimi bilir).
 
@@ -25,7 +26,7 @@ Böyle bir yeteneğe JavaScript ile geliştirme yaparken de sahip olsak ne kadar
 
 [xkcd - standards](https://xkcd.com/927/ "xkcd - standards")
 
-Linq - Language Integrated Query, yani Dile Entegre Sorgu sistemi. İlk duyduğumda bana da bir şey ifade etmemişti. Ancak öğrendikçe ilk hissettiğim bu özelliklerin esinlenildiği programlama dillerini ne kadar estetik çözümlere sahip oldukları için kıskanmak olmuştu. 
+Linq - Language Integrated Query, yani Dile Entegre Sorgu sistemi. İlk duyduğumda bana da bir şey ifade etmemişti. Ancak öğrendikçe ilk hissettiğim bu özelliklerin esinlenildiği programlama dillerinin ne kadar estetik çözümlere sahip oldukları için kıskanmak olmuştu.
 
 Biliyorsunuz, Linq sorgularını iki tür yazabiliyoruz;
 
