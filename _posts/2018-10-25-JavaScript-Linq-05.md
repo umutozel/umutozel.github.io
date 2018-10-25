@@ -23,7 +23,7 @@ Artık yazılar teorik anlatımlardan sert bir dönüş ile geliştirmeye yönel
 
 Expression nedir öğrendik, peki JavaScript için durum nedir? Zor. JavaScript tip sistemsiz (arkadaşlarla tipsiz de deriz) bir dil olduğu için Expression gibi bir sınıfa sahip değil, Reflection gibi bir yapı da yok haliyle. Şöyle ki:
 
-```JavaScript
+```javascript
 // sum isminde bir Lambda tanımlıyoruz
 const sum = (a, b) => a + b;
 console.log(typeof sum);    // "function"
@@ -32,17 +32,11 @@ console.log(typeof sum);    // "function"
 Gördüğünüz gibi, çıktımız **Func<int, int>** gibi bir tip değil. JavaScript tip bilgisi istediğimizde bize her zaman string değer döner.
 Bu durum, tip güvenlikli bir dil ile tecrübesi olanların JavaScript ile ilgili en büyük yanılgılarıdır. Ben mümkün olan her projemde TypeScript kullanarak en azından geliştirme aşamasında tip güvenliğini sağlamaya çalışıyorum.
 
-## TypeScript
-
-[TypeScript](http://typescriptlang.org) Microsoft tarafından geliştirilen, başında Turbo Pascal ve C# dillerindeki emeğinden tanıdığımız (adını kopyalamadan yazamadığım) Anders Hejlsberg var. TypeScript bir JavaScript süperset'i. Yani JavaScript'i kapsıyor gibi düşünebilirsiniz. Kendisi de TypeScript ile yazılmış Compiler'ı bizim için JavaScript üretiyor. En çok karşılaştığım yanılgı TypeScript ile geliştirdiğimiz **interface**'ler ve **type**'lara çalışma zamanı ulaşabileceğimizi zannetmek. Üretilen koda bakarsanız karşılık olarak bir JavaScript çıktısı üretmediklerini görebilirsiniz, çünkü JavaScript'te **interface** ve **type** kavramı yok!
+**[TypeScript](http://typescriptlang.org)** Microsoft tarafından geliştirilen, başında Turbo Pascal ve C# dillerindeki emeğinden tanıdığımız (adını kopyalamadan yazamadığım) Anders Hejlsberg var. TypeScript bir JavaScript süperset'i. Yani JavaScript'i kapsıyor gibi düşünebilirsiniz. Kendisi de TypeScript ile yazılmış Compiler'ı bizim için JavaScript üretiyor. En çok karşılaştığım yanılgı TypeScript ile geliştirdiğimiz **interface**'ler ve **type**'lara çalışma zamanı ulaşabileceğimizi zannetmek. Üretilen koda bakarsanız karşılık olarak bir JavaScript çıktısı üretmediklerini görebilirsiniz, çünkü JavaScript'te **interface** ve **type** kavramı yok!
 
 > "I love Typescript. It is the best thing. It is very pragmatic and well done and approachable." - Ryan Dahl, creator of Node.js
 
-#### Proje Şablonu
-
-Yeni bir JavaScript projesine başlamak biraz uğraş gerektiriyor, projelerime başlangıç şablonu olması amacıyla geliştirdiğim [npm-typescript-starter](https://github.com/umutozel/generator-npm-typescript-starter) isimli [yeoman](http://yeoman.io/) oluşturucusunu kullanabilirsiniz.
-
-İş başa düştü, Expression yapısını kendimizin geliştirmesi gerekiyor.
+Bu durumda iş başa düştü, Expression yapısını kendimizin geliştirmesi gerekiyor.
 
 # Proje Yapısı
 
@@ -57,11 +51,15 @@ Acelesi olanlar projenin bitmiş halini [https://github.com/umutozel/jokenizer](
 * **.travis.yml** CI/CD için [Travis](https://travis-ci.org) kullanıyorum, herkese tavsiye ederim.
 * **mocha.opts** Test çağrılarında uzun uzun TypeScript ayarları yapmamak için ayarları dosyadan okutuyorum.
 
+## Proje Şablonu
+
+Yeni bir JavaScript projesine başlamak biraz uğraş gerektiriyor, projelerime başlangıç şablonu olması amacıyla geliştirdiğim [npm-typescript-starter](https://github.com/umutozel/generator-npm-typescript-starter) isimli [yeoman](http://yeoman.io/) oluşturucusunu kullanabilirsiniz.
+
 ## ./lib/types.ts
 
 Yukarıda da dediğimiz gibi JavaScript ile Expression tipleri olmadığından biz tanımlıyoruz.
 
-```JavaScript
+```TypeScript
 // İlk tanımımız ExpressionType, hatırlarsınız C# için 80+ adet vardı, desteklediğimiz tüm Expression türleri aşağıdakiler:
 export const enum ExpressionType {
     Literal = 'Literal',    // 42, "Marvin"
@@ -85,7 +83,6 @@ export interface Expression {
 }
 
 // Tüm Expression'ları listelemeyeceğim. Bir kaç örnek görmemiz yeterli olacaktır
-
 export interface LiteralExpression extends Expression {
     readonly value    // tipi "any", yani her türlü veri atanabilir
 }
@@ -112,13 +109,13 @@ export interface BinaryExpression extends Expression {
 
 Bu dosyamızda Expression parse işlemini yapıyoruz. Kullanıma açtığımız tek metodumuz aşağıdaki gibi:
 
-```JavaScript
+```TypeScript
 export function tokenize<T extends Expression = Expression>(exp: string): T
 ```
 
 Bir **string** parametre alıyor ve Expression tipinde obje dönüyor. Hemen bir örnek ile görelim:
 
-```JavaScript
+```TypeScript
 const lambda = tokenize<FuncExpression>('(a, b) => a < b');
 ```
 
@@ -146,7 +143,7 @@ lambda değeri aşağıdaki gibi çok basit bir obje:
 
 Peki C#'ta olduğu gibi Expression<Func..> desteği olmayan bir dilde bir fonksiyonu nasıl parse edilebilir hale getiriyoruz?
 
-```JavaScript
+```TypeScript
 const lambda = (a, b) => a < b;
 console.log(lambda.toString());     // "(a, b) => a < b"
 
@@ -156,13 +153,9 @@ console.log(func.toString())        // "function (a, b) { return a < b; }"
 
 Gördüğünüz gibi, JavaScript bize bu konuda yardımcı oluyor, **toString** çağrısı fonksiyonun kodunu dönüyor.
 
-## Parser
-
 Amacımız çok basit olduğundan [Ejderhalı Kitap](https://www.amazon.com/Compilers-Principles-Techniques-Tools-2nd/dp/0321486811) gibi kaynakların yöntemlerinden farklı kendimce bir yol izledim, ancak mantık aynı.
 
 Bu tür ifadeleri parse edebilmek için [Scanner](https://medium.com/dailyjs/gentle-introduction-into-compilers-part-1-lexical-analysis-and-scanner-733246be6738) denilen bir yapıya ihtiyaç duyarız. Scanner bizim parametre aldığımız string üzerinde gezmemizi sağlar. Ben Scan işini JavaScript [Closure](https://medium.freecodecamp.org/javascript-closures-simplified-d0d23fa06ba4) ile kapsadığım bir fonksiyon içinde hallettim.
-
----
 
 Bazı önemli yardımcı fonksiyonları listeleyelim.
 
@@ -186,7 +179,7 @@ Gönderilen indeks değerinden aranan değer olup olmadığını döner, Cursor 
 
 Boşluklar atlandığında gelinen karakter dizisi gönderilen değere eşit değil ise hata fırlatır, eşit ise Cursor'ı ilerletir. Örnek:
 
-```JavaScript
+```TypeScript
 // parse etmek istediğimiz ifade
 str = "function (a, b) { return a + b };"
 
@@ -232,11 +225,9 @@ düzeltme sonucu ise aşağıdaki gibi olur:
 (4 + (2*5) - 1)     // 13 - olması gerektiği gibi
 ```
 
----
+Yardımcı fonksiyonlarımız bu kadardı. Şimdi esas işi yapan metodumuza bir bakalım, basitliği sizi şaşırtacak diye umuyorum.
 
-Yardımcı metodlarımız bu kadardı. Şimdi esas işi yapan metodumuza bir bakalım, basitliği sizi şaşırtacak diye umuyorum.
-
-```JavaScript
+```TypeScript
 function getExp(): Expression {
     skip();     // boşlukları atla
 
@@ -284,7 +275,7 @@ En son **Binary** olarak yorumlamak istediğinde "+" operatorü ile karşılaşt
 
 Peki bu deneme metodları nasıl? Bir örnek görelim:
 
-```JavaScript
+```TypeScript
 function tryObject() {
     // "{" ile başlaması gerekiyor, yoksa başarısız
     if (!get('{')) return null;
@@ -328,11 +319,11 @@ function tryObject() {
 
 Diğer Expression'lar da buna benzer bir yapıda, kodu okuyarak çok rahat anlayabilirsiniz.
 
-# ./lib/ExpressionVisitor.ts
+## ./lib/ExpressionVisitor.ts
 
 Expression'larımız C#'ta olduğu gibi bir ağaç şeklinde. Dolayısıyla parse ettiğimiz bir Expression'ı çalıştırabilmek için bizim de bu ağacı recursive bir şekilde gezecek bir yapıya ihtiyacımız var, o da ExpressionVisitor. Nasıl çalıştığına yine ufak bir kod üzerinden bakalım:
 
-```csharp
+```TypeScript
 protected visit(exp: Expression, scopes: any[]) {
     switch (exp.type) {
         // desteklenen her Expression'ı ziyaret ediyoruz
@@ -382,11 +373,11 @@ a + 42
 
 Yukarıdaki gibi bir Expression'ı parse ettiğimizde **a** değişkeninin değerini bilmiyoruz ve bu Expression'ı çalıştırmak istediğimizde bu değeri bizim sağlamamız gerekiyor. ExpressionVisitor Expression çalıştırma için ihtiyacımız olan altyapıyı sağladı, ancak çalıştırma işleminde bu sınıfı direk kullanmayacağız.
 
-# .lib/evaluator.ts
+## ./lib/evaluator.ts
 
 Tek bir fonksiyonu kullanıma sunduğumuz bu dosyanın içeriği çok basit.
 
-```JavaScript
+```TypeScript
 export function evaluate(exp: Expression | string, ...scopes: any[]) {
     return new ExpressionVisitor().process(typeof exp === 'string' ? tokenize(exp) : exp, scopes);
 }

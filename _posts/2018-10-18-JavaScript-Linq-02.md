@@ -48,27 +48,27 @@ Expression tipini öğrenebileceğimiz özellik, desteklenen tiplerden bir kısm
 
 ```csharp
 public enum ExpressionType {
-        Add,
-        And,
-        Call,
-        Constant,
-        Divide,
-        Equal,
-        GreaterThan,
-        LessThanOrEqual,
-        MemberAccess,
-        Modulo,
-        Multiply,
-        UnaryPlus,
-        NegateChecked,
-        New,
-        Not,
-        Or,
-        Subtract,
-        Assign,
-        Increment
-        ...
-    }
+    Add,
+    And,
+    Call,
+    Constant,
+    Divide,
+    Equal,
+    GreaterThan,
+    LessThanOrEqual,
+    MemberAccess,
+    Modulo,
+    Multiply,
+    UnaryPlus,
+    NegateChecked,
+    New,
+    Not,
+    Or,
+    Subtract,
+    Assign,
+    Increment
+    ...
+}
 ```
 
 Tahmin edeceğiniz gibi, aslında yazdığımız tüm kodlar bu listedeki Expression'lardan oluşuyor. Linq geliştirmemiz sırasında atamalar gibi bir çoğunu göz ardı edeceğiz.
@@ -132,7 +132,7 @@ var check = no > 20 && no > 30 && no < 50;
 
 Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulacak.
 
-```JavaScript
+```json
 {
     "NodeType": "And",
     "Left": {
