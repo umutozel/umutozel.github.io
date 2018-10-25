@@ -69,17 +69,17 @@ public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> sour
 public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate);
 ```
 
-İkisi de birer [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ancak bir tanesi filtre parametresi (Predicate) olarak Func alırken diğer Expression<Func> alıyor. 
+İkisi de birer [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ancak bir tanesi filtre parametresi (Predicate) olarak Func alırken diğer Expression\<Func> alıyor.
 
 # Func
 
 **Func** tahmin etmiş olacağınız üzere bir fonksiyonu temsil ediyor, ancak önemli nokta derlenmiş bir fonksiyonu temsil ediyor. Derlenmiş bir fonksiyon demek, o an çalışılan işlemci için hazırlanmış, tekrar yorumlaması çok zor bir parça IL (Intermediate Language) Assembly kodu demek. Aşağıdaki gibi;
 
 ```csharp
-.method assembly hidebysig 
+.method assembly hidebysig
     instance bool '<Main>b__0_0' (
         class Program/Product p
-    ) cil managed 
+    ) cil managed
 {
     // Method begins at RVA 0x20bb
     // Code size 10 (0xa)
@@ -92,30 +92,33 @@ public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source
     IL_0009: ret
 }
 ```
+
 Ne yapalım şimdi bunu değil mi?
 Bu çağrı bir liste üzerinde filtreleme yapmak istediğimizde tabii ki yeterli, ancak...
 
 # Expression\<Func>
 
-Peki şöyle bir düşünelim, bir yerde veriler var, belki bir veritabanı tablolalarında, belki bir Xml dosyasında, sorgulanmak için sabırsızlıkla bekliyorlar. Microsoft'un elinde de veri sorgulamak için gerekli olduğunu düşündükleri [bir dolu metod](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable) var. Derleyici de ellerinde olunca bir akıllı demiş ki, 
+Peki şöyle bir düşünelim, bir yerde veriler var, belki bir veritabanı tablolalarında, belki bir Xml dosyasında, sorgulanmak için sabırsızlıkla bekliyorlar. Microsoft'un elinde de veri sorgulamak için gerekli olduğunu düşündükleri [bir dolu metod](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable) var. Derleyici de ellerinde olunca bir akıllı demiş ki:
 
 > Biz bu kodu tam derlemesek, kodun **ifade** ettiği yapıyı bir şekilde saklasak, eğer Func olarak kullanmak gerekirse bu **ifadeyi** IL koduna tekrar derleriz?!?!
 
 Müthiş zekice, şöyle, çalışma zamanı yukarıdaki IL Assembly kodu yerine aşağıdaki gibi bir objeye sahip oluyoruz (kabaca, anlaşılır olması için JSON syntax ile yazıyorum);
 
-```JSON
+```json
 {
-    NodeType: "Lambda",
-    Parameters: ["a"],
-    Body: {
-        NodeType: "GreaterThan",
-        Left: {
-            NodeType: "MemberAccess",
-            Member: "Id"
+    "NodeType": "Lambda",
+    "Parameters": ["a"],
+    "Body": {
+        "NodeType": "GreaterThan",
+        "Left": {
+            "NodeType": "MemberAccess",
+            "Member": "Id"
         },
-        Right: {...}
+        "Right": {
+            //...
+        }
     }
-    ...
+    //...
 }
 ```
 

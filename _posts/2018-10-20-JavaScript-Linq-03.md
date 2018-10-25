@@ -73,10 +73,10 @@ public class CustomExpressionVisitor: ExpressionVisitor {
         // sadece 1 parametresi olmalı
         if (node.Parameters.Count != 1) return node;
 
-        // parametre tipini kontrol ediyoruz 
+        // parametre tipini kontrol ediyoruz
         if (!typeof(ISoftDeletable).IsAssignableFrom(node.Parameters[0].Type)) return node;
 
-        // dönüş değeri bool olmalı, Predicate imzasını hatırlayın 
+        // dönüş değeri bool olmalı, Predicate imzasını hatırlayın
         if (node.ReturnType != typeof(bool)) return node;
 
         // parametremiz, daha önce kontrol ettik ISoftDeleteable interface'i uygulanmış bir tip
@@ -122,9 +122,9 @@ c => (c.Name.StartsWith("Net") && c.IsActive == true)
 Şimdi bu yazdığımız CustomExpressionVisitor sınıfını nasıl kullanabileceğimizi görelim
 
 ```csharp
-// Expression ağacını gezecek sınıfımızdan bir Instance oluşturuyoruz 
+// Expression ağacını gezecek sınıfımızdan bir Instance oluşturuyoruz
 var visitor = new CustomExpressionVisitor();
-// kök Expression'ı geziyoruz ve yeni bir Expression oluşturuyoruz.
+// kök Expression'ı geziyoruz ve yeni bir Expression oluşturuyoruz
 // IQueryable konusuna bir sonraki yazıda değineceğiz
 var newExp = visitor.Visit(query.Expression);
 // yeni Expression için yeni bir sorgu oluşturuyoruz
@@ -140,8 +140,7 @@ Değiştirilmiş sorgumuzun sonucunu da aşağıda görebilirsiniz
 
 Gördüğünüz gibi sadece ***IsActive*** değeri **true** olan kayıtları listeledik.
 
-Konu üzerinde daha fazla çalıştığında örneğimizde atladığımız bazı kontroller olduğunu göreceksiniz, örneğin bir tanesi ISoftDeletable interface'inin Explicit bir şekilde implemente edilme durumu. Kod üzerinde çalışarak ve farklı sorgular için 
-deneyerek iyileştirme yolları bulurken Expression konusuna çok daha iyi hakim olabilirsiniz.
+Konu üzerinde daha fazla çalıştığında örneğimizde atladığımız bazı kontroller olduğunu göreceksiniz, örneğin bir tanesi ISoftDeletable interface'inin Explicit bir şekilde implemente edilme durumu. Kod üzerinde çalışarak ve farklı sorgular için deneyerek iyileştirme yolları bulurken Expression konusuna çok daha iyi hakim olabilirsiniz.
 
 [Dördüncü yazıda IQueryable ve IQueryProvider ile artık sorgulama işine el atacağız](/javascript-linq-04), görüşmek üzere.
 

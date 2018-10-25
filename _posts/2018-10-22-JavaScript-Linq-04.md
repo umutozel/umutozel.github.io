@@ -37,7 +37,7 @@ public interface IQueryable<out T> : IEnumerable<T>, IQueryable {
 }
 ```
 
-Önceki yazılarda Expression konusunu incelemiştik, kısaca hatırlatmak gerekirse 
+Önceki yazılarda Expression konusunu incelemiştik, kısaca hatırlatmak gerekirse:
 
 > Expression; tek parça (blok olmayan, bıyık parantezlere almak gerekmeyen), bir dönüş değerine sahip kodu temsil eden ağaç yapısında tutulan bir obje.
 
@@ -116,8 +116,6 @@ public interface IQueryProvider{
 
 **CreateQuery** metodunu yukarıda sorgu sağlayıcıdan yeni bir sorgu oluşturmasını isterken kullanmıştık. Yine basite indirgemek gerekirse, **IQueryable**, Expression ve **IQueryProvider** taşıyıcısıdır diyebiliriz. Kendi sorgu yapınızı yazdığınızda çok daha net anlaşılacaktır, ufak bir örnek yapalım.
 
-
-
 ```csharp
 // Sorgulanabilir bir tipimiz olduğunu varsayalım.
 // Veritabanında bir tablo ya da Xml dosyası gibi
@@ -191,6 +189,7 @@ public class MyQuery<T> : IQueryable<T> {
     }
 }
 ```
+
 Yeni sorgu yapımızı da aşağıdaki gibi kullanabiliriz.
 
 ```csharp

@@ -139,11 +139,11 @@ Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulaca
         "NodeType": "GreaterThan",
         "Left": {
             "Value": 42,
-            "NodeType": ConstantExpression
+            "NodeType": "ConstantExpression"
         },
         "Right": {
             "Value": 20,
-            "NodeType": ConstantExpression
+            "NodeType": "ConstantExpression"
         },
         "NodeType": "BinaryExpression"
     },
@@ -153,11 +153,11 @@ Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulaca
             "NodeType": "GreaterThan",
             "Left": {
                 "Value": 42,
-                "NodeType": ConstantExpression
+                "NodeType": "ConstantExpression"
             },
             "Right": {
                 "Value": 30,
-                "NodeType": ConstantExpression
+                "NodeType": "ConstantExpression"
             },
             "NodeType": "BinaryExpression"
         },
@@ -165,11 +165,11 @@ Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulaca
             "NodeType": "LesserThan",
             "Left": {
                 "Value": 42,
-                "NodeType": ConstantExpression
+                "NodeType": "ConstantExpression"
             },
             "Right": {
                 "Value": 50,
-                "NodeType": ConstantExpression
+                "NodeType": "ConstantExpression"
             },
             "NodeType": "BinaryExpression"
         },
@@ -208,7 +208,7 @@ var result = predicate(product);
 Console.WriteLine(product);  // true!
 ```
 
-Bir önceki yazıda bahsettiğim IEnumerable üzerinde yapılan çağrılar Func parametre alıyorlar. Bu yüzden LambdaExpression'ı derleyerek bir Func elde etmemiz gerekti. 
+Bir önceki yazıda bahsettiğim IEnumerable üzerinde yapılan çağrılar Func parametre alıyorlar. Bu yüzden LambdaExpression'ı derleyerek bir Func elde etmemiz gerekti.
 Yine sizi duyar gibiyim, ***CSharpCodeProvider*** ile kodumuzu string olarak verip, bir Assembly'ye derleyebilirdik? Evet ama yönetmesi, kontrol etmesi çok zor bir yapı elde edersiniz. Derleme sonucu bir metoda ulaşmak için Assembly->Sınıf->Metod yolculuğuna Reflection ile çıkmanız gerekir. Hem ne derler bilirsiniz, Eval is Evil.
 
 Daha fazla kafa karıştırmayalım, yazı dizisinde Func ile ilgilenmeyeceğiz, Expression'ları olduğu gibi kullanarak bir sonraki yazımızda değineceğimiz IQueryProvider ile yorumlanmalarını sağlayacağız.
