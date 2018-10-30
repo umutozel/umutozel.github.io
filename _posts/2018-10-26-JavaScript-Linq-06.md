@@ -51,7 +51,7 @@ Acelesi olanlar projenin bitmiş halini [https://github.com/umutozel/jokenizer.n
 var expression = Tokenizer.Parse<ObjectToken>("new { a = 4, b.c }");
 ```
 
-Yukarıda bir ObjectToken parse ettik.
+Yukarıda bir ObjectToken parse ettik, tabii ki bir önceki yazıdan farklı olarak C# yazdığımız için **new** keyword'ü geçmemiz gerekti.
 
 [Yedinci yazıda DynamicQueryable ile Jokenizer.Net dinamik sorgu oluşturacağız](/javascript-linq-07), görüşmek üzere.
 

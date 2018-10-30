@@ -19,7 +19,7 @@ JavaScript ile Linq yazı serimizin beşincisine hoş geldiniz.
 9. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-09)
 
 Bu yazıda [jokenizer](https://github.com/umutozel/jokenizer) projesi ile JavaScript Expression'ları parse edeceğiz.
-Artık yazılar teorik anlatımlardan sert bir dönüş ile geliştirmeye yönelecek, kollar sıvayalım.
+Artık yazılar teorik anlatımlardan sert bir dönüş ile geliştirmeye yönelecek, kolları sıvayalım.
 
 Expression nedir öğrendik, peki JavaScript için durum nedir? Zor. JavaScript tip sistemsiz (arkadaşlarla tipsiz de deriz) bir dil olduğu için Expression gibi bir sınıfa sahip değil, Reflection gibi bir yapı da yok haliyle. Şöyle ki:
 
@@ -393,11 +393,11 @@ console.log(value);     // true
 
 // fonksiyon parse ediyoruz, fonksiyon gerekli parametreleri aldığı için scope ihtiyacı duymuyoruz
 const func = evaluate('function(a, b) { return a < b; }');
-console.log(func(5, 3));    // true
+console.log(func(5, 3));    // false
 
 // istersek fonksiyon yerine lambda yazımını da kullanabiliriz
 const lambda = evaluate(tokenize('(a, b) => a < b'));
-console.log(func(5, 3));    // true
+console.log(func(5, 3));    // false
 ```
 
 Sonunda JavaScript'e Expression ve ExpressionVisitor desteği ekledik. Böylece string kodumuzu temsil eden Expression'ları elde edebileceğimiz gibi **scope** sağlayarak çalıştırabiliyoruz da.
