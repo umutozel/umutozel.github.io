@@ -138,7 +138,7 @@ Değinmekte yarar var, C# derleyicisi de anonim tipler için çok benzer bir yap
 
 DynamicClass ise bizim çalışma zamanı anonim tiplerimizi oluştururken kalıtım için kullanacağamız bir alt sınıf. Bize **ToString** çağrısında güzel bir çıktı sunma dışında bir iş yapmıyor.
 
-### ./Dynamic/ClassFactory
+### ./Dynamic/ClassFactory
 
 Son olarak ele alacağımız ClassFactory ise bu anonim sınıfları üretmekten sorumlu. Aşağıdaki fonksiyonu inceleyerek başlayalım:
 
