@@ -161,6 +161,6 @@ Type CreateDynamicClass(DynamicProperty[] properties) {
 
 Artık C# ile de string değerleri Expression'a çevirebilir hale geldik. JavaScript ile oluşturduğumuz sorguları sunucuda yorumlayıp yanıt dönebilmemize çok az kaldı.
 
-[Yedinci yazıda DynamicQueryable ile Jokenizer.Net dinamik sorgu oluşturacağız](/javascript-linq-07), görüşmek üzere.
+[Yedinci yazıda DynamicQueryable ile dinamik sorgu oluşturacağız](/javascript-linq-07), görüşmek üzere.
 
 > “Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live” ― John Woods
