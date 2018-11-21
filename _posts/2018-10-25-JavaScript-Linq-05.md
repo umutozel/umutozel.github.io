@@ -404,4 +404,4 @@ Sonunda JavaScript'e Expression ve ExpressionVisitor desteği ekledik. Böylece 
 
 [Altıncı yazıda Jokenizer.Net projesi ile C# ifadelerini parse edeceğiz](/javascript-linq-06), görüşmek üzere.
 
-> “Walking on water and developing software from a specification are easy if both are frozen.” ― Edward V. Berard
+> “A good programmer is someone who always looks both ways before crossing a one-way street.” ― Doug Linder
