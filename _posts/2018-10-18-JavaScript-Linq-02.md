@@ -14,7 +14,7 @@ JavaScript ile Linq yazı serimizin ikincisine hoş geldiniz.
 4. [IQueryable ve IQueryProvider](/javascript-linq-04)
 5. [Jokenizer - JavaScript Expression'larını parse edelim](/javascript-linq-05)
 6. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-06)
-7. [DynamicQueryable ile Jokenizer.Net dinamik sorgu oluşturalım](/javascript-linq-07)
+7. [DynamicQueryable - Dinamik sorgu oluşturalım](/javascript-linq-07)
 8. [Jinqu - JavaScript ile Linq](/javascript-linq-08)
 9. [Linquest ve Linquest.AspNetCore - Asp.Net Core ile cevap verelim](/javascript-linq-09)
 
