@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Jokenizer.Net - C# Expression'larını parse edelim
+title: DynamicQueryable - Dinamik sorgu oluşturalım
 comments: true
-redirect_from: "/2018/10/26/JavaScript-Linq-06/"
-permalink: javascript-linq-06
+redirect_from: "/2018/11/21/JavaScript-Linq-07/"
+permalink: javascript-linq-07
 ---
 
-JavaScript ile Linq yazı serimizin altıncısına hoş geldiniz.
+JavaScript ile Linq yazı serimizin yedincisine hoş geldiniz.
 
 1. [Linq gerçekte nedir?](/javascript-linq-01)
 2. [Expression'lar](/javascript-linq-02)
