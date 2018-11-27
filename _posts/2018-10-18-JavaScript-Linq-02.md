@@ -139,13 +139,13 @@ Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulaca
         "NodeType": "GreaterThan",
         "Left": {
             "Value": 42,
-            "NodeType": "ConstantExpression"
+            "Type": "ConstantExpression"
         },
         "Right": {
             "Value": 20,
-            "NodeType": "ConstantExpression"
+            "Type": "ConstantExpression"
         },
-        "NodeType": "BinaryExpression"
+        "Type": "BinaryExpression"
     },
     "Right": {
         "NodeType": "And",
@@ -153,29 +153,29 @@ Bu yazdığımız uzun kod aslında aşağıdakine benzer bir yapı ile tutulaca
             "NodeType": "GreaterThan",
             "Left": {
                 "Value": 42,
-                "NodeType": "ConstantExpression"
+                "Type": "ConstantExpression"
             },
             "Right": {
                 "Value": 30,
-                "NodeType": "ConstantExpression"
+                "Type": "ConstantExpression"
             },
-            "NodeType": "BinaryExpression"
+            "Type": "BinaryExpression"
         },
         "Right": {
             "NodeType": "LesserThan",
             "Left": {
                 "Value": 42,
-                "NodeType": "ConstantExpression"
+                "Type": "ConstantExpression"
             },
             "Right": {
                 "Value": 50,
-                "NodeType": "ConstantExpression"
+                "Type": "ConstantExpression"
             },
-            "NodeType": "BinaryExpression"
+            "Type": "BinaryExpression"
         },
-        "NodeType": "BinaryExpression"
+        "Type": "BinaryExpression"
     },
-    "NodeType": "BinaryExpression"
+    "Type": "BinaryExpression"
 }
 ```
 
