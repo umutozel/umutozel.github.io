@@ -2,8 +2,8 @@
 layout: post
 title: Linquest ve Linquest.AspNetCore
 comments: true
-redirect_from: "/2018/11/27/JavaScript-Linq-08/"
-permalink: javascript-linq-08
+redirect_from: "/2018/11/28/JavaScript-Linq-09/"
+permalink: javascript-linq-09
 ---
 
 JavaScript ile Linq yazı serimizin sekizincisine hoş geldiniz.
