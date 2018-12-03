@@ -20,6 +20,4 @@ JavaScript ile Linq yazı serimizin sekizincisine hoş geldiniz.
 
 Bu yazıda [linquest](https://github.com/jin-qu/linquest) projesi sayesinde JavaScript ile oluşturabilir hale geldiğimiz kazandırdığımız Linq sorgularını tarayıcılarımızdan sunucumuza taşıyıp çalıştıracağız.
 
-### ***Test***
-
 > There are two ways to write error-free programs; only the third one works. - Alan J. Perlis
