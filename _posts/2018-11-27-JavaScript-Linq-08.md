@@ -163,12 +163,13 @@ public static IOrderedQueryable<TSource> OrderBy<TSource, TKey>(this IQueryable<
         throw Error.ArgumentNull("source");
     if (keySelector == null)
         throw Error.ArgumentNull("keySelector");
-    return (IOrderedQueryable<TSource>) source.Provider.CreateQuery<TSource>( 
+    return (IOrderedQueryable<TSource>) source.Provider.CreateQuery<TSource>(
         Expression.Call(
             null,
             GetMethodInfo(Queryable.OrderBy, source, keySelector, comparer),
             new Expression[] { source.Expression, Expression.Quote(keySelector), Expression.Constant(comparer, typeof(IComparer<TKey>)) }
-            ));
+        )
+    );
 }
 ```
 
@@ -180,12 +181,13 @@ public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(this IOrderedQuer
                 throw Error.ArgumentNull("source");
             if (keySelector == null)
                 throw Error.ArgumentNull("keySelector");
-            return (IOrderedQueryable<TSource>) source.Provider.CreateQuery<TSource>( 
+            return (IOrderedQueryable<TSource>) source.Provider.CreateQuery<TSource>(
                 Expression.Call(
                     null,
                     GetMethodInfo(Queryable.ThenBy, source, keySelector),
                     new Expression[] { source.Expression, Expression.Quote(keySelector) }
-                    ));
+                )
+            );
         }
 ```
 
@@ -671,7 +673,59 @@ for (let i of query) {
 }
 ```
 
-Sonunda başardık, JavaScript-TypeScript ile Linq yeteneklerine sahip bir kütüphanemiz var artık. **IQueryProvider** yorumlamadığı sürece **IQuery**'nin sadece bir kaynak üzerinde yapılan çağrıları tuttuğunu, **IQueryProvider** nasıl isterse öyle çalıştırabileceğini söylemiştik, son olarak çalıştırma işini ağ üzerinden yapmak kaldı.
+# ./ajax.ts
+
+Sorgularımızı **provider** ile çalıştırdığımızdan bahsettik ve diziler için geliştirdiğimiz **provider**'ı inceledik. Diziler yerine bu sorguları sunucu üzerinde çalıştırabildiğimizden de bahsettik. İşte bu dosya sorguları sunucuda çalıştırabilmek için gereken standart bir altyapıyı sağlıyor. Bir nevi nasıl yapılması gerektiğine dair yol gösteriyor diyebiliriz. Tipleri bir görelim:
+
+```TypeScript
+// sorgu ile gönderilecek URL parametresini temsil eden tip
+export type QueryParameter = { key: string; value: string };
+
+// bir sunucu isteğine geçilebilecek HTTP özellikleri.
+// axios, jquery gibi bir sağlayıcı ile çalışanlara yabancı gelmeyecektir
+export interface AjaxOptions {
+    url?: string;
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+    params?: QueryParameter[];
+    data?: any;
+    timeout?: number;
+    headers?: { [key: string]: string };
+}
+
+// uzak istek yapabilen bir tip tanımı
+// sorgumuzdan gelen parametreleri direk AJAX ayarlarına eklemiyoruz
+// böylece sağlayıcı isterse bu parametreleri farklı gönderebilir (POST gibi)
+export interface IRequestProvider<TOptions extends AjaxOptions> {
+    request<TResult>(prms: QueryParameter[], options: TOptions[]): PromiseLike<TResult>;
+}
+
+// sunucu çağrısı yapabilen bir tip tanımı
+// burada artık sorgu parametrelerimiz bir şekilde "options" içine yedirilmiş durumda
+export interface IAjaxProvider {
+    ajax<TResult>(options: AjaxOptions): PromiseLike<TResult>;
+}
+
+// bir de "options" objelerini birleştirebilen yardımcı metot
+// bu kod her sunucu isteği yapan kütüphane için tekrar yazılmasın diye buraya ekledim
+export function mergeAjaxOptions(o1: AjaxOptions, o2: AjaxOptions): AjaxOptions {
+    if (o1 == null) return o2;
+    if (o2 == null) return o1;
+
+    return {
+        data: o1.data ? (o2.data ? Object.assign({}, o1.data, o2.data) : o1.data) : o2.data,
+        headers: o1.headers ? Object.assign({}, o1.headers, o2.headers) : o2.headers,
+        method: o2.method || o1.method,
+        params: (o1.params || []).concat(o2.params || []),
+        timeout: o2.timeout || o1.timeout,
+        url: o2.url || o1.url
+    };
+}
+
+```
+
+Bu tipleri nasıl kullandığımız bir sonraki yazıda çok daha iyi anlaşılacaktır.
+
+Sonunda başardık, JavaScript-TypeScript ile Linq yeteneklerine sahip bir kütüphanemiz var artık. **IQuery**'nin sadece bir kaynak üzerinde yapılan çağrıları tuttuğunu, **IQueryProvider** nasıl isterse öyle yorumlayabileceğini söylemiştik, son olarak çalıştırma işini ağ üzerinden yapmak kaldı.
 
 [Dokuzuncu ve son yazıda linquest ile sunucu üzerinde Linq çalıştıracağız](/javascript-linq-09), görüşmek üzere.
 
