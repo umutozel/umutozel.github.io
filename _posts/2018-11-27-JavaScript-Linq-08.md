@@ -30,7 +30,7 @@ Hemen proje yapımıza bakarak başlayalım:
 
 İlk ele almamız gereken dosya **type.ts**. C# için Linq'dan bahsederken IQueryable ve IQueryProvider interface'lerinden bahsetmiştik. Olabildiğince yakın yapmaya çalışacağımdan bahsetmiştim, işte **IQueryProvider**.
 
-```TypeScript
+```typescript
 export interface IQueryProvider {
     createQuery(parts?: IQueryPart[]): IQueryBase;
     execute<TResult = any[]>(parts: IQueryPart[]): TResult;
@@ -54,7 +54,7 @@ Neredeyse aynı olduğunu görebilirsiniz, sadece asenkron desteğini sonradan e
 
 Expression yerine kullandığımız **QueryPart** nedir merak ettiyseniz:
 
-```TypeScript
+```typescript
 export interface IQueryPart {
     readonly type: string;
     readonly args: IPartArgument[];
@@ -89,7 +89,7 @@ Benim yaklaşımımda ise, her bir çağrı ayrı bir **IQueryPart** ve sorgu i�
 
 Sıradaki tipimiz ise **IQueryBase**.
 
-```TypeScript
+```typescript
 export interface IQueryBase {
     readonly provider: IQueryProvider;
     readonly parts: IQueryPart[];
@@ -106,11 +106,11 @@ C# ile karşılaştıralım:
 }
 ```
 
-> TypeScript ile C#'da olduğu gibi generic parametreleri farklı aynı isimli tip oluşturamıyoruz. O yüzden farklı bir isim verdim.
+> typescript ile C#'da olduğu gibi generic parametreleri farklı aynı isimli tip oluşturamıyoruz. O yüzden farklı bir isim verdim.
 
 **IQuery** tipimizi diziler ile kullanabilmek için **Array** tipine **IQuery** tipindeki metotları ekleyeceğiz. Ancak bu metotlardan bazıları zaten **Array** üzerinde bulunmakta.
 
-```TypeScript
+```typescript
 interface IQueryDuplicates<T> {
     concat(other: Array<T>): IQuery<T>;
     join<TOther, TResult = any, TKey = any>(other: Array<TOther>, thisKey: Func1<T, TKey>, otherKey: Func1<TOther, TKey>,
@@ -123,7 +123,7 @@ interface IQueryDuplicates<T> {
 
 Diğer metotları ise **IQuerySafe** interface'inde topluyoruz.
 
-```TypeScript
+```typescript
 export interface IQuerySafe<T> extends IQueryBase, Iterable<T> {
     aggregate<TAccumulate = number>(func: Func2<TAccumulate, T, TAccumulate>, seed?: TAccumulate, ...scopes): TAccumulate;
     aggregateAsync<TAccumulate = number>(func: Func2<TAccumulate, T, TAccumulate>, seed?: TAccumulate, ...scopes): PromiseLike<TAccumulate>;
@@ -140,7 +140,7 @@ export interface IQuerySafe<T> extends IQueryBase, Iterable<T> {
 
 Son olarak **IQuery** tipimizi oluşturuyoruz.
 
-```TypeScript
+```typescript
 export type IQuery<T> = IQuerySafe<T> & IQueryDuplicates<T>;
 ```
 
@@ -148,7 +148,7 @@ export type IQuery<T> = IQuerySafe<T> & IQueryDuplicates<T>;
 
 Linq ile çalışırken farketmişsinizdir, **ThenBy** metodunu kullanabilmek için öncelikle **OrderBy** ya da **OrderByDescending** çağrısı yapılmış olması gerekiyor. Aynı durumu JavaScript için aşağıdaki gibi oluşturabiliriz.
 
-```TypeScript
+```typescript
 export interface IOrderedQuery<T> extends IQuery<T> {
     thenBy(selector: Func1<T>, ...scopes): IOrderedQuery<T>;
     thenByDescending(keySelector: Func1<T>, ...scopes): IOrderedQuery<T>;
@@ -197,7 +197,7 @@ public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(this IOrderedQuer
 
 Interface tanımlarımızı gördükten sonra sorgu sınıfımızı yazma vakti. Bu dosyada tek bir sınıfımız olacak, **Query**. Tanım aşağıdaki gibi:
 
-```TypeScript
+```typescript
 export class Query<T = any> implements IOrderedQuery<T>, Iterable<T> {
         constructor(public readonly provider: IQueryProvider, public readonly parts: IQueryPart[] = []) {
     }
@@ -209,7 +209,7 @@ Biraz önce tanımladığımız **IOrderedQuery** ve yeni JavaScript özelliği 
 
 Birkaç metot ile implementation işini nasıl yaptığımızı görelim, tüm kod yine burada paylaşmak için çok uzun ama mantığı kavramamıza yetecektir.
 
-```TypeScript
+```typescript
 
 // senkron sonuç dönen metotlara bir örnek
 // provider üzerinden varolan QueryPart'lara any part'ı eklenerek çağırılıyor
@@ -240,7 +240,7 @@ protected create<TResult = T>(part: IQueryPart): IQuery<TResult> {
 
 Bunlar bizim metotlarımız, **Iterable** için ise aşağıdaki sembol indexer'ını yazmamız gerekiyor. [Iterator ve Generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) konusunu kesinlikle okumanızı tavsiye ederim.
 
-```TypeScript
+```typescript
 // sorgumuzda şu ana kadar eklenmiş tüm part'ları senkron bir şekilde çalıştırıyoruz
 // birazdan QueryProvider'ın nasıl çalıştığını incelediğimizde daha iyi anlaşılacaktır
 [Symbol.iterator]() {
@@ -274,7 +274,7 @@ Yukarıda 3 değişkene sırayla değer atadık.
 
 Bizim kullanımımız ise aşağıdaki gibi:
 
-```TypeScript
+```typescript
 [...this.parts, part]
 ```
 
@@ -290,7 +290,7 @@ Sorgularımızda da fonksiyonların yanında fonksiyonu temsil eden string ifade
 
 Sınıf aşağıdaki gibi:
 
-```TypeScript
+```typescript
 export class PartArgument implements IPartArgument {
 
     constructor(identifier: Function | string, literal, scopes: any[]) {
@@ -311,7 +311,7 @@ Parametre olarak bir foksiyon ya da string, bir sabit değer ve scope listesi al
 
 Sabit değere bir örnek:
 
-```TypeScript
+```typescript
 // buradaki 10 sayısı bir sabit
 query.take(10)
 // yapılan çağrı "new PartArgument(null, 10, null)"
@@ -319,7 +319,7 @@ query.take(10)
 
 Fonksiyon ya da string ve scope listesi için bir örnek:
 
-```TypeScript
+```typescript
 // bir fonksiyon geçtik, scope olarak da id değerini içeren bir obje geçtik
 query.where(c => c.id != id, { id: 5 });
 // bir fonksiyonu string olarak geçtik, bu fonksiyon parse edilerek değerlendirilecek
@@ -330,7 +330,7 @@ query.where('c => c.id != id', { id: 5 });
 
 Kolay çalışmayı sağlamak adına birkaç özellik ekledim, her seferinde **string** değerden **expression** üretmek bu yapıyı dışarıdan kullanırken gerekmemeli.
 
-```TypeScript
+```typescript
 private _func: Function;
 get func() {
     if (this._func) return this._func;
@@ -382,7 +382,7 @@ Her zaman olduğu gibi kodları incelemenizi tavsiye ederim :)
 
 Parametrelerimizi temsil eden yapımızın yanında hangi metota çağrı yapıldığını da tutan bir yapıya ihtiyacımız var, o da **QueryPart**.
 
-```TypeScript
+```typescript
 export class QueryPart implements IQueryPart {
 
     constructor(type: string, args: IPartArgument[] = [], scopes: any[] = []) {
@@ -399,7 +399,7 @@ export class QueryPart implements IQueryPart {
 
 **QueryPart** daha da basit, hangi foksiyonun hangi parametrelerle çağırıldığını tutuyor sadece. **type** için geçilebilecek hazır bir listemiz de var:
 
-```TypeScript
+```typescript
 export const QueryFunc = {
     aggregate: 'aggregate',
     all: 'all',
@@ -422,7 +422,7 @@ export const QueryFunc = {
 
 Bir örnek ile çok daha iyi anlaşılacaktır:
 
-```TypeScript
+```typescript
 query.where(c => c.id == 5);
 
 // where metodumuz
@@ -438,9 +438,9 @@ Sorgumuz hazır artık diziler ile kullanabilmek için **Array** sınıfı üzer
 
 Daha önce bahsetmiştik, bazı metotlarımız ile aynı imzaya sahip metotlar **Array** sınıfı üzerinde bulunmakta, bunları ufak bir isim değişikliği ile kaydedeceğiz.
 
-Önce [TypeScript declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) işlemini yapıyoruz.
+Önce [typescript declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) işlemini yapıyoruz.
 
-```TypeScript
+```typescript
 declare global {
     interface Array<T> extends IQuerySafe<T> {
         q(): IQuery<T>;
@@ -460,11 +460,11 @@ Artık bir dizi için sorgu metotlarını kullanılabilir hale getirdik, şöyle
 
 Ne kadar güzel değil mi :)
 
-Tabi şimdilik sadece TypeScript'i kandırdık, gerçekte bu metotlarımız kullanılabilir değil. Hemen halledelim.
+Tabi şimdilik sadece typescript'i kandırdık, gerçekte bu metotlarımız kullanılabilir değil. Hemen halledelim.
 
 İlk önce "**q**" metodunu ekleyelim, bu metot **asQueryable** için bir kısayol sadece. **asQueryable** ise C#'tan bildiğimiz **AsQueryable** ile aynı işi yapıyor, dizimizi sorgu objesi olarak dönüyor. 
 
-```TypeScript
+```typescript
 Array.prototype.q = function () {
     return this.asQueryable();
 };
@@ -472,7 +472,7 @@ Array.prototype.q = function () {
 
 Kalan metotlarımızı **Array** üzerine eklemek biraz tekrarlı bir iş olacak, tabi yardımcı bir metot yazmazsak.
 
-```TypeScript
+```typescript
 function extendArray(func: string) {
     let f = func;
     if (func === 'join' || func === 'concat') {
@@ -495,7 +495,7 @@ function extendArray(func: string) {
 
 Şu ana kadar hep instance metotlar ile ilgilendik, Linq ile çalışanlar bilir, **Enumerable** sınıfı çok kullanışlı iki adet static metota sahip: **Range** ve **Repeat**. Bizi durduran ne, onları da ekleyelim:
 
-```TypeScript
+```typescript
 
 // Static metotları Constructor üzerine ekliyoruz.
 declare global {
@@ -524,7 +524,7 @@ Array.repeat = Array.repeat || function* (item, count) {
 
 Artık sorgu oluşturabiliyoruz, ancak sorguyu çalıştıracak bir **provider** olmadığı sürece bir anlamı yok. Sorgular üzerlerinde yaptığımız işlemleri tutuyorlar ve bu ifadeleri yorumlayan **provider** çalıştırma işini yapıyor, aynen Linq gibi. Bir **provider** Sql sorguları çalıştırırken bir diğeri Ajax çağrısı atabilir, şimdi göreceğimiz gibi bir **provider** ise dizileri kullanabilir.
 
-```TypeScript
+```typescript
 export class ArrayQueryProvider implements IQueryProvider {
 
     constructor(private readonly items: any[] | IterableIterator<any>) {
@@ -557,7 +557,7 @@ export class ArrayQueryProvider implements IQueryProvider {
 
 ## execute metodu
 
-```TypeScript
+```typescript
 execute<TResult = any>(parts: IQueryPart[]): TResult {
     if (!parts || !parts.length) return <any>this.items;
 
@@ -631,13 +631,13 @@ function getFirst(items: IterableIterator<any>, predicate: IPartArgument) {
 
 **iterator**'ün faydasına değinelim kısaca. Diyelim ki 10.000 adetlik bir dizi ile çalışıyorsunuz. Önce bir filtre uygulamak sonra da bu şarta uyan ilk 3 kaydı almak istiyorsunuz.
 
-```TypeScript
+```typescript
 const query = getItems().where(i => complexPredicate(i)).take(3);
 ```
 
 **iterator** öncesi bu sorguyu genelde şöyle yazardık:
 
-```TypeScript
+```typescript
 const list = getItems().filter(complexPredicate).slice(0, 3);
 ```
 
@@ -659,7 +659,7 @@ Tüm konulara değindikten sonra önemli bir noktayı tekrar vurgulayarak tamaml
 
 **mi acaba** demiştim, çünkü hatırlarsanız sorgular yukarıda yazdığımız gibi bıraktığımızda çalışmıyorlar, aynen C# Linq için olduğu gibi birisinin çalıştırması gerekiyor (**ToList** metodunu hatırlayın). Çalıştırıldığında ise listede anlattığımız gibi iterator zinciri devreye giriyor. Çalıştırmaya örnek verelim.
 
-```TypeScript
+```typescript
 // burada sadece sorgu oluşturduk, henüz çalıştırılmadı
 const query = getItems().where(i => complexPredicate(i)).take(3);
 
@@ -677,7 +677,7 @@ for (let i of query) {
 
 Sorgularımızı **provider** ile çalıştırdığımızdan bahsettik ve diziler için geliştirdiğimiz **provider**'ı inceledik. Diziler yerine bu sorguları sunucu üzerinde çalıştırabildiğimizden de bahsettik. İşte bu dosya sorguları sunucuda çalıştırabilmek için gereken standart bir altyapıyı sağlıyor. Bir nevi nasıl yapılması gerektiğine dair yol gösteriyor diyebiliriz. Tipleri bir görelim:
 
-```TypeScript
+```typescript
 // sorgu ile gönderilecek URL parametresini temsil eden tip
 export type QueryParameter = { key: string; value: string };
 
@@ -725,7 +725,7 @@ export function mergeAjaxOptions(o1: AjaxOptions, o2: AjaxOptions): AjaxOptions 
 
 Bu tipleri nasıl kullandığımız bir sonraki yazıda çok daha iyi anlaşılacaktır.
 
-Sonunda başardık, JavaScript-TypeScript ile Linq yeteneklerine sahip bir kütüphanemiz var artık. **IQuery**'nin sadece bir kaynak üzerinde yapılan çağrıları tuttuğunu, **IQueryProvider** nasıl isterse öyle yorumlayabileceğini söylemiştik, son olarak çalıştırma işini ağ üzerinden yapmak kaldı.
+Sonunda başardık, JavaScript-typescript ile Linq yeteneklerine sahip bir kütüphanemiz var artık. **IQuery**'nin sadece bir kaynak üzerinde yapılan çağrıları tuttuğunu, **IQueryProvider** nasıl isterse öyle yorumlayabileceğini söylemiştik, son olarak çalıştırma işini ağ üzerinden yapmak kaldı.
 
 [Dokuzuncu ve son yazıda linquest ile sunucu üzerinde Linq çalıştıracağız](/javascript-linq-09), görüşmek üzere.
 
