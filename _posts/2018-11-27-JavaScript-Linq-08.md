@@ -278,6 +278,401 @@ Bizim kullanımımız ise aşağıdaki gibi:
 
 **parts** dizisindeki tüm içeriğin sonuna **part** değişkeni eklenmiş yeni bir dizi oluşturduk.
 
+# ./query-part.ts
+
+Sürekli bahsettiğimiz **QueryPart** detayına girmeden öncelikle **PartArgument** ne imiş görelim.
+
+**PartArgument** **where** gibi metotlara geçtiğimiz her bir parametreyi temsil ediyor.
+
+Sorgularımızda da fonksiyonların yanında fonksiyonu temsil eden string ifadeleri de kullanabildiğimizi biliyorsunuz ([jokenizer sağolsun](/javascript-linq-05)).
+
+Sınıf aşağıdaki gibi:
+
+```TypeScript
+export class PartArgument implements IPartArgument {
+
+    constructor(identifier: Function | string, literal, scopes: any[]) {
+        if (typeof identifier === 'string') {
+            this._expStr = identifier;
+        }
+        else {
+            this._func = identifier;
+        }
+        this._literal = literal;
+        this._scopes = scopes;
+    }
+    // ...
+}
+```
+
+Parametre olarak bir foksiyon ya da string, bir sabit değer ve scope listesi alıyor.
+
+Sabit değere bir örnek:
+
+```TypeScript
+// buradaki 10 sayısı bir sabit
+query.take(10)
+// yapılan çağrı "new PartArgument(null, 10, null)"
+```
+
+Fonksiyon ya da string ve scope listesi için bir örnek:
+
+```TypeScript
+// bir fonksiyon geçtik, scope olarak da id değerini içeren bir obje geçtik
+query.where(c => c.id != id, { id: 5 });
+// bir fonksiyonu string olarak geçtik, bu fonksiyon parse edilerek değerlendirilecek
+// scope olarak da id değerini içeren bir obje geçtik
+query.where('c => c.id != id', { id: 5 });
+// yapılan çağrı "new PartArgument(exp, null, null)"
+```
+
+Kolay çalışmayı sağlamak adına birkaç özellik ekledim, her seferinde **string** değerden **expression** üretmek bu yapıyı dışarıdan kullanırken gerekmemeli.
+
+```TypeScript
+private _func: Function;
+get func() {
+    if (this._func) return this._func;
+    if (!this._expStr) return null;
+
+    if (this.exp.type === ExpressionType.Func) {
+        const f = evaluate(this.exp, ...this._scopes);
+        return this._func = (...args) => f.apply(null, args);
+    }
+
+    return this._func = (...args) => evaluate(this.exp, ...args.concat(this._scopes));
+}
+
+private _expStr;
+get expStr() {
+    if (this._expStr) return this._expStr;
+    if (!this._func) return null;
+
+    return this._expStr = this._func.toString();
+}
+
+private _exp: Expression;
+get exp() {
+    if (this._exp) return this._exp;
+
+    const s = this.expStr;
+    if (!s) return null;
+
+    return this._exp = tokenize(s);
+}
+
+private _literal;
+get literal() {
+    return this._literal;
+}
+```
+
+Tüm büyü yukarıdaki satırlarda. Senaryoları düşünelim:
+
+* Expression istenirse
+  * Fonksiyon gönderilmemiş ise **null** dönülür (bu PartArgument bir sabittir)
+  * Fonksiyon üzerinde **toString** çağrılır
+  * String değer **tokenize** ile parse edilir
+* Fonksiyon istenirse
+  * String gönderilmemiş ise **null** dönülür (bu PartArgument bir sabittir)
+  * Expression istenir ve **string** değer parse edilerek dönülür
+
+Her zaman olduğu gibi kodları incelemenizi tavsiye ederim :)
+
+Parametrelerimizi temsil eden yapımızın yanında hangi metota çağrı yapıldığını da tutan bir yapıya ihtiyacımız var, o da **QueryPart**.
+
+```TypeScript
+export class QueryPart implements IQueryPart {
+
+    constructor(type: string, args: IPartArgument[] = [], scopes: any[] = []) {
+        if (!type) throw new Error('Type of QueryPart cannot be null or empty.');
+
+        this._type = type;
+        this._args = args;
+        this._type = type;
+        this._scopes = scopes;
+    }
+    //...
+}
+```
+
+**QueryPart** daha da basit, hangi foksiyonun hangi parametrelerle çağırıldığını tutuyor sadece. **type** için geçilebilecek hazır bir listemiz de var:
+
+```TypeScript
+export const QueryFunc = {
+    aggregate: 'aggregate',
+    all: 'all',
+    any: 'any',
+    average: 'average',
+    cast: 'cast',
+    concat: 'concat',
+    contains: 'contains',
+    count: 'count',
+    defaultIfEmpty: 'defaultIfEmpty',
+    distinct: 'distinct',
+    elementAt: 'elementAt',
+    elementAtOrDefault: 'elementAtOrDefault',
+    except: 'except',
+    first: 'first',
+    firstOrDefault: 'firstOrDefault',
+    // ...
+}
+```
+
+Bir örnek ile çok daha iyi anlaşılacaktır:
+
+```TypeScript
+query.where(c => c.id == 5);
+
+// where metotumuz
+where(predicate: Predicate<T>, ...scopes): IQuery<T> {
+    // tek bir PartArgument içeren QueryPart olarak yorumlanacak
+    return new QueryPart(QueryFunc.where, [new PartArgument(predicate, null, scopes)], scopes);
+}
+```
+
+# ./array-extensions.ts
+
+Sorgumuz hazır artık diziler ile kullanabilmek için **Array** sınıfı üzerine kayıt işlemimizi yapmamız yeterli.
+
+Daha önce bahsetmiştik, bazı metotlarımız ile aynı imzaya sahip metotlar **Array** sınıfı üzerinde bulunmakta, bunları ufak bir isim değişikliği ile kaydedeceğiz.
+
+Önce [TypeScript declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) işlemini yapıyoruz.
+
+```TypeScript
+declare global {
+    interface Array<T> extends IQuerySafe<T> {
+        q(): IQuery<T>;
+        joinWith<TOther, TResult = any, TKey = any>(other: Array<TOther>, thisKey: Func1<T, TKey>, otherKey: Func1<TOther, TKey>,
+            selector: Func2<T, TOther, TResult>, ...scopes): IQuery<TResult>;
+        concatWith(other: Array<T>): IQuery<T>;
+        reverseTo(): IQuery<T>;
+    }
+}
+```
+
+Yukarıda **Array** sınıfının **IQuerySafe** interface'inin tüm özelliklerine sahip olduğunu ve üstüne **q, joinWith, concatWith ve reverseTo** metotlarına sahip olduğunu söylüyoruz. Farketmişsinizdir, bu metotlar **IQueryDuplicate** interface'inde tanımladıklarımız ve çakışmayı önlemek için sonlarına **With** ya da **To** ekledik.
+
+Artık bir dizi için sorgu metotlarını kullanılabili hale getirdik, şöyle:
+
+![Array Extensions](../assets/jinqu-array-extensions.png)
+
+Ne kadar güzel değil mi :)
+
+Tabi şimdilik sadece TypeScript'i kandırdık, gerçekte bu metotlarımız kullanılabilir değil. Hemen halledelim.
+
+İlk önce "**q**" metotunu ekleyelim, bu metot **asQueryable** için bir kısayol sadece. **asQueryable** ise C#'tan bildiğimiz **AsQueryable** ile aynı işi yapıyor, dizimizi sorgu objesi olarak dönüyor. 
+
+```TypeScript
+Array.prototype.q = function () {
+    return this.asQueryable();
+};
+```
+
+Kalan metotlarımızı **Array** üzerine eklemek biraz tekrarlı bir iş olacak, tabi yardımcı bir metot yazmazsak.
+
+```TypeScript
+function extendArray(func: string) {
+    let f = func;
+    if (func === 'join' || func === 'concat') {
+        f += 'With';
+    }
+    else if (func === 'reverse') {
+        f += 'To';
+    }
+
+    Array.prototype[f] = Array.prototype[f] || function () {
+        // sorgu objesini al
+        const q = this.asQueryable();
+        // fonksiyonu indexer ile bul ve çağır
+        return q[func].apply(q, arguments);
+    }
+}
+```
+
+Öncelikle çakışan metotları yeniden isimlendiriyoruz, sonra da **Array** prototype'a yeni bir metot olarak ekliyoruz.
+
+Şu ana kadar hep instance metotlar ile ilgilendik, Linq ile çalışanlar bilir, **Enumerable** sınıfı çok kullanışlı iki adet static metota sahip: **Range** ve **Repeat**. Bizi durduran ne, onları da ekleyelim:
+
+```TypeScript
+
+// Static metotları Constructor üzerine ekliyoruz.
+declare global {
+    interface ArrayConstructor {
+        range(start: number, count: number): IterableIterator<number>;
+        range(count: number): IterableIterator<number>;
+        repeat<T = any>(item: T, count: number): IterableIterator<T>;
+    }
+}
+
+Array.range = Array.range || function* (start?: number, count?: number) {
+    // kontrol kodlarını sildim, esas iş bu kadar. yield konusuna birazdan değineceğiz
+    for (var i = 0; i < count; i++)
+        yield start + i;
+};
+
+Array.repeat = Array.repeat || function* (item, count) {
+    // yine çok basit, istenen tekrar kadar aynı item'ı dönüyoruz
+    for (var i = 0; i < count; i++)
+        yield item;
+};
+
+```
+
+# ./array-query-provider.ts
+
+Artık sorgu oluşturabiliyoruz, ancak sorguyu çalıştıracak bir **provider** olmadığı sürece bir anlamı yok. Sorgular üzerlerinde yaptığımız işlemleri tutuyorlar ve bu ifadeleri yorumlayan **provider** çalıştırma işini yapıyor, aynen Linq gibi. Bir **provider** Sql sorguları çalıştırırken bir diğeri Ajax çağrısı atabilir, şimdi göreceğimiz gibi bir **provider** ise dizileri kullanabilir.
+
+```TypeScript
+export class ArrayQueryProvider implements IQueryProvider {
+
+    constructor(private readonly items: any[] | IterableIterator<any>) {
+        if (!items) throw new TypeError('Cannot query null array.');
+    }
+
+    createQuery<T>(parts?: IQueryPart[]): Query<T> {
+        return new Query<T>(this, parts);
+    }
+
+    execute<TResult = any>(parts: IQueryPart[]): TResult {
+        // ... az sonra
+    }
+
+    executeAsync<TResult = any>(parts: IQueryPart[]): PromiseLike<TResult> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this.execute(parts));
+            }
+            catch (e) {
+                reject(e);
+            }
+        });
+    }
+    // ...
+}
+```
+
+**IQueryProvider** interface'ini hatırlarsınız, yukarıdaki 3 metota sahip. Sorgu oluşturma işi çok kısa, asenkron çalıştırma da öyle. JavaScript tek thread ile çalışan bir dil olduğundan diziler ile uğraşırken paralel çalışma yapamıyoruz, dolayısı ile bir Promise dönüyoruz. C# tarafındaki **Task.FromResult()** gibi düşünebilirsiniz.
+
+## execute metotu
+
+```TypeScript
+execute<TResult = any>(parts: IQueryPart[]): TResult {
+    if (!parts || !parts.length) return <any>this.items;
+
+    // ilk önce dizinin iterator'ünü alıyoru (C# için GetEnumerator gibi)
+    let value = this.items instanceof Array ? this.items[Symbol.iterator]() : this.items;
+
+    let inlineCountEnabled: boolean;
+    let inlineCount: number;
+    let orderParts = [];
+
+    for (let p of parts) {
+        // ...
+        // bu kısımdaki kodları incelemeyi size bırakıyorum
+
+        // QueryPart'ı işle
+        value = this.handlePart(value, p);
+    }
+    // ...
+    // bu kısımdaki kodları incelemeyi size bırakıyorum
+
+    return <any>value;
+}
+
+handlePart(items: IterableIterator<any>, part: IQueryPart) {
+    const f = funcs[part.type];
+    if (!f) throw new Error(`Unknown query part type ${part.type}.`);
+
+    return f.call(null, items, ...part.args);
+}
+
+const funcs = {
+    // ...
+
+    // sonuç dönen fonksiyonlara bir örnek
+    first(items: IterableIterator<any>, predicate: IPartArgument) {
+        const [found, item] = getFirst(items, predicate);
+
+        if (!found) throw new Error('Sequence contains no matching element');
+
+        return item;
+    },
+
+    // ...
+
+    // buradaki "*" fonksiyonumuzun "generator" olduğunu gösteriyor
+    // sonuç dönmeyen tüm fonksiyonlarımız "iterator" dönüyor, C# yield'ı hatırlayın
+    where: function* (items: IterableIterator<any>, predicate: IPartArgument) {
+        for (let i of items) {
+            if (predicate.func(i)) yield i;
+        }
+    },
+
+    // ...
+
+    toArray(items: IterableIterator<any>) {
+        return Array.from(items);
+    }
+};
+
+// bu metodu first, firstOrDefault, last, lastOrDefault vb.. metotlar ortak kullanıyor
+// iki değer dönüyor, aradığımızı bulabildik mi, diğeri ise sonuç
+// böylece isteyen metot bulunamadığında hata fırlatabiliyor, istemezse varsayılan değer dönüyor
+function getFirst(items: IterableIterator<any>, predicate: IPartArgument) {
+    for (let i of items) {
+        if (!predicate.func || predicate.func(i)) return [true, i];
+    }
+
+    return [false, null];
+}
+```
+
+**iterator**'ün faydasına değinelim kısaca. Diyelim ki 10.000 adetlik bir dizi ile çalışıyorsunuz. Önce bir filtre uygulamak sonra da bu şarta uyan ilk 3 kaydı almak istiyorsunuz.
+
+```TypeScript
+const query = getItems().where(i => complexPredicate(i)).take(3);
+```
+
+**iterator** öncesi bu sorguyu genelde şöyle yazardık:
+
+```TypeScript
+const list = getItems().filter(complexPredicate).slice(0, 3);
+```
+
+Buradaki sorun, **filter** metotu **complexPredicate** metotunu her bir kayıt için çalıştıracak, eğer bu metot zaman alan işler yapıyorsa 10.000 kayıt için gözle görülür bir kayıp olacak.
+
+**iterator** sayesinde metotlar birbirine bağlı çalışacaklar, yani **where** iterator'ünün döndüğü değer sonraki iterator'ler için kullanılabilir olacak.
+
+Diyelim ki dizimizdeki ilk 3 kayıt filtre şartını sağlıyor olsun:
+
+* Where ilk kaydı **yield** edecek
+* Take bu kaydı alacak ve alması gereken sayıyı bir azaltacak
+* Where ikinci kaydı **yield** edecek
+* Take bu kaydı alacak ve alması gereken sayıyı bir azaltacak
+* Where üçüncü kaydı **yield** edecek
+* Take bu kaydı alacak ve alması gereken kadar kayıt aldığı için çalışmayı durduracak
+* Alınan 3 kayıt sonuç olarak dönülecek (mi acaba :))
+
+Tüm konulara değindikten sonra önemli bir noktayı tekrar vurgulayarak tamamlayalım.
+
+**mi acaba** demiştim, çünkü hatırlarsanız sorgular yukarıda yazdığımız gibi bıraktığımızda çalışmıyorlar, aynen C# Linq için olduğu gibi birisinin çalıştırması gerekiyor (**ToList** metodunu hatırlayın). Çalıştırıldığında ise listede anlattığımız gibi iterator zinciri devreye giriyor. Çalıştırmaya örnek verelim.
+
+```TypeScript
+// burada sadece sorgu oluşturduk, henüz çalıştırılmadı
+const query = getItems().where(i => complexPredicate(i)).take(3);
+
+// bu çağrı ile çalıştırdık
+const array = query.toArray();
+
+// istersek yukarıda da kullanım örneğini gördüğümüz iterator'leri kullanabiliriz
+// sorguları yorumlarken "toArray" çağrısı yerine sürekli for-let yapısını kullanarak iterator zinciri dediğimiz yapıyı sağlayabiliyoruz
+for (let i of query) {
+    // ...
+}
+```
+
+Sonunda başardık, JavaScript-TypeScript ile Linq yeteneklerine sahip bir kütüphanemiz var artık. **IQueryProvider** yorumlamadığı sürece **IQuery**'nin sadece bir kaynak üzerinde yapılan çağrıları tuttuğunu, **IQueryProvider** nasıl isterse öyle çalıştırabileceğini söylemiştik, son olarak çalıştırma işini ağ üzerinden yapmak kaldı.
+
 [Dokuzuncu ve son yazıda linquest ile sunucu üzerinde Linq çalıştıracağız](/javascript-linq-09), görüşmek üzere.
 
 > The best performance improvement is the transition from the nonworking state to the working state. - J. Osterhout
