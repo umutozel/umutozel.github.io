@@ -454,7 +454,7 @@ declare global {
 
 Yukarıda **Array** sınıfının **IQuerySafe** interface'inin tüm özelliklerine sahip olduğunu ve üstüne **q, joinWith, concatWith ve reverseTo** metotlarına sahip olduğunu söylüyoruz. Farketmişsinizdir, bu metotlar **IQueryDuplicate** interface'inde tanımladıklarımız ve çakışmayı önlemek için sonlarına **With** ya da **To** ekledik.
 
-Artık bir dizi için sorgu metotlarını kullanılabili hale getirdik, şöyle:
+Artık bir dizi için sorgu metotlarını kullanılabilir hale getirdik, şöyle:
 
 ![Array Extensions](../assets/jinqu-array-extensions.png)
 
