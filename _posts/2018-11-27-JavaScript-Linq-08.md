@@ -146,7 +146,7 @@ export type IQuery<T> = IQuerySafe<T> & IQueryDuplicates<T>;
 
 **IQuery**, **IQuerySafe** ve **IQueryDuplicates** tiplerinin birleşiminden oluşuyor.
 
-Linq ile çalışırken farketmişsinizdir, **ThenBy** metotunu kullanabilmek için öncelikle **OrderBy** ya da **OrderByDescending** çağrısı yapılmış olması gerekiyor. Aynı durumu JavaScript için aşağıdaki gibi oluşturabiliriz.
+Linq ile çalışırken farketmişsinizdir, **ThenBy** metodunu kullanabilmek için öncelikle **OrderBy** ya da **OrderByDescending** çağrısı yapılmış olması gerekiyor. Aynı durumu JavaScript için aşağıdaki gibi oluşturabiliriz.
 
 ```TypeScript
 export interface IOrderedQuery<T> extends IQuery<T> {
@@ -217,18 +217,18 @@ any(predicate?: Predicate<T>, ...scopes): boolean {
 }
 
 // asenkron sonuç dönen metotlara bir örnek
-// aynı işi provider'ın executeAsync metotunu çağırarak yapıyor
+// aynı işi provider'ın executeAsync metodunu çağırarak yapıyor
 anyAsync(predicate?: Predicate<T>, ...scopes): PromiseLike<boolean> {
     return this.provider.executeAsync([...this.parts, QueryPart.any(predicate, scopes)]);
 }
 
 // metot zinciri yapan (yani sonuç değil yine sorgu dönen) bir örnek
-// create metotunu where part'ı ile çağırıyor
+// create metodunu where part'ı ile çağırıyor
 where(predicate: Predicate<T>, ...scopes): IQuery<T> {
     return this.create(QueryPart.where(predicate, scopes));
 }
 
-// create yardımcı metotumuz
+// create yardımcı metodumuz
 // sorgu üzerine yapılan her işlem yeni bir part olarak part listesinin sonuna ekleniyor
 protected create<TResult = T>(part: IQueryPart): IQuery<TResult> {
     return <any>this.provider.createQuery([...this.parts, part]);
@@ -423,7 +423,7 @@ Bir örnek ile çok daha iyi anlaşılacaktır:
 ```TypeScript
 query.where(c => c.id == 5);
 
-// where metotumuz
+// where metodumuz
 where(predicate: Predicate<T>, ...scopes): IQuery<T> {
     // tek bir PartArgument içeren QueryPart olarak yorumlanacak
     return new QueryPart(QueryFunc.where, [new PartArgument(predicate, null, scopes)], scopes);
@@ -460,7 +460,7 @@ Ne kadar güzel değil mi :)
 
 Tabi şimdilik sadece TypeScript'i kandırdık, gerçekte bu metotlarımız kullanılabilir değil. Hemen halledelim.
 
-İlk önce "**q**" metotunu ekleyelim, bu metot **asQueryable** için bir kısayol sadece. **asQueryable** ise C#'tan bildiğimiz **AsQueryable** ile aynı işi yapıyor, dizimizi sorgu objesi olarak dönüyor. 
+İlk önce "**q**" metodunu ekleyelim, bu metot **asQueryable** için bir kısayol sadece. **asQueryable** ise C#'tan bildiğimiz **AsQueryable** ile aynı işi yapıyor, dizimizi sorgu objesi olarak dönüyor. 
 
 ```TypeScript
 Array.prototype.q = function () {
@@ -553,7 +553,7 @@ export class ArrayQueryProvider implements IQueryProvider {
 
 **IQueryProvider** interface'ini hatırlarsınız, yukarıdaki 3 metota sahip. Sorgu oluşturma işi çok kısa, asenkron çalıştırma da öyle. JavaScript tek thread ile çalışan bir dil olduğundan diziler ile uğraşırken paralel çalışma yapamıyoruz, dolayısı ile bir Promise dönüyoruz. C# tarafındaki **Task.FromResult()** gibi düşünebilirsiniz.
 
-## execute metotu
+## execute metodu
 
 ```TypeScript
 execute<TResult = any>(parts: IQueryPart[]): TResult {
@@ -639,7 +639,7 @@ const query = getItems().where(i => complexPredicate(i)).take(3);
 const list = getItems().filter(complexPredicate).slice(0, 3);
 ```
 
-Buradaki sorun, **filter** metotu **complexPredicate** metotunu her bir kayıt için çalıştıracak, eğer bu metot zaman alan işler yapıyorsa 10.000 kayıt için gözle görülür bir kayıp olacak.
+Buradaki sorun, **filter** metodu **complexPredicate** metodunu her bir kayıt için çalıştıracak, eğer bu metot zaman alan işler yapıyorsa 10.000 kayıt için gözle görülür bir kayıp olacak.
 
 **iterator** sayesinde metotlar birbirine bağlı çalışacaklar, yani **where** iterator'ünün döndüğü değer sonraki iterator'ler için kullanılabilir olacak.
 
