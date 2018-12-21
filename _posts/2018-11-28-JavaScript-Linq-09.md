@@ -279,6 +279,8 @@ Artık yaptığımız bu isteği yorumlayıp bize yanıt dönmek sunucunun sorum
 
 # Linquest.AspNetCore
 
-Linquest sorguları sunuculara yukarıdaki gibi iletiliyor, dolayısı ile geriye sunucu tarafında bu parametreleri yorumlak kalıyor.
+Linquest sorguları sunuculara yukarıdaki gibi iletiliyor, dolayısı ile geriye sunucu tarafında bu parametreleri yorumlak kalıyor. Bu işi de Linquest.AspNetCore ile yapacağız. Hemen proje yapısına göz atalım:
+
+![Linquest.AspNetCore](../assets/Linquest.AspNetCore-structure.png)
 
 > There are two ways to write error-free programs; only the third one works. - Alan J. Perlis
