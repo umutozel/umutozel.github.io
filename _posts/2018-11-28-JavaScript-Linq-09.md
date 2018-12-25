@@ -672,7 +672,7 @@ Biraz daha açıklamak istediğim tek bir nokta kaldı.
 
 **InlineCount** sayfalama yapacağımız durumlarda işimize yarıyor.
 Listeleme yaptığımız bir web sayfamız olduğunu düşünün, sipariş verileri olsun. Veri kaynağımızda toplam 1.000.000 kayıt olduğunu varsayın.
-Sayfa açıldığında tüm kayıtları göstermeyeceğimiz aşikar, biz de 10 kayıtlık sayfalar olsun diye karar veriyoruz. İstemci bizim **Linquest** kütüphanemiz ile filtreleme gibi işlemler yaptıktan sonra ilk 10 kaydı istiyor, yani aşağıdakine benzer bir istek yapıyor:
+Sayfa açıldığında tüm kayıtları görüntüleyemeyeceğimiz aşikar, biz de 10 kayıtlık sayfalar olsun diye karar veriyoruz. İstemci bizim **Linquest** kütüphanemiz ile filtreleme gibi işlemler yaptıktan sonra ilk 10 kaydı istiyor, yani aşağıdakine benzer bir istek yapıyor:
 
 ```typescript
 const result = await service.orders().where(o => o.IsActive == true).take(10);
@@ -684,7 +684,7 @@ Bunu nasıl hesapladığımızı bir akış gibi anlatmaya çalışayım. Kodlar
 
 * Sorgu üzerinde hiç parametre işlenmediyse **query** (sorgunun kendisi) bize kayıt sayısını verecektir.
 * **Where**, **GroupBy** gibi kayıt sayısında değişime sebep olan parametrelerden sonra **inlineCountQuery** yine sorgunun kendisi (**query**) olacaktır
-* **Take** sayfalama parametresini **query** üzerine işletmeden önce **query** değerini **inlineCountQuery** değişkenine atıyoruz. Böylece örneğin sorgu 10 kayıt dönerken **inlineCountQuery** 1.000.000 kayıt dönebiliyor.
+* **Take** ve **Skip** sayfalama parametrelerini **query** üzerine işletmeden önce **query** değerini **inlineCountQuery** değişkenine atıyoruz. Böylece örneğin sorgu 10 kayıt dönerken **inlineCountQuery** 1.000.000 kayıt dönebiliyor.
 * Tekrar kayıt sayısı değiştiren bir parametre gelirse, iki satır yukarıda dediğimiz gibi yine sorgunun kendisi **inlineCountQuery** olarak kullanılacaktır.
 
 Böylece serimizin sonuna geldik, umarım faydalı olmuştur.
