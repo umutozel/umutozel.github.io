@@ -283,4 +283,412 @@ Linquest sorguları sunuculara yukarıdaki gibi iletiliyor, dolayısı ile geriy
 
 ![Linquest.AspNetCore](../assets/Linquest.AspNetCore-structure.png)
 
+![Action Filters](https://jakeydocs.readthedocs.io/en/latest/_images/filter-pipeline-2.png)
+
+> https://jakeydocs.readthedocs.io/en/latest/_images/filter-pipeline-2.png
+
+Resimde gördüğünüz gibi **ActionFilter** yazarak bir **Controller** metodu çalıştıktan sonra-yanıt dönülmeden önce araya girebiliriz.
+
+## ./Interface/IContentHandler.cs
+
+Öncelikle istemci tarafından gelen bu parametreleri işleyebilecek genel bir yapıya ihtiyacımız var. Sadece **IQueryable** desteklemek zorunda değiliz, şöyle düşünün, bu parametreleri istenirse **Dappar**, **Massive** gibi Micro ORM'ler ile de çalışabilmeli. Bunu sağlamak için **IContentHandler** arayüzünü gerçeklemek yeterli olacaktır. Kod çok basit:
+
+```csharp
+public interface IContentHandler<in T>: IContentHandler {
+    ProcessResult HandleContent(T value, ActionContext context);
+}
+```
+
+Dışarıdan gelen değeri **ActionContext** (birazdan göreceğiz) ile iletilen parametreler ile işleyip yanıt dönmek yeterli olacak. Biz şimdilik sadece ***T*** için **IQueryable** uygulayacağız.
+
+## ./Interface/ILinquestService.cs
+
+İstemciden gelen bu istekleri yorumlarken sunucu tarafında araya girebilmek, ortak kurallar işletebilmek çok kullanışlı olabiliyor. İsteklerin iletildiği **Controller**, **ILinquestService** arayüzünü gerçekleyerek bu yeteneği kazanıyor.
+
+```csharp
+public interface ILinquestService {
+    // parametreler sorguya yansıtılmadan önce çağırılıyor
+    event BeforeQueryDelegate BeforeHandleQuery;
+    // parametreler yansıtıldıktan sonra, çalıştırılmadan önce çağırılıyor
+    event BeforeQueryDelegate BeforeQueryExecute;
+    // sorgu çalıştırıldıktan sonra çağırılıyor
+    event AfterQueryDelegate AfterQueryExecute;
+    // bir sorgudan okunabilecek maksimum kayıt sayısını belirleyebiliyoruz
+    int? MaxResultCount { get; set; }
+    // istemciye geri dönülecek yanıtın son halini oluşturmak için çağırılıyor
+    ProcessResult ProcessRequest(ActionContext context);
+}
+```
+
+Böylece örnek olarak aşağıdaki gibi senaryolara destek sağlayabiliyoruz:
+
+* Sorgu yorumlanmadan önce **Take** parametresi olmasını zorunlu kılabiliriz
+* Kullanılmasını istemediğimiz (örneğin **GroupBy**) parametreleri yasaklayabiliriz
+* Yorumlanmış sorguya ek parametreler ekleyebiliriz
+* Çalıştırılmış sorgu üzerinde yetki kontrolü yapabiliriz
+* En fazla 100 kayıt okunabilmesi gibi bir kural koyarak verileri güvenceye alabiliriz
+* Yanıt olarak dönülecek veri üzerinde değişiklik yapabiliriz
+* ...liste böyle uzar gider...
+
+## ./ActionContext.cs
+
+Gelen bir isteği temsil eden bu sınıfımız aşağıdaki gibi:
+
+```csharp
+public class ActionContext {
+    // Çalıştırılan metot
+    public ActionDescriptor Descriptor { get; }
+    // Metodun dönüş değeri, bu değer üzerinde çalışacağız
+    public object Value { get; }
+    // İstmeciden iletilen parametreler
+    public IEnumerable<LinquestParameter> Parameters { get; }
+    // Controller'ımız ILinquestService ise bu değer dolu gelecektir (olmak zorunda değil)
+    public ILinquestService Service { get; }
+    // Bu metot için izin verilen maksimum okunabilecek kayıt sayısı
+    public int? MaxResultCount { get; set; }
+}
+```
+
+## ./LinquestActionFilterAttribute.cs
+
+Esas işi yapan kodumuz, hemen görelim:
+
+```csharp
+// Metotlar ve Controllerlar ile kullanabiliyoruz
+// Eğer Controller'a verirsek tüm ActionFilter'larda olduğu gibi
+// Controller içindeki tüm Action'larda geçerli oluyor
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+public class LinquestActionFilterAttribute : ActionFilterAttribute {
+
+    // Action çalıştırılırken araya giriyoruz
+    public override void OnResultExecuting(ResultExecutingContext context) {
+        base.OnResultExecuting(context);
+
+        // Yanıt eğer ObjectResult değilse karışmıyoruz
+        // Dönüş değeri ActionResult'dan türemeyen tüm metotlar ObjectResult döner
+        // Örneğin JsonResult, ViewResult gibi dönüş değerlerine karışmıyoruz
+        if (!(context.Result is ObjectResult objectResult))
+            return;
+
+        // Action üzerine NonLinquestAction Attribute koyarak bu metoda karışma diyebiliriz
+        var cad = context.ActionDescriptor as ControllerActionDescriptor;
+        if (cad != null && cad.MethodInfo.CustomAttributes.Any(a => a.AttributeType == typeof(NonLinquestActionAttribute)))
+            return;
+
+        var value = objectResult.Value;
+        var service = context.Controller as ILinquestService;
+        var request = context.HttpContext.Request;
+        var response = context.HttpContext.Response;
+
+        // Bu Action için maksimum kayıt sayısı sınırı konmuş mu?
+        var maxAttr = cad?.MethodInfo.CustomAttributes.FirstOrDefault(a => a.AttributeType == typeof(LinquestMaxResultAttribute));
+        var max = (int?)maxAttr?.ConstructorArguments.First().Value;
+        // Action özet objemizi oluşturuyoruz
+        var ac = new ActionContext(context.ActionDescriptor, value, GetParameters(request), service)
+        {
+            MaxResultCount = max
+        };
+        // İsteği yorumluyoruz
+        var processResult = ProcessRequest(ac, context.HttpContext.RequestServices);
+        // Oluşturulan yanıtı dönüyoruz.
+        // Bu noktadan sonra Asp.Net Core bizim için serileştirme işlemini yapıp yanıtı istemciye dönecek
+        context.Result = HandleResponse(processResult, response);
+    }
+
+    // Http isteğinden (Request) parametreleri okuyoruz. $ ile başlayanlar bizim için önemli
+    protected virtual IReadOnlyList<LinquestParameter> GetParameters(HttpRequest request)
+        => request.Query
+            .Where(q => q.Key.StartsWith("$"))
+            .Select(q => new LinquestParameter(q.Key, q.Value.ToString()))
+            .ToList()
+            .AsReadOnly();
+
+    // Parametreleri eğer bir ILinquestService varsa onun üzerinden yok ise varsayılan şekilde yorumluyoruz
+    protected virtual ProcessResult ProcessRequest(ActionContext context, IServiceProvider serviceProvider)
+        => context.Service != null
+            ? context.Service.ProcessRequest(context)
+            : Helper.DefaultRequestProcessor(context, serviceProvider);
+
+    // Yanıtı oluşturuyoruz
+    protected virtual ActionResult HandleResponse(ProcessResult result, HttpResponse response) {
+        // Eğer sorgu bir InlineCount dönmüş ise bunu Http Header olarak istemciye dönüyoruz
+        var inlineCount = result.InlineCount;
+        if (inlineCount != null && !response.Headers.ContainsKey("X-InlineCount")) {
+            response.Headers.Add("X-InlineCount", inlineCount.ToString());
+        }
+
+        // Yeni bir ObjectResult oluşturuyoruz
+        // Serialization-Deserialization işlerine karışmıyoruz, projeniz nasıl ayarlanmış ise öyle çalışıyor
+        return new ObjectResult(result.Result);
+    }
+}
+```
+
+Yukarıdaki kodları incelediğinizde aklınızda sadece **ProcessRequest** nasıl çalışıyor sorusu kalmalı, diğer kodlar çok sıradan işler yapıyor.
+
+## ./Helper.cs
+
+Varsayılan istek işleyicimiz aşağıdaki gibi. İstenirse **ILinquestService** ile bu yapının özelleştirilebileceğini söylemiştik.
+
+```csharp
+public static ProcessResult DefaultRequestProcessor(ActionContext context, IServiceProvider serviceProvider) {
+    var value = context.Value;
+    if (value == null)
+        return new ProcessResult(context) { Result = null };
+
+    // ServiceProvider'a bizim veri tipimizi işleyebilecek bir ContentHandler kayıtlı mı diye soruyoruz
+    // Diyelim ki siz Linquest içinde yer alan IQueryable işleyen yapıyı değiştirmek istiyorsunuz
+    // Yapmanız gereken kendi Handler'ınızı yazıp bunu bir servis olarak kaydetmek (muhtemelen Startup içinde)
+    var handlerType = typeof(IContentHandler<>).MakeGenericType(value.GetType());
+    var handler = serviceProvider?.GetService(handlerType);
+
+    // Özel bir handler var ise isteği onun ile işle
+    if (handler != null)
+        return ((IContentHandler)handler).HandleContent(value, context);
+
+    // Eğer özel handler yoksa ve objemiz bir IQueryable ise hazır Queryable Handler ile işle
+    if (context.Value is IQueryable queryable)
+        return QueryableHandler.Instance.HandleContent(queryable, context);
+
+    // Bu tip objeyi işleyecek bir handler yok ise yanıtı olduğu gibi dön
+    return new ProcessResult(context) { Result = value };
+}
+```
+
+## ./LinquestController.cs
+
+İstek işlenirken özelleştirme işlerini **ILinquestService** ile yapabildiğimizi söylemiştik.
+Bu interface'i her kendiniz gerçeklemek istemiyorsanız hazır gerçeklenmişi var:
+
+```csharp
+[LinquestActionFilter]
+public class LinquestController : ControllerBase, ILinquestService {
+
+    public event BeforeQueryDelegate BeforeHandleQuery;
+    public event BeforeQueryDelegate BeforeQueryExecute;
+    public event AfterQueryDelegate AfterQueryExecute;
+    public int? MaxResultCount { get; set; }
+
+    protected virtual ProcessResult ProcessRequest(ActionContext context) {
+        return Helper.DefaultRequestProcessor(context, this.HttpContext.RequestServices);
+    }
+
+    ProcessResult ILinquestService.ProcessRequest(ActionContext context) {
+        return ProcessRequest(context);
+    }
+
+    void ILinquestService.OnBeforeHandleQuery(BeforeQueryEventArgs args)
+        => BeforeHandleQuery?.Invoke(this, args);
+
+    void ILinquestService.OnBeforeQueryExecute(BeforeQueryEventArgs args)
+        => BeforeQueryExecute?.Invoke(this, args);
+
+    void ILinquestService.OnAfterQueryExecute(AfterQueryEventArgs args)
+        => AfterQueryExecute?.Invoke(this, args);
+}
+```
+
+Olabildiğince sıradan ve sıkıcı kodlar içeriyor, geçelim :)
+
+## Yardımcı Sınıflar
+
+Yukarıdaki tiplere ek olarak incelemeyi gerektirmeyecek basitlikte aşağıdaki sınıflarımız var:
+
+* **LinquestMaxResultAttribute**: Metot için maksimum okuma limiti koyabileceğimiz **Attribute**
+* **LinquestParameter**: Bir parametreyi temsil eden key-value pair
+* **NonLinquestAction**: Bir metodu es geçmek için işaretleyebildiğimiz boş **Attribute**
+* **ProcessResult**: Bir istek işlendikten sonra oluşan sonucu tuttuğumuz obje. Sonucun yanında **InlineCount** bilgisini tutar.
+
+## ./QueryableHandler.cs
+
+Geldik son ve en önemli dosyamıza, parametreleri sorgularımıza işleten sınıfımız:
+
+```csharp
+public class QueryableHandler : IContentHandler<IQueryable>
+```
+
+Yukarıdaki tanım **IQueryable** tipindeki verileri işleyebiliyoruz anlamına geliyor.
+
+```csharp
+public virtual ProcessResult HandleContent(IQueryable query, ActionContext context) {
+    var service = context.Service;
+    if (service != null) {
+        // eğer servis var ise sorgu işlenmeden önce haber veriyoruz
+        var args = new BeforeQueryEventArgs(context, query);
+        service.OnBeforeHandleQuery(args);
+        // sorgu değiştirilmişse yenisini kullanıyoruz
+        query = args.Query;
+    }
+
+    // hiç parametre yoksa direk dönüyoruz
+    var parameters = context.Parameters;
+    if (parameters == null || !parameters.Any())
+        return CreateResult(context, query, null, null);
+
+    // uzuuuun bir switch ile parametreleri yorumluyoruz
+    // bazı case'leri sildim, örnek olarak bir kısmı yeterli olacaktır
+    var inlineCountEnabled = false;
+    int? takeCount = null;
+    IQueryable inlineCountQuery = null;
+    foreach (var prm in parameters) {
+        switch (prm.Name.ToLowerInvariant()) {
+            case "$where":
+                inlineCountQuery = null;
+                query = Where(query, prm.Value);
+                break;
+            case "$orderby":
+                query = OrderBy(query, prm.Value);
+                break;
+            case "$select":
+                query = Select(query, prm.Value);
+                break;
+            case "$skip":
+                if (inlineCountEnabled && inlineCountQuery == null) {
+                    inlineCountQuery = query;
+                }
+                query = Skip(query, Convert.ToInt32(prm.Value));
+                break;
+            case "$groupby":
+                inlineCountQuery = null;
+                var keyValue = prm.Value.Split(';');
+                if (keyValue.Length > 2) throw new Exception("Invalid groupBy expression");
+
+                var keySelector = keyValue[0];
+                var valueSelector = keyValue.Length == 2 ? keyValue[1] : null;
+                query = GroupBy(query, keySelector, valueSelector);
+                break;
+            case "$all":
+                return CreateResult(context, All(query, prm.Value), inlineCountQuery);
+            case "$average":
+            case "$avg":
+                return CreateResult(context, Avg(query, prm.Value), inlineCountQuery);
+            case "$first":
+                return CreateResult(context, First(query, prm.Value), inlineCountQuery);
+            default:
+                throw new Exception($"Unknown query parameter {prm.Value}");
+        }
+    }
+
+    // tüm parametreleri gezdikten sonra elimizde:
+    // * Değiştirilmiş sorgumuz
+    // * Kaç kayıt okunmak istendiği
+    // * Sorguda sayfalama öncesi kaç kayıt olduğunu dönen bir sorgu (eğer InlineCount istenmişse)
+    return CreateResult(context, query, takeCount, inlineCountQuery);
+}
+```
+
+İşleri genelde **switch** içinde değil metodlar ile yapıyoruz, onlara da birkaç örnek verelim:
+
+```csharp
+public virtual IQueryable Where(IQueryable query, string filter) {
+    return query.Where(filter);
+}
+
+public virtual IQueryable OrderBy(IQueryable query, string orderBy) {
+    return query.OrderBy(orderBy);
+}
+
+public virtual IQueryable Select(IQueryable query, string projection) {
+    return query.Select(projection);
+}
+
+public virtual IQueryable Skip(IQueryable query, int count) {
+    return query.Skip(count);
+}
+
+public virtual IQueryable GroupBy(IQueryable query, string keySelector, string elementSelector) {
+    return string.IsNullOrWhiteSpace(elementSelector)
+        ? query.GroupBy(keySelector)
+        : query.GroupBy(keySelector, elementSelector);
+}
+
+public virtual bool All(IQueryable query, string predicate) {
+    return query.All(predicate);
+}
+
+public virtual object Avg(IQueryable query, string elementSelector) {
+    return query.Average(elementSelector);
+}
+
+public virtual object First(IQueryable query, string predicate) {
+    return query.First(predicate);
+}
+```
+
+Nasıl bu kadar basit olabilir, değil mi? Makale serisini bu noktaya kadar takip ettiyseniz, aslında ihtiyacımız olan tüm yapıyı hazırladığımızı hatırlarsınız.
+**DynamicQueryable** projesi ile zaten **string** değerleri **IQueryable** sorguya işletebiliyoruz. Bu sayede tek satırlık bu çağrılar işimizi görüyor.
+
+Bir de sonucu nasıl oluşturduğumuza bakalım:
+
+```csharp
+protected static ProcessResult CreateResult(ActionContext context, IQueryable query, int? takeCount, IQueryable inlineCountQuery) {
+    // öncelikle Action için verilmiş özel bir maksimum kayıt okuma sınırı var mı?
+    // Action için yok ise Controller için verilmiş genel bir sınır var mı?
+    int? max = context.MaxResultCount ?? context.Service?.MaxResultCount;
+    if (max > 0) {
+        // eğer sorguda Take ile bir sınır verilmişse alıyoruz
+        // Take yok ise sorgunun kaç kayıt döneceğini öğreniyoruz
+        var count = takeCount ?? Queryable.Count((dynamic)query);
+        // eğer izin verilen sınırdan fazla ise hata fırlatıyoruz
+        if (count > max) throw new Exception($"Maximum allowed read count exceeded");
+    }
+
+    // eğer servis yok ise yanıtımızı dönüyoruz
+    var service = context.Service;
+    if (service == null)
+        return CreateResult(context, Enumerable.ToList((dynamic)query), inlineCountQuery);
+
+    // servis var ise sorgunun çalıştırılmak üzere olduğunu haber veriyoruz
+    var beforeArgs = new BeforeQueryEventArgs(context, query);
+    service.OnBeforeQueryExecute(beforeArgs);
+    // eğer servis sorguyu değiştirmişse yenisini kullanıyoruz
+    query = beforeArgs.Query;
+
+    // sorguyu çalıştırıyoruz
+    var result = Enumerable.ToList((dynamic)query);
+
+    // servisimize sorgunun çalıştırıldığını haber veriyoruz
+    var afterArgs = new AfterQueryEventArgs(context, query, result);
+    service.OnAfterQueryExecute(afterArgs);
+    // eğer servis sonucu değiştirmişse onu kullanıyoruz
+    result = afterArgs.Result;
+
+    return CreateResult(context, result, inlineCountQuery);
+}
+
+// InlineCount değerini hesaplayıp ProcessResult objemizi oluşturuyoruz
+protected static ProcessResult CreateResult(ActionContext context, object result, IQueryable inlineCountQuery) {
+    int? inlineCount = inlineCountQuery != null ? Queryable.Count((dynamic)inlineCountQuery) : null;
+    return new ProcessResult(context) { Result = result, InlineCount = inlineCount };
+}
+```
+
+İstemcide bir Linq sorgusu oluşturduk ve bunu sunucuya gönderdik, sunucu da gönderdiğimiz parametrelere göre bu isteği işledi ve çalıştırdı.
+Bir sonuç objesi oluştu ve artık **ProcessResult** ile o yanıtı tekrar istemciye ilettik.
+
+Biraz daha açıklamak istediğim tek bir nokta kaldı.
+
+### InlineCount nasıl hesaplanıyor
+
+**InlineCount** sayfalama yapacağımız durumlarda işimize yarıyor.
+Listeleme yaptığımız bir web sayfamız olduğunu düşünün, sipariş verileri olsun. Veri kaynağımızda toplam 1.000.000 kayıt olduğunu varsayın.
+Sayfa açıldığında tüm kayıtları göstermeyeceğimiz aşikar, biz de 10 kayıtlık sayfalar olsun diye karar veriyoruz. İstemci bizim **Linquest** kütüphanemiz ile filtreleme gibi işlemler yaptıktan sonra ilk 10 kaydı istiyor, yani aşağıdakine benzer bir istek yapıyor:
+
+```typescript
+const result = await service.orders().where(o => o.IsActive == true).take(10);
+```
+
+Aktif ilk 10 kaydı okuduk ve tablomuz ile görüntüledik. Peki kullanıcı ilk sayfadan ötesini görüntülemek isterse? Kaç sayfa olduğunu bilmemiz gerekiyor.
+Buna **InlineCount** diyoruz, yukarıdaki sorgumuz için **IsActive** alanı **true** olan kayıtların sayısı demek oluyor.
+Bunu nasıl hesapladığımızı bir akış gibi anlatmaya çalışayım. Kodlara bakarsanız döngü içinde iki adet **IQueryable** değişkenimiz var, **query** ve **inlineCountQuery**.
+
+* Sorgu üzerinde hiç parametre işlenmediyse **query** (sorgunun kendisi) bize kayıt sayısını verecektir.
+* **Where**, **GroupBy** gibi kayıt sayısında değişime sebep olan parametrelerden sonra **inlineCountQuery** yine sorgunun kendisi (**query**) olacaktır
+* **Take** sayfalama parametresini **query** üzerine işletmeden önce **query** değerini **inlineCountQuery** değişkenine atıyoruz. Böylece örneğin sorgu 10 kayıt dönerken **inlineCountQuery** 1.000.000 kayıt dönebiliyor.
+* Tekrar kayıt sayısı değiştiren bir parametre gelirse, iki satır yukarıda dediğimiz gibi yine sorgunun kendisi **inlineCountQuery** olarak kullanılacaktır.
+
+Böylece serimizin sonuna geldik, umarım faydalı olmuştur.
+
+Mutlu kodlamalar :)
+
 > There are two ways to write error-free programs; only the third one works. - Alan J. Perlis
