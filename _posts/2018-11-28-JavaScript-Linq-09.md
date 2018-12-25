@@ -6,7 +6,7 @@ redirect_from: "/2018/11/28/JavaScript-Linq-09/"
 permalink: javascript-linq-09
 ---
 
-JavaScript ile Linq yazı serimizin dokuzuncusuna hoş geldiniz arkadaşlar.
+JavaScript ile Linq yazı serimizin dokuzuncusuna hoş geldiniz.
 
 1. [Linq gerçekte nedir?](/javascript-linq-01)
 2. [Expression'lar](/javascript-linq-02)
