@@ -11,7 +11,7 @@ JavaScript ile Linq yazı serimizin beşincisine hoş geldiniz.
 1. [Linq gerçekte nedir?](/javascript-linq-01)
 2. [Expression'lar](/javascript-linq-02)
 3. [ExpressionVisitor sınıfı](/javascript-linq-03)
-4. [IQueryable ve IQueryProvider](/javascript-linq-03)
+4. [IQueryable ve IQueryProvider](/javascript-linq-04)
 5. Jokenizer - JavaScript Expression'larını parse edelim  **(You are here)**
 6. [Jokenizer.Net - C# Expression'larını parse edelim](/javascript-linq-06)
 7. [DynamicQueryable - Dinamik sorgu oluşturalım](/javascript-linq-07)
