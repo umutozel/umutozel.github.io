@@ -19,7 +19,7 @@ Ben yazı dizisinde testin önemi, TDD, BDD gibi konulara değinmeyeceğim, bu k
 
 # Projemizi Hazırlayalım
 
-> Makalenin kodlarına https://github.com/umutozel/typescript-testing adresinden ulaşabilirsiniz.
+> Makalenin kodlarına [https://github.com/umutozel/typescript-testing](https://github.com/umutozel/typescript-testing) adresinden ulaşabilirsiniz.
 
 Direk konuya dalmaktan yanayım, hemen ufak bir TypeScript projesi oluşturalım. Tüm geliştirmeleri [Visual Studio Code](https://code.visualstudio.com/) ile yapacağız, kurmadıysanız bekliyorum.
 
