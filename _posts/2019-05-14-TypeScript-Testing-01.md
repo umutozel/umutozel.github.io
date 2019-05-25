@@ -11,13 +11,15 @@ Yeni bir yazı serisine hoş geldiniz. Bu sefer ufak bir TypeScript projesini ç
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">A QA engineer walks into a bar. Orders a beer. Orders 0 beers. Orders 99999999999 beers. Orders a lizard. Orders -1 beers. Orders a ueicbksjdhd. <br><br>First real customer walks in and asks where the bathroom is. The bar bursts into flames, killing everyone.</p>&mdash; Brenan Keller (@brenankeller) <a href="https://twitter.com/brenankeller/status/1068615953989087232?ref_src=twsrc%5Etfw">November 30, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Yazdığımız kodları test etmeliyiz, değil mi? Hani bu iş seçimlik olmamalı, hatta önce testlerimizi yazmalıyız! Peki çevrenizdeki yazılımcılar bu sözün ne kadar arkasında duruyorlar? Zaman yok, bütçe yok gibi bahaneler havada mı uçuşuyor? 
+Yazdığımız kodları test etmeliyiz, değil mi? Hani bu iş seçimlik olmamalı, hatta önce testlerimizi yazmalıyız! Peki çevrenizdeki yazılımcılar bu sözün ne kadar arkasında duruyorlar? Zaman yok, bütçe yok gibi bahaneler havada mı uçuşuyor?
 
 Ben yazı dizisinde testin önemi, TDD, BDD gibi konulara değinmeyeceğim, bu konularda hem çok yazı var hem de **gereklilik** mevzusunda (neredeyse) hepimiz hemfikiriz. Daha çok spesifik bir konuda kendi tercihlerimi ve izlediğim yöntemleri anlatarak bir katkıda bulunmak istedim.
 
 ![Operation Completed Successfully](/assets/typescript-test-operation-completed-succesfully.jpg)
 
 # Projemizi Hazırlayalım
+
+> Makalenin kodlarına https://github.com/umutozel/typescript-testing adresinden ulaşabilirsiniz.
 
 Direk konuya dalmaktan yanayım, hemen ufak bir TypeScript projesi oluşturalım. Tüm geliştirmeleri [Visual Studio Code](https://code.visualstudio.com/) ile yapacağız, kurmadıysanız bekliyorum.
 
