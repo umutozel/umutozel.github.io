@@ -82,7 +82,7 @@ Bu dosyada olası tüm TypeScript ayarları bir çoğu kapatılmış şekilde ge
 
 ---
 
-Şimdi alışkanlık haline gelmesi kod standardını kontrol eden **tslint** kuralım.
+Şimdi alışkanlık haline gelmesi gereken kod standardını kontrol eden **tslint** paketini kuralım.
 
 ```shell
 npm i -D tslint
@@ -184,6 +184,31 @@ Ben çalıştırdığımdaki ekran görüntüsü aşağıdaki gibi:
 
 ![Direk Çağrı](/assets/typescript-test-call.jpg)
 
-Gördüğünüz gibi 55 doğru değeri görüntülendi.
+Gördüğünüz gibi doğru değer olan 55 görüntülendi.
 
 1, 1, 2, 3, 5, 8, 13, 21, 34, ***55***
+
+JavaScript projelerimizde böyle düzenli çalıştırdığımız scriptlerimiz (bana kimse betik dedirtemez :)) hep olur, önceden **grunt**, **gulp** gibi araçları çok kullanırdık, arada ne oldu emin değilim ama artık neredeyse herkes (ben de dahil) bu tür script'ler için sadece npm kullanıyor.
+
+TypeScript projelerini npm ile yayınlayan herkesin başına gelen bir sorun, JavaScript kodlarını oluşturmadan **npm publish** komutunu çalıştırmak. Sonra hatasını farkedip son yayınlanan paketi devre dışı bırakmak için **npm unpublish** komutunu çalıştırmak. Sonra bu hareketin ona 24 saat paket yayınlayamama cevasını kestiğini görünce yaşanan büyük hayal kırıklığı (benim başıma gelmedi hiç tabii, bir arkadaştan duydum).
+
+Bu ve benzeri sıkıntıların önüne geçebilmek için hazır [npm scriptlerini](https://docs.npmjs.com/misc/scripts) kullanıyoruz.
+
+Örneğin **prepare** script'i npm paket hazırlanmadan (pack) ya da yayınlanmadan (publish) önce çağırılır. Biz de **prepare** için bir script tanımlayarak bu adımlardan önce hazırlık yapabiliriz. Tahmin ettiğiniz gibi, **prepare** adımında TypeScript kodlarımızı derleyerek JavaScript çıktılarını hazırlamak istiyoruz.
+
+Ben genelde ayrı bir adım olarak **build** script'i eklerim, **prepare** aşamasında da **build** script'ini çağırırım. Package.json dosyamızın **scripts** kısmı aşağıdaki gibi oluyor:
+
+```json
+...
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+...
+```
+
+Artık paketimizi her **npm publish** komutu ile yayınlamak istediğimizde JavaScript kodlarımız otomatik oluşturulmuş olacak.
+
+Kodlarımız test edilmeye hazır, bir sonraki yazıda unit test için gerekli araçları projemize ekleyecek ve testlerimizi yazacağız.
+
+Mutlu kodlamalar :)
