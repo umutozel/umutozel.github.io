@@ -309,9 +309,13 @@ Kurulumlar tamamlandıktan sonra da **nyc** için ayarları girmemiz gerekiyor. 
 
 Burada test kapsamını ölçerken hangi dosyaları dikkate alacağı/göz ardı edeceği, çıktıları nereye yazacağı gibi ayarları belirtiyoruz.
 
+Tüm bu kurulumlar ve ayarlardan sonra klasör yapınız aşağıdaki gibi olmalı:
+
+![Klasör Yapısı](/assets/typescript-test-folder-2.jpg)
+
 ---
 
-Gerekli paketlerin hepsini kurup ayarlarımızı yaptık. Şimdi **package.json** ile scriptlerimizi ekleme vakti geldi. **scripts** listesine aşağıdaki iki elemanı ekleyelim.
+Şimdi **package.json** ile scriptlerimizi ekleme vakti geldi. **scripts** listesine aşağıdaki iki elemanı ekleyelim.
 
 ```json
   "test": "mocha --opts mocha.opts --reporter spec",
