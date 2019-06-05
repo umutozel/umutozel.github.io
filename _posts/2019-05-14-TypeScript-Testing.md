@@ -380,7 +380,7 @@ describe("Fibonacci tests", () => {
     })
 
     it("should return 1 for second item", () => {
-        expect(fibonacci(1)).to.equal(1)
+        expect(fibonacci(2)).to.equal(1)
     })
 
     it("should return 89 for 11th item", () => {
