@@ -87,7 +87,7 @@ Derin öğrenmeye dayalı video ve ses üretme araçları ayrıca, taklitçilere
 
 ![Deepfake](/assets/deep-learning-deepfake.jpeg)
 
-### Yapay Zeka Düzenlemeleri
+### Yapay Zeka Düzenlemeleri
 
 Bu potansiyel risklere rağmen, yapay zeka araçlarının kullanımını kontrol eden çok az düzenleme vardır ve yasaların bulunduğu yerlerde, tipik olarak sadece dolaylı olarak yapay zeka ile ilgilidir. Örneğin, Amerika Birleşik Devletleri'nde Federal Adil Borç Verme düzenlemeleri, finansal kuruluşların, kredi kararlarını potansiyel müşterilere açıklamalarını gerektirir; bu, borç verenlerin derin öğrenme algoritmalarını kullanma derecesini sınırlar. Avrupa’da GDPR, işletmelerin tüketici verilerini nasıl kullanabileceği konusunda katı sınırlamalar getirmekte ve bu da tüketiciye yönelik birçok yapay zeka uygulamasının eğitimini ve işlevselliğini engellemektedir.
 
@@ -262,7 +262,7 @@ Kelime vektörleri sözdizimsel ve anlamsal bilgileri yerleştirme eğilimindedi
 
 **Word2vec:** 2013 civarında, Mikolav ve diğerleri, hem CBOW hem de skip-gram modellerini önerdiler. CBOW, kelime gömmeleri oluşturmak için sinirsel bir yaklaşımdır ve amaç, belirli bir kapsamda bağlam sözcükleri verilen hedef sözcüğün şartlı olasılığını hesaplamaktır. Öte yandan, skip-gram, merkezi bir hedef kelime verildiğinde, çevreleyen bağlam sözcüklerini (yani koşullu olasılık) tahmin etmeyi amaçlayan kelime yerleştirmelerini oluşturmak için sinirsel bir yaklaşımdır. Her iki model için de, gömme boyutu kelimesi tahminin doğruluğunu hesaplayarak (denetimsiz bir şekilde) belirlenir.
 
-![Kelime Gömme](/assets/deep-learning-Word2vec.png)
+![Word2vec](/assets/deep-learning-Word2vec.png)
 
 **Karakter Gömmeleri:** Konuşma bölümleri (POS) etiketleme ve adlandırılmış varlık tanıma (NER) gibi görevler için, karakterler veya bunların kombinasyonları gibi sözcüklerdeki morfolojik bilgilere bakmak yararlı olacaktır. Bu, Portekizce, İspanyolca ve Çince gibi morfolojik açıdan zengin diller için de faydalıdır. Metni karakter düzeyinde analiz ettiğimizden, bu tür gömmeler, bilinmeyen kelime sorunuyla baş etmeye yardımcı olur çünkü artık verimli hesaplama amacıyla azaltılması gereken büyük kelime hazinelerine sahip dizileri temsil etmiyoruz.
 
