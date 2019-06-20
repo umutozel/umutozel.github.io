@@ -6,6 +6,8 @@ redirect_from: "/2019/06/20/TypeScript-Testing-VSCode/"
 permalink: typescript-testing-vscode
 ---
 
+TypeScript testlerimizi daha da güzelleştirmeye ne dersiniz?
+
 [TypeScript test](http://umutozel.com/typescript-testing) yazımızda projemizi hazırlamış, testlerimizi geliştirmiş, test ve kapsam için script hazırlamış ve sonuçları komut satırında görebilmiştik.
 
 ![Testler](/assets/typescript-test-full-cover.jpg)
@@ -64,7 +66,7 @@ Farketmişsinizdir, bu görünümde ağaç yapısının üstünde 3 adet buton b
 
 ![Mocha Sidebar](/assets/ts-test-vscode-mocha-sidebar-4.jpg)
 
-▷ Oynat butonu ile devamlı test (Continuous Testing) yapabiliyoruz. Açıkçası ben düzgün çalıştıramadım. Olması gereken kodlarınızı yazdıkça düzenli olarak testleri çalıştırması ve kalan testlerin anında kırmızı geçenlerin yeşile dönmesi.
+▷ Oynat butonu ile devamlı test (Continuous Testing) yapabiliyoruz. Açıkçası ben düzgün çalıştıramadım. Normalde kodlarınızı yazdıkça düzenli olarak testlerin çalıştırılması ve kalan testlerin anında kırmızı, geçenlerin ise yeşile dönmesi gerekiyor.
 
 ↻ Yenile butonu tahmin ettiğiniz gibi projemizdeki testleri yeniden tarıyor. Yeni yazdığımız testlerin listeye gelmesi için kullanıyoruz.
 
