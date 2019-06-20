@@ -2,7 +2,7 @@
 layout: post
 title: Visual Studio Code ile TypeScript Testlerimizi Görselleştirelim
 comments: true
-redirect_from: "/2019/05/20/TypeScript-Testing-VSCode/"
+redirect_from: "/2019/06/20/TypeScript-Testing-VSCode/"
 permalink: typescript-testing-vscode
 ---
 
