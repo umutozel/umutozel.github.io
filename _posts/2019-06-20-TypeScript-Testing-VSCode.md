@@ -110,6 +110,5 @@ Bu bize testlerimizin uğramadığı kodlarımızın olduğunu gösteriyor, ne k
 
 Testlerimiz artık çok daha görsel. Benzer sonuçları elde edebileceğimiz bir çok test kütüphaneleri ve eklentiler var, keşfetmek size kalmış.
 
-Test yazmanın keyfine varmanız dileğiyle &#129514;
-<br>
+Test yazmanın keyfine varmanız dileğiyle &#129514;<br>
 Mutlu kodlamalar!
