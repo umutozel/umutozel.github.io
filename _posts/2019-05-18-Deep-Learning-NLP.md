@@ -262,7 +262,7 @@ Kelime vektörleri sözdizimsel ve anlamsal bilgileri yerleştirme eğilimindedi
 
 **Word2vec:** 2013 civarında, Mikolav ve diğerleri, hem CBOW hem de skip-gram modellerini önerdiler. CBOW, kelime gömmeleri oluşturmak için sinirsel bir yaklaşımdır ve amaç, belirli bir kapsamda bağlam sözcükleri verilen hedef sözcüğün şartlı olasılığını hesaplamaktır. Öte yandan, skip-gram, merkezi bir hedef kelime verildiğinde, çevreleyen bağlam sözcüklerini (yani koşullu olasılık) tahmin etmeyi amaçlayan kelime yerleştirmelerini oluşturmak için sinirsel bir yaklaşımdır. Her iki model için de, gömme boyutu kelimesi tahminin doğruluğunu hesaplayarak (denetimsiz bir şekilde) belirlenir.
 
-![Word2vec](/assets/deep-learning-Word2vec.png)
+![Word2vec](/assets/deep-learning-word2vec.png)
 
 **Karakter Gömmeleri:** Konuşma bölümleri (POS) etiketleme ve adlandırılmış varlık tanıma (NER) gibi görevler için, karakterler veya bunların kombinasyonları gibi sözcüklerdeki morfolojik bilgilere bakmak yararlı olacaktır. Bu, Portekizce, İspanyolca ve Çince gibi morfolojik açıdan zengin diller için de faydalıdır. Metni karakter düzeyinde analiz ettiğimizden, bu tür gömmeler, bilinmeyen kelime sorunuyla baş etmeye yardımcı olur çünkü artık verimli hesaplama amacıyla azaltılması gereken büyük kelime hazinelerine sahip dizileri temsil etmiyoruz.
 
