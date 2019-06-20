@@ -92,21 +92,23 @@ Tıkladığımızda buton yazısı *Remove Watch* olacak. Bu işlem ile Coverage
 
 ![Coverage](/assets/ts-test-vscode-coverage-gutters-4.jpg)
 
-Kod satırlarımızın sol tarafındaki yeşillikler bu satırların testler kapsamında çalıştığını gösteriyor. Test yazmaya başladığınızda, bu bilgiye sahip olmak, hem de çalıştığınız editörde görebilmek çok faydasını olacak.
+Kod satırlarımızın sol tarafındaki yeşillikler bu satırların testler kapsamında çalıştığını gösteriyor. Test yazmaya başladığınızda, bu bilgiye sahip olmak, hem de çalıştığınız editörde görebilmek çok faydalı olacak.
 
 Şimdi başka bir deney yapalım, *test/fibonacci.spec.ts* dosyasını açıp aşağıdaki gibi iki testi kapatın.
 
 ![Coverage](/assets/ts-test-vscode-coverage-gutters-5.jpg)
 
-Şimdi tekrar Mocha Sidebar penceresinde şemsiyeye tıklayıp kod kapsamını tekrar hesaplatalım. *lib/fibonacci.ts* dosyasını tekrar açtığımızda aşağıdaki gibi testlerimizin artık tüm satırları kapsamadığını göreceğiz.
+Mocha Sidebar penceresinde şemsiyeye tıklayıp kod kapsamını tekrar hesaplatalım. *lib/fibonacci.ts* dosyasını tekrar açtığımızda aşağıdaki gibi testlerimizin artık tüm satırları kapsamadığını göreceğiz.
 
 ![Coverage](/assets/ts-test-vscode-coverage-gutters-6.jpg)
+
+Bu bize testlerimizin uğramadığı kodlarımızın olduğunu gösteriyor, ne kadar kullanışlı değil mi?
 
 ---
 
 # Sonuç
 
-Testlerimiz artık çok daha görsel. Benzer sonuçları elde edebileceğimiz bir çok test kütüphaneleri ve eklentiler var, keşfetmenin keyfini size bırakıyorum.
+Testlerimiz artık çok daha görsel. Benzer sonuçları elde edebileceğimiz bir çok test kütüphaneleri ve eklentiler var, keşfetmek size kalmış.
 
 Test yazmanın keyfine varmanız dileğiyle &#129514;
 <br>
