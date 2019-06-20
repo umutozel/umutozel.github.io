@@ -340,6 +340,34 @@ Bu cümlelerin bağlamı aslında oldukça farklı. Bugün bir makineyi cümlele
 
 Bilgi grafiğinin oluşturulmasındaki zorluklardan biri alan spesifikliğidir. Bilgi grafikleri, pratik anlamda evrensel hale getirilemez. Yukarıdaki örnekte “bir bankada çalışmanın tadını çıkarın”, “iş, iş ya da meslek” anlamına gelirken, “bir nehir yakınında bankta oturmak” sadece bir nehir bankası yakınında gerçekleştirilebilecek bir iş veya faaliyettir. Farklı alanlarda tamamen farklı bağlamlara sahip iki cümle, yalnızca bilgi grafiklerine dayanmak zorunda kalırsa makineyi şaşırtabilir. Bu nedenle, bağlam ve uygun alan seçimi elde etmek için olasılıklı bir yaklaşımla kullanılan metotların geliştirilmesi önemlidir.
 
+# Kapanış
+
+Yapay zeka günümüzün en parlak trendi konumuna geldi, artık her telefon reklamında yapay zeka terimini duyuyoruz. Ben de bu konuda en önemli alan olarak yapay sinir ağlarını gördüğüm için onu biraz detaylı anlattım, ancak daha çok konu var. Tavsiyem, yüzeysel bilgiler ile sınırlı kalmadan arka planda işleyen ilkeleri öğrenmek.
+
+Yine de, hızlıca çıktı üretmek istiyorsanız işimizi kolaylaştıran birçok hizmet bulunmakta. Bunlardan bazılarını listeleyelim.
+
+[Azure ML](https://azure.microsoft.com/en-in/services/machine-learning-studio/)
+![Azure ML](/assets/deep-learning-azure-ml.jpg)
+
+[AWS ML](https://aws.amazon.com/machine-learning/)
+
+[Anaconda](https://www.anaconda.com/)
+![Anaconda](/assets/deep-learning-anaconda.jpg)
+
+[Kaggle](https://www.kaggle.com/)
+
+[Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/)
+
+[Azure Text Analytics](https://azure.microsoft.com/en-in/services/cognitive-services/text-analytics/)
+
+Yukarıdakiler benim öğrenme aşamasında kullandıklarım (ücret ödemeden ulaşabildiklerim diyebiliriz :)). Daha çok seçenek var, başlangıç noktası olarak aşağıdaki gibi karşılaştırmalardan faydalanabilirsiniz.
+
+[AI Platform Karşılaştırma](https://towardsdatascience.com/maximize-your-gpu-dollars-a9133f4e546a)
+
+Son olarak yapay zekanızı kontrol altında tutmayı unutmayın, başımıza iş açmayın.
+
+![Terminator](/assets/deep-learning-hal.jpg)
+
 # Referanslar
 
 - [https://evrimagaci.org/sinirbilim-ve-beyin-4-noronlar-nasil-calisir-tipleri-nelerdir-sinirsel-iletim-nasil-saglanir-313](https://evrimagaci.org/sinirbilim-ve-beyin-4-noronlar-nasil-calisir-tipleri-nelerdir-sinirsel-iletim-nasil-saglanir-313)
