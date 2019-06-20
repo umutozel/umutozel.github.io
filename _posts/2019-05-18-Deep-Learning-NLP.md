@@ -24,7 +24,7 @@ Yapay zeka, bilgisayarlara çeşitli faaliyetleri zeki canlılara benzer şekild
 
 ![Yapay Zeka](/assets/deep-learning-ai.jpg)
 
-Bu kavramı ilk ortaya atan isim Alan Turing'dir. Alan Turing'i İkinci Dünya savaşı sırasında Almanlar'ın Enigma makinesinin şifresini çözen bilgisayarın geliştirilmesine liderlik eden Turing'in en büyük savaşın sonunu getirmede en önemli rölü üstlendiği kabul edilir. Ancak cinsel tercihlerine yapılan saldırıları kaldıramayan bu muhteşem beyin, 1954 yılında henüz 42 yaşında ve yapabileceklerinin daha başlarındayken kendi canına kıydı.
+Bu kavramı ilk ortaya atan isim Alan Turing'dir. Alan Turing İkinci Dünya savaşı sırasında Almanlar'ın Enigma makinesinin şifresini çözen bilgisayarın geliştirilmesine liderlik etmiştir. Turing'in en büyük savaşın sonunu getirmede en önemli rölü üstlendiği kabul edilir. Ancak cinsel tercihlerine yapılan saldırıları kaldıramayan bu muhteşem beyin, 1954 yılında henüz 42 yaşında ve yapabileceklerinin daha başlarındayken kendi canına kıydı.
 
 ![Enigma](/assets/deep-learning-enigma.jpg)
 <sub><sup>Solda Enigma, sağda bu çılgın cihazı kıran BOMBE</sup></sub>
@@ -35,7 +35,7 @@ Turing testi ilk olarak 1950 yılında **Mind** isimli felsefe dergisinde Alan T
 
 ![Turing Test](/assets/deep-learning-turing-test.jpg)
 
-Yapay zeka aşağıdaki ağırlıklı olarak problemler ile ilgilenir.
+Yapay zeka ağırlıklı olarak aşağıdaki problemler ile ilgilenir.
 
 * Bilgi
 * Muhakeme
@@ -59,11 +59,9 @@ Yapay Zeka başlıca aşağıdaki teknolojilere dahil olmuştur.
 
 * **Otomasyon** Bir sistemin bir işi otomatik yapmasıdır. Örneğin, Robotic Process Automation (RPA) normalde insanların yaptığı işleri çok yüksek sayıda ve tekrarlı yapacak şekilde programlanabilir.
 
-* **Makine Öğrenmesi** Bilgisayarın programlanmadan hareket edebilmesi. Derin Öğrenme de bu alanın bir alt kümesidir. Birazdan göreceğiz :)
-
 * **Makine Görmesi** Bilgisayarların görmesini sağlayan bilimsel yaklaşım. Görsel imajların dijitalleştirilerek sinyal olarak işlenmesine dayanır. Google size her "Yangın söndürücüleri işaretleyin" gibi soru sorduğunda etrafını daha iyi görebilir hale geliyor. İnsan gözü gibi biyolojik sınırlara dayalı değildir, dijital sinyal alınabildiği sürece duvarların arkasını bile yorumlayabilir.
 
-* **Doğal Dil İşleme** İnsan dillerinin bilgisayarlar tarafından işlenmesidir. Bilinen en eski uygulamalarından birisi spam mail tespit eden algoritmalardır. Mailin konusu ve içeriğine bakarak gözümüzün önünden gereksiz olup olmadığına karar verilir. Genelde Makine Öğrenmesi ilkeleri uygulanır.
+* **Doğal Dil İşleme** İnsan dillerinin bilgisayarlar tarafından işlenmesidir. Bilinen en eski uygulamalarından birisi spam mail tespit eden algoritmalardır. Mailin konusu ve içeriğine bakarak gereksiz olup olmadığına karar verilir. Genelde Makine Öğrenmesi ilkeleri uygulanır.
 
 * **Robotlar ve Kendi Kendine Giden Araçlar** Önceki tüm yaklaşımların birlikte çalıştığı, görüntüler ve seslerin işlenmesi, öğrenilmiş yaklaşımlar ile karar verebilen ve insanların yaptığı işleri yapabilen sistemler tasarlanmasıdır.
 
@@ -73,9 +71,9 @@ Yapay Zeka başlıca aşağıdaki alanlarda uygulanmaktadır.
 
 * **Eğitim** Yapay zeka ile not sistemi otomatikleştirilip eğitmenlere zaman kazandırılmaya çalışılıyor. Yapay zeka öğrenci bilgilerine erişip onlara uygun içerikleri doğru hızda öğrenmelerini sağlıyor.
 
-* **Finans** Finans alanındaki uygulamalara muhtemelen hepimizin en az bir arkadaşı bulaşmıştır. Öğrenen sistemler ile Forex üzerinden çok paralar kazanmayı planlamıştır. Tahmin ettiğiniz gibi bu uygulamada veriler incelenerek finansal tavsiyelerde bulunulur. Günümüzde Wall Street çoğunluk işlemini yazılımlar ile yapıyor.
+* **Finans** Finans alanındaki uygulamalara muhtemelen hepimizin en az bir arkadaşı bulaşmıştır, öğrenen sistemler ile Forex üzerinden çok paralar kazanmayı planlamıştır. Tahmin ettiğiniz gibi bu uygulamada veriler incelenerek finansal tavsiyelerde bulunulur. Günümüzde Wall Street çoğunluk işlemini yazılımlar ile yapıyor.
 
-* **Hukuk** Hukukta keşif süreci bir çok insan için boğucu düzeydedir. Bu süreci otomatikleştirmek zaman ve enerji kazancı sağlar. Startup'lar bilgisayar sistemleriyle sundukları soru-cevap sistemleriyle taksonomi ve ontoloji araştırmasını veritabanı üzerinde yapabiliyor.
+* **Hukuk** Hukukta keşif süreci bir çok insan için boğucu düzeydedir. Bu süreci otomatikleştirmek zaman ve enerji kazancı sağlar. Startup'lar bilgisayar sistemleriyle sundukları soru-cevap altyapısıyla taksonomi ve ontoloji araştırmasını veri tabanı üzerinde yapabiliyor.
 
 * **Üretim** Bu alanda uzun süredir robotların kullanımı egemendi. Ancak yeni gelişmeler ile öğrenen ve adapte olan yeni robotlar geliştirilebiliyor.
 
@@ -91,7 +89,7 @@ Derin öğrenmeye dayalı video ve ses üretme araçları ayrıca, taklitçilere
 
 ### Yapay Zeka Düzenlemeleri
 
-Bu potansiyel risklere rağmen, yapay zeka araçlarının kullanımını düzenleyen çok az düzenleme vardır ve yasaların bulunduğu yerlerde, tipik olarak sadece dolaylı olarak yapay zeka ile ilgilidir. Örneğin, Federal Adil Borç Verme düzenlemeleri, finansal kuruluşların, kredi kararlarını potansiyel müşterilere açıklamalarını gerektirir; bu, borç verenlerin, doğası gereği tipik olarak şeffaf olan derin öğrenme algoritmalarını kullanma derecesini sınırlar. Avrupa’da GDPR, işletmelerin tüketici verilerini nasıl kullanabileceği konusunda katı sınırlamalar getirmekte ve bu da tüketiciye yönelik birçok yapay zeka uygulamasının eğitimini ve işlevselliğini engellemektedir.
+Bu potansiyel risklere rağmen, yapay zeka araçlarının kullanımını kontrol eden çok az düzenleme vardır ve yasaların bulunduğu yerlerde, tipik olarak sadece dolaylı olarak yapay zeka ile ilgilidir. Örneğin, Amerika Birleşik Devletleri'nde Federal Adil Borç Verme düzenlemeleri, finansal kuruluşların, kredi kararlarını potansiyel müşterilere açıklamalarını gerektirir; bu, borç verenlerin derin öğrenme algoritmalarını kullanma derecesini sınırlar. Avrupa’da GDPR, işletmelerin tüketici verilerini nasıl kullanabileceği konusunda katı sınırlamalar getirmekte ve bu da tüketiciye yönelik birçok yapay zeka uygulamasının eğitimini ve işlevselliğini engellemektedir.
 
 2016 yılında, Ulusal Bilim ve Teknoloji Konseyi, devlet düzenlemelerinin yapay zeka'nın geliştirilmesinde oynayabileceği olası rolü inceleyen bir rapor yayınladı, ancak özel mevzuatın dikkate alınmasını önermedi. O zamandan beri mesele milletvekillerinden çok az ilgi gördü.
 
@@ -103,7 +101,7 @@ Bu potansiyel risklere rağmen, yapay zeka araçlarının kullanımını düzenl
 
 Makine öğrenmesinde belirli algoritmalar kullanılarak özellikle programlanmadan daha başarılı tahminler yürütmek hedeflenmektedir. En temel amaç alınan bir girdi için statik analiz yöntemlerini kullanarak bir çıktı üretmektir.
 
-Bu süreçte kullanılan yöntemler veri madenciliği ve tahminsel modellemeye benzer. Bu ikisinde de veriler tekrarlanan şablonlar için aranır program davranışları buna göre düzenlenir. Hepimiz internette gördüğümüz reklamların önceki alışverişlerimize ne kadar uyum içinde olduğunu görmüşüzdür, bir de o ürünleri satın aldığımızı ve artık görmeye ihtiyacımız olmadığını anlayabilseler (Google'ın maillerimizi okuyarak bu konuda ilerleme kaydettiği dedikoduları dolaşıyor). Bu işi yapan tavsiye motorları, biz de makalenin sonlarına doğru basit ama işe yarar bir tavsiye sistemi geliştireceğiz. Makine öğrenmesi ayrıca sahtecilik tespiti, spam filtreleri, ağ güvenlik tehdit tespiti ve tahminsel bakım gereksinimi gibi alanlarda kullanılır.
+Bu süreçte kullanılan yöntemler veri madenciliği ve tahminsel modellemeye benzer. Bu ikisinde de veriler tekrarlanan şablonlar için aranır, program davranışları buna göre düzenlenir. Hepimiz internette gördüğümüz reklamların önceki alışverişlerimize ne kadar uyum içinde olduğunu görmüşüzdür, bir de o ürünleri satın aldığımızı ve artık görmeye ihtiyacımız olmadığını anlayabilseler (Google'ın maillerimizi okuyarak bu konuda ilerleme kaydettiği dedikoduları dolaşıyor). Bu işi yapan tavsiye motorlarının dışında, Makine öğrenmesi ayrıca sahtecilik tespiti, spam filtreleri, ağ güvenlik tehdit tespiti ve tahminsel bakım gereksinimi gibi alanlarda kullanılır.
 
 ### Peki nasıl çalışıyor
 
@@ -111,7 +109,7 @@ Makine öğrenmesi temelde **Denetimli** ve **Denetimsiz** öğrenme olarak ikiy
 
 #### Denetimli Öğrenme
 
-Bir veri analisti sisteme girdiler ve çıktılar konusunda yardımcı olur, ayrıca tahminlerin başarı oranlarını da ayarlar. Analist parametreler ve özelliklere karar verip sistemi başarılı hale getirir. Bu eğitimden sonra sistem kendi kararlarını verebilir hale gelir.
+Bir veri analisti sisteme girdiler ve çıktılar konusunda yardımcı olur, ayrıca tahminlerin başarı oranlarını da ayarlar. Analist sistem başarılı olana kadar parametreler ve özellikleri ayarlar. Bu eğitimden sonra sistem kendi kararlarını verebilir hale gelir.
 
 Bu yaklaşımda temel hedef bir tahmin fonksiyonu olan *h(x)*'i bulmaktır. Öğrenme, bu fonksiyonu istenilen sonuçları verecek şekilde karmaşık matematiksel algoritmaları kullanarak optimize etme aşamasında olur.
 
@@ -121,7 +119,7 @@ h(x) = &theta;<sub>0</sub> x + &theta;<sub>1</sub>x
 
 Amacımız yukarıdaki formülde yer alan &theta;<sub>0</sub> ve &theta;<sub>1</sub> sabit değerleri için en doğru tahmini üreten mükemmel değerleri bulabilmek.
 
-Tahmin fonksiyonu *h(x)* optimize etmek için eğitim örnekleri kullanılır. Her eğitim örneğinde *x_train* girdisi için üretilen sonuç *h(x_train)* önceden bilinen bir *y* değeri ile karşılaştırılır. Yeterli eğitim örneğinden sonra bu farklar bize fonksiyonun *hata* oranını ölçebilmemiz için bir yol sunar. Sonra *h(x)* foksiyonu başarımını &theta;<sub>0</sub> ve &theta;<sub>1</sub> değerleri ile oynayarak arttırabiliriz. Bu süreç &theta;<sub>0</sub> ve &theta;<sub>1</sub> değerleri en iyi değerleri üretene kadar devam eder.
+Tahmin fonksiyonu *h(x)* optimize etmek için eğitim örnekleri kullanılır. Her eğitim örneğinde *x_train* girdisi için üretilen sonuç *h(x_train)* önceden bilinen bir *y* değeri ile karşılaştırılır. Yeterli eğitim örneğinden sonra bu farklar bize fonksiyonun *hata* oranını ölçebilmemiz için bir yol sunar. Sonra *h(x)* foksiyonu başarımını &theta;<sub>0</sub> ve &theta;<sub>1</sub> değerleri ile oynayarak arttırabiliriz. Bu süreç &theta;<sub>0</sub> ve &theta;<sub>1</sub> en iyi değerleri üretene kadar devam eder.
 
 #### Denetimsiz Öğrenme
 
@@ -142,18 +140,16 @@ Aşağıdaki gibi, 28x28 piksellik bir ortama bir sayı yazdığımızı düşü
 
 ![Sayı Tespit](/assets/deep-learning-28.jpg)
 
-Ekranda hangi sayıyı görüyorsunuz diye sorduğumuzda çok kolay ve ışık hızında 3 cevabını verebiliyoruz. Peki bu tespiti yapabilen bir kod yazmamız istense? Ne kadar zor değil mi? Peki bu kadar kolay yapabilirken bilgisayarlara bu işi yaptırmak neden bu kadar zor?
+Ekranda hangi sayıyı görüyorsunuz diye sorduğumuzda çok kolay ve çok çabuk 3 cevabını verebiliyoruz. Peki bu tespiti yapabilen bir kod yazmamız istense? Ne kadar zor değil mi? Peki biz bu kadar kolay yapabilirken bilgisayarlara bu işi yaptırmak neden bu kadar zor?
 
 ![Beyin](/assets/deep-learning-brain.jpg)
 
 > Computers are programmed, so are the humans, but the computers can’t act outside their programming, whereas the humans can.”
 ― Abhijit Naskar, The Constitution of The United Peoples of Earth
 
-Düşünce dediğimiz kavram, beyindeki hücrelere ulaşan elektrokimyasal sinyallere verilen biyokimyasal tepkilerin tümüdür.  Yani aslında bir canlı "düşünmez". "Düşünme" işlemini yapanlar, bu konuda özelleşmiş hücreler topluluğudur.
+Düşünce dediğimiz kavram, beyindeki hücrelere ulaşan elektrokimyasal sinyallere verilen biyokimyasal tepkilerin tümüdür. Yani aslında bir canlı "düşünmez". "Düşünme" işlemini yapanlar, bu konuda özelleşmiş hücreler topluluğudur.
 
-Beynimiz neredeyse 100 milyar nörondan oluşur ve düşünme süreci bu nöronlar arasındaki haberleşme ile gerçekleşir.
-
-Her nöron kendisinden önceki nörondan (ki buna presinaptik nöron diyoruz) sinyalleri alır. Her nöron, sinyalleri -genellikle- dendritleriyle almaktadır. Sinirbilimde, nöronlar üzerinde taşınan sinyallere Aksiyon Potansiyeli (AP) adı verilir. Dendritlerle alınan sinyaller, somada aksiyon potansiyelinin şiddetine göre bazı biyokimyasal değişimlere sebep olur. Bu değişimler, akson tepeciği (axon hillock) adı verilen, aksonu somaya bağlayan irice bölgede az sonra izah edeceğimiz değişimleri tetikler ve böylece yeni bir AP oluşturulur. Bu AP, akson boyunca akarak ilerler ve akson ucunda, telondendritler adı verilen dallı bölgeye ulaşır. Burada bulunan sinaps adı verilen boşluğa salınan nörotransmitterler (NT) aracılığıyla sinaps sonrası, yani postsinaptik nöron yapısına iletilir. Böylece tek bir AP, nörondan nörona sadece elektrobiyokimyasal süreçlerle iletilmiş olur. Bütün sinir sisteminin işleyişi aynıdır.
+Beynimiz neredeyse 100 milyar nörondan oluşur ve düşünme süreci bu nöronlar arasındaki haberleşme ile gerçekleşir. Her nöron kendisinden önceki nörondan (ki buna presinaptik nöron diyoruz) sinyalleri alır. Her nöron, sinyalleri -genellikle- dendritleriyle almaktadır. Sinirbilimde, nöronlar üzerinde taşınan sinyallere Aksiyon Potansiyeli (AP) adı verilir. Dendritlerle alınan sinyaller, somada aksiyon potansiyelinin şiddetine göre bazı biyokimyasal değişimlere sebep olur. Bu değişimler, akson tepeciği (axon hillock) adı verilen, aksonu somaya bağlayan irice bölgede değişimler tetikler ve böylece yeni bir AP oluşturulur. Bu AP, akson boyunca akarak ilerler ve akson ucunda, telondendritler adı verilen dallı bölgeye ulaşır. Burada bulunan sinaps adı verilen boşluğa salınan nörotransmitterler (NT) aracılığıyla sinaps sonrası, yani postsinaptik nöron yapısına iletilir. Böylece tek bir AP, nörondan nörona sadece elektrobiyokimyasal süreçlerle iletilmiş olur. Bütün sinir sisteminin işleyişi aynıdır.
 
 ![Nöronlar](/assets/deep-learning-neurons.jpg)
 
@@ -169,7 +165,7 @@ Sorunumuz şimdi biraz daha bilgisayarların anlayabileceği sayısal yapıya d�
 
 Yapay sinir ağları genellikle girdi katmanı, gizli katman ve çıktı katmanından oluşur. Resimdeki örneğimiz 784 adet girdi parametresi alan, iki adet 16 nörondan oluşan gizli katmanından sonra 0..10 arası nöronlarda çıktı üreten bir yapı. Peki nasıl çalışıyor?
 
-Yukarıdaki resimde görebileceğiniz gibi, 2'ye benzer karalama belirli nöronlarda daha fazla parlamaya sebep olarak yayılıyor ve sonuçta en fazla **2** sayısında parlamaya sebep oluyor. Bu da bize girdinin **büyük ihtimall** 2 olduğunu söylüyor. Hemen bir yanılgıyı düzelterek başlayalım, her bir nöron girdiye sabit çıktı veren statik bir yapı değil, *f(x)* fonksiyonu gibi çalışan, girdiye göre farklı çıktı üreten dinamik bir yapıdır. Örneğimizde iki adet 16 adet nörondan oluşan gizli katman kullandık. Bu tamamen keyfi bir seçenek. Girdi katmanındaki tüm nöronlar birinci katmandaki 16 nörona bağlı, onlar da ikinci katmandaki 16 nörona bağlı. Bu ikinci katmanda en son çıktı katmanında sonuçları parlatıyorlar. Ne kadar parlak, o kadar büyük ihtimalle o sayı yazılmış.
+Yukarıdaki resimde görebileceğiniz gibi, 2'ye benzer karalama belirli nöronlarda daha fazla parlamaya sebep olarak yayılıyor ve sonuçta en fazla **2** sayısında parlamaya sebep oluyor. Bu da bize girdinin **büyük ihtimal** 2 olduğunu söylüyor. Hemen bir yanılgıyı düzelterek başlayalım, her bir nöron girdiye sabit çıktı veren statik bir yapı değil, *f(x)* fonksiyonu gibi çalışan, girdiye göre farklı çıktı üreten dinamik bir yapıdır. Örneğimizde iki adet 16 adet nörondan oluşan gizli katman kullandık. Bu tamamen keyfi bir seçenek. Girdi katmanındaki tüm nöronlar birinci katmandaki 16 nörona bağlı, onlar da ikinci katmandaki 16 nörona bağlı. Bu ikinci katmanda en son çıktı katmanında sonuçları parlatıyorlar. Ne kadar parlak, o kadar büyük ihtimalle o sayı yazılmış.
 
 Peki bu gizli katmanlar ne yapıyor?
 
@@ -196,7 +192,7 @@ n = 28.5
 
 ```
 
-Hmm, değerimiz bizim kabul ettiğimiz 0 - 1 aralığı dışında kaldı! Öncelikle bu yüksek değer üzerinde çalışırken, bu değerin *ne kadar yüksek* olduğunda aktif kabul edileceğini belirttiğimiz *önyargı (bias)* denilen bir değer kullanıyoruz. Diyelim ki kabul ettiğimiz bias değeri 15. Elde ettiğimiz sonuç 13.5 olacak, halen 0 -1 aralığı dışında!
+Hmm, değerimiz bizim kabul ettiğimiz 0..1 aralığı dışında kaldı! Öncelikle bu yüksek değer üzerinde çalışırken, bu değerin *ne kadar yüksek* olduğunda aktif kabul edileceğini belirttiğimiz *önyargı (bias)* denilen bir değer kullanıyoruz. Diyelim ki kabul ettiğimiz bias değeri 15. Elde ettiğimiz sonuç 13.5 olacak, halen 0..1 aralığı dışında!
 
 Burada hesaplanan değerin *ne kadar aktivasyona sebep olduğu* yani parlamayla sonuçlandığını bizim belirlediğimiz sınırlara almamızı sağlayan bir fonksiyon kullanıyoruz. Önceden bu iş için aşağıda grafiğini görebileceğimiz sigmoid fonksiyonlar kullanılıyordu.
 
@@ -230,7 +226,7 @@ Sorunumuza dönelim, bu *weight* ve *bias* değerlerini verecek zamanı insanlar
 
 Sayıları tespit edebilecek bir yapay sinir ağını eğitebilmek için binlerce el yazması örneğe ve tabii ki çizime karşılık gerçek değere ihtiyacımız var. Şanslıyız ki [MNIST](http://yann.lecun.com/exdb/mnist/) bize on binlerce örnek içeren hazır veri tabanı sunuyor. Açıkçası yapay zeka, makine öğrenmesi gibi konuları araştırdıkça insanların inanılmaz paylaşımları beni en çok etkileyen şey oldu.
 
-Daha fazla detaya girmeden bir yerde kesmem gerekiyor, biraz daha ilerlersek konumuz giriş seviyesinden sinir ağlarından ileri matematiğe dönüşüyor. Umarım temel mantık olarak sistemin büyüleyici çalışma mantığına biraz ışık tutabilmişimdir.
+Daha fazla detaya girmeden bir yerde kesmem gerekiyor, biraz daha ilerlersek konumuz giriş seviyesinde sinir ağlarından ileri matematiğe dönüşüyor. Umarım temel mantık olarak sistemin büyüleyici çalışma mantığına biraz ışık tutabilmişimdir.
 
 ---
 
@@ -238,11 +234,11 @@ Daha fazla detaya girmeden bir yerde kesmem gerekiyor, biraz daha ilerlersek kon
 
 Derin öğrenmenin makine öğrenmesinin bir alt dalı olduğundan bahsetmiştik. Genellikle, insanlar derin öğrenme terimini kullandıklarında, çok katmanlı yapay sinir ağlarına ve derin destekli öğrenmeye atıfta bulunurlar.
 
-Derin yapay sinir ağları, görüntü tanıma, ses tanıma, öneri sistemleri, doğal dil işleme vb. birçok önemli sorun için doğruluk alanında rekorlar kıran bir dizi algoritmadır. Örneğin, derin öğrenme DeepMind'in AlphaGo'sunun bir parçasıdır. 2016'nın başında Go'da eski dünya şampiyonu Lee Sedol'ü ve 2017'nin başında şu anki dünya şampiyonu Ke Jie'yi yenen algoritma.
+Derin yapay sinir ağları; görüntü tanıma, ses tanıma, öneri sistemleri, doğal dil işleme vb. birçok önemli sorun için doğruluk alanında rekorlar kıran bir dizi algoritmadır. Örneğin, derin öğrenme DeepMind'in AlphaGo'sunun bir parçasıdır. 2016'nın başında Go'da eski dünya şampiyonu Lee Sedol'ü ve 2017'nin başında şu anki dünya şampiyonu Ke Jie'yi yenen algoritma.
 
 ![Deep Learning](/assets/deep-learning-deep.jpg)
 
-Derin bir teknik terimdir. Bir yapay sinir ağındaki katman sayısını ifade eder. Sığ bir ağda sözde bir gizli katman vardır ve derin bir ağda birden fazla var. Birden çok gizli katman, derin sinir ağlarının, özellik hiyerarşisi adı verilen verilerdeki özelliklerini öğrenmesini sağlar, çünkü basit özellikler (örneğin iki piksel), daha karmaşık özellikler (örneğin bir çizgi) oluşturmak için bir katmandan diğerine yeniden birleşir. Çok katmanlı ağlar, girdi verilerini (özellikler), birkaç katmanlı ağlara göre daha fazla matematiksel işlemden geçirir ve bu nedenle, hesaplama işlemi daha yoğundur. Hesaplama yoğunluğu, derin öğrenmenin en önemli özelliklerinden biridir ve çok yüksek işlem gereksinimi GPU'ların derin öğrenme modellerini eğitmek için revaçta olmasının nedenidir.
+Derin bir teknik terimdir. Bir yapay sinir ağındaki katman sayısını ifade eder. Sığ bir ağda bir gizli katman varken, derin bir ağda birden fazla vardır. Birden çok gizli katman, derin sinir ağlarının, *özellik hiyerarşisi* adı verilen verilerdeki özellikleri öğrenmesini sağlar, çünkü basit özellikler (örneğin iki piksel), daha karmaşık özellikler (örneğin bir çizgi) oluşturmak için bir katmandan diğerine yeniden birleşir. Çok katmanlı ağlar, girdi verilerini (özellikler), birkaç katmanlı ağlara göre daha fazla matematiksel işlemden geçirir ve bu nedenle hesaplama işlemi daha yoğundur. Hesaplama yoğunluğu, derin öğrenmenin en önemli özelliklerinden biridir ve çok yüksek işlem gereksinimi GPU'ların derin öğrenme modellerini eğitmek için revaçta olmasının nedenidir.
 
 ---
 
@@ -262,17 +258,27 @@ Daha önce de belirtildiği gibi, el ile hazırlanan özellikler temelde sinirse
 
 Kelime vektörleri sözdizimsel ve anlamsal bilgileri yerleştirme eğilimindedir ve duyarlılık analizi ve cümle kompozisyonu gibi çok çeşitli NLP görevlerinde SOTA'dan (state-of-the-art) sorumludur.
 
+![Kelime Gömme](/assets/deep-learning-nlp-embed.jpg)
+
 **Word2vec:** 2013 civarında, Mikolav ve diğerleri, hem CBOW hem de skip-gram modellerini önerdiler. CBOW, kelime gömmeleri oluşturmak için sinirsel bir yaklaşımdır ve amaç, belirli bir kapsamda bağlam sözcükleri verilen hedef sözcüğün şartlı olasılığını hesaplamaktır. Öte yandan, skip-gram, merkezi bir hedef kelime verildiğinde, çevreleyen bağlam sözcüklerini (yani koşullu olasılık) tahmin etmeyi amaçlayan kelime yerleştirmelerini oluşturmak için sinirsel bir yaklaşımdır. Her iki model için de, gömme boyutu kelimesi tahminin doğruluğunu hesaplayarak (denetimsiz bir şekilde) belirlenir.
 
+![Kelime Gömme](/assets/deep-learning-Word2vec.png)
+
 **Karakter Gömmeleri:** Konuşma bölümleri (POS) etiketleme ve adlandırılmış varlık tanıma (NER) gibi görevler için, karakterler veya bunların kombinasyonları gibi sözcüklerdeki morfolojik bilgilere bakmak yararlı olacaktır. Bu, Portekizce, İspanyolca ve Çince gibi morfolojik açıdan zengin diller için de faydalıdır. Metni karakter düzeyinde analiz ettiğimizden, bu tür gömmeler, bilinmeyen kelime sorunuyla baş etmeye yardımcı olur çünkü artık verimli hesaplama amacıyla azaltılması gereken büyük kelime hazinelerine sahip dizileri temsil etmiyoruz.
+
+![Karakter Gömme](/assets/deep-learning-char-embed.png)
 
 ### Konvolüsyonlu Sinir Ağı (CNN)
 
 Bir CNN temel olarak daha üst düzey özellikleri çıkarmak için kelimeler veya n-gramları oluşturmak için uygulanan bir özellik işlevini temsil eden bir sinir temelli yaklaşımdır. Ortaya çıkan soyut özellikler, diğer görevlerin yanı sıra duyarlılık analizi, makine çevirisi ve soru cevaplama için etkili bir şekilde kullanılmıştır. Collobert ve Weston, CNN tabanlı çerçeveleri NLP görevlerine uygulayan ilk araştırmacılar arasındaydı. Yöntemlerinin amacı, kelimeleri ağın eğitimi sırasında ağırlıklarını öğrenen ilkel bir kelime gömme yaklaşımıyla sonuçlanan bir arama tablosu aracılığıyla bir vektör temsiline dönüştürmektir.
 
+![NLP CNN](/assets/deep-learning-nlp-cnn.jpg)
+
 ### Tekrarlayan Sinir Ağı (RNN)
 
 RNN'ler, sıralı bilgilerin işlenmesinde etkili olan, sinirsel tabanlı özel yaklaşımlardır. Bir RNN, önceki hesaplanan sonuçlarda şartlandırılmış bir giriş dizisinin her örneğine tekrarlı olarak bir hesaplama uygular. Bu diziler tipik olarak tekrarlayan bir birime sırayla (birer birer) beslenen sabit boyutlu bir belirteç vektörü ile temsil edilir.
+
+![NLP RNN](/assets/deep-learning-nlp-rnn.jpg)
 
 ### Özyinelemeli Sinir Ağı
 
@@ -286,29 +292,25 @@ Takviyeli öğrenme, aracıların bir ödüllendirme sistemiyle ayrık eylemleri
 
 Denetimsiz cümle temsili öğrenme, cümleleri denetlenmeyen bir şekilde sabit boyutlu vektörlerle eşleştirmeyi içerir. Dağıtılmış gösterimler dilden semantik ve sözdizimsel özellikleri yakalar ve yardımcı bir görev kullanılarak eğitilir.
 
-### Derin Üretken Modeller
-
-Varyasyonlu oto-kondansatörler (VAE'ler) ve üretken ters ağlar (GAN) gibi derin üretken modeller, gizli bir kod uzayından gerçekçi cümleler üretme sürecinde doğal dilde zengin yapıyı keşfetmek için NLP'de de uygulanır.
-
 ### Bellek-Artırılmış Ağ
 
-Belirteç oluşturma aşamasında dikkat mekanizması tarafından erişilen gizli vektörler, modelin “dahili hafızasını” temsil eder. Yapay sinir ağları ayrıca görsel KG, dil modelleme, POS etiketleme ve duyarlılık analizi gibi görevleri çözmek için bir çeşit hafıza ile birleştirilebilir. Örneğin, KG görevlerini çözmek için, modele bir destek şekli olarak destekleyici gerçekler veya sağduyu bilgisi sağlanır. Dinamik bellek ağları, önceki bellek tabanlı modellere göre bir gelişme, giriş gösterimi, dikkat ve cevaplama mekanizmaları için sinir ağı modelleri kullandı.
+Belirteç oluşturma aşamasında dikkat mekanizması tarafından erişilen gizli vektörler, modelin “dahili hafızasını” temsil eder. Yapay sinir ağları ayrıca görsel KG, dil modelleme, POS etiketleme ve duyarlılık analizi gibi görevleri çözmek için bir çeşit hafıza ile birleştirilebilir. Örneğin, KG görevlerini çözmek için, modele bir destek şekli olarak destekleyici gerçekler veya sağduyu bilgisi sağlanır. Dinamik bellek ağları, önceki bellek tabanlı modellere göre bir gelişme, giriş gösterimi, dikkat ve cevaplama mekanizmaları için sinir ağı modelleri kullanır.
 
-### Başlıca NLP Sorunları
+## Başlıca NLP Sorunları
 
 ![NLP Problemleri](/assets/deep-learning-nlp-problems.jpg)
 
-NLP ve Makine Bilişinde çok iyi noktalara kadar gelindi, ancak yine de, özellikle bir sistem içindeki veriler tutarlı olmadığında, üstesinden gelinmesi gereken bazı zorluklar vardır. Bu tutarsızlık aslında makinenin çeşitliliği ve öznelliği yakalamasına izin verirken, makine öğreniminin ilk aşamasının bir parçası değildir. Aşağıda, NLP için makine öğrenme sürecinde karşılaşılan adımlar ve bazı zorluklar yer almaktadır:
+NLP ve Makine Öğrenmesinde çok iyi noktalara kadar gelindi, ancak yine de, özellikle bir sistem içindeki veriler tutarlı olmadığında, üstesinden gelinmesi gereken bazı zorluklar vardır. Bu tutarsızlık aslında makinenin çeşitliliği ve öznelliği yakalamasına izin verirken, makine öğreniminin ilk aşamasının bir parçası değildir. Aşağıda, NLP için makine öğrenme sürecinde karşılaşılan adımlar ve bazı zorluklar yer almaktadır:
 
-#### Cümleyi kırmak
+### Cümleyi kırmak
 
 Resmen “cümle sınırı belirsizliği” olarak adlandırılan bu kırma sürecinin elde edilmesi artık zor değil, ancak yine de, özellikle yapılandırılmış bilgileri içeren yüksek yapılandırılmamış veriler söz konusu olduğunda kritik bir süreçtir. Bir kırılma başvurusu paragrafları uygun cümle birimlerine ayırmak için yeterince akıllı olmalıdır; Bununla birlikte, oldukça karmaşık veriler her zaman kolayca tanınabilir cümle formlarında bulunmayabilir. Bu veriler, bir insanın metni yorumlamaya yaklaşacağı gibi anlamlarını elde etmesi için makinenin uygun şekilde işlenmesi gereken tablolar, grafikler, notlar, sayfa sonları vb. Şeklinde olabilir.
 
-#### Konuşma bölümlerini etiketleme (POS) ve bağımlılık grafikleri oluşturma
+### Konuşma bölümlerini etiketleme (POS) ve bağımlılık grafikleri oluşturma
 
 İnsanlar az ya da çok söyleneni anlar; bir dilin normal çalışılmasından başka, konuşma veya okumadaki konuşmanın belirli parçalarını tek tek anlamaya gerek yoktur. Bir makinenin öğrenmesi için, her kelimenin uygunluğunu, yani kelimenin kendini cümleye, paragrafa, belgeye veya ana yapıya nasıl konumlandırdığını resmi olarak anlamalıdır. Genel olarak, NLP uygulamaları, belirli bir metinde her kelimeye veya sembole bir POS etiketi atayan bir POS etiketleme araçları seti kullanır. Daha sonra, her kelimenin bir cümle içindeki konumu, aynı prosedürde üretilen bir bağımlılık grafiği ile belirlenir. Bu POS etiketleri ayrıca anlamlı tek veya birleşik kelime terimleri oluşturmak için işlenebilir.
 
-#### Uygun sözlüğü oluşturmak
+### Uygun sözlüğü oluşturmak
 
 Bu POS etiketlerini ve bağımlılık grafiklerini kullanarak, güçlü bir sözlük üretilebilir ve daha sonra makine tarafından insan anlayışıyla karşılaştırılabilecek şekilde yorumlanabilir. Aşağıdaki paragrafı göz önünde bulundurun:
 
@@ -320,13 +322,13 @@ Cümleler genellikle sıradan bir NLP programı tarafından ayrıştırılacak k
 
 Maalesef, NLP yazılım uygulamalarının çoğu, karmaşık bir sözlük oluşturmayı başaramaz.
 
-#### Farklı kelime bileşenlerini bağlama
+### Farklı kelime bileşenlerini bağlama
 
 Son zamanlarda, belgeden üretilen iki sözlük terimi arasındaki bağlantının çıkarılmasını gerçekleştirebilecek yeni yaklaşımlar geliştirilmiştir. Vektör uzayı temelli bir model olan Word2vec, bir belgedeki her bir kelimeye vektörler atar, bu vektörler sonuçta her bir kelimenin yakından ortaya çıkan kelimelerle veya kelimelerle olan ilişkisini yakalar. Ancak Word2vec gibi istatistiksel yöntemler, kelime terimlerinin çiftleri arasındaki dilbilimsel veya anlamsal ilişkileri yakalamak için yeterli değildir.
 
 Yukarıda belirtilen örnekte “Tüm çalışanlar, risk yönetiminden sorumludur, Kurul'a ait nihai hesap verebilirlik ile”, sözlükten iki terim, “Kurul” ve “risk yönetimi”, aslında Kurulun nihai sorumluluğa sahip olması ile bağlıdır ancak bu iki terim istatistiksel olarak uzak olduğu için, bu çift arasındaki ilişki bağının kapsamı ne dilsel ne de anlamsal olarak tespit edilemez. Sadece kelimelerle değil, kelime terimleri arasındaki ilişki bağlarını yakalamak için daha karmaşık bir algoritmaya ihtiyaç vardır.
 
-#### İçeriği ayarlama
+### İçeriği ayarlama
 
 Tüm NLP sürecindeki en önemli ve zorlu görevlerden biri, bir makineyi bir belgedeki tartışmadan bağlam türetmek için eğitmektir. Aşağıdaki iki cümleyi düşünün:
 
