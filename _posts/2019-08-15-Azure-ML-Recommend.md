@@ -160,7 +160,7 @@ Son işlem olarak bu listeyi aşağıdaki gibi **IMDB Movie Titles** bileşeni i
 
 ![Join Data](/assets/azure-ml-recommend-join.jpg)
 
-Tavsiyeleri ise **Join Data** görselleştirerek görebiliriz.
+Tavsiyeleri ise **Join Data** bileşenini görselleştirerek görebiliriz.
 
 ![Join Data](/assets/azure-ml-recommend-join-result.jpg)
 
