@@ -46,7 +46,7 @@ Yine **New** butonu ile indirdiğimiz puanlarımızı **Dataset** olarak yükley
 
 ![New Dataset](/assets/azure-ml-recommend-new-dataset.jpg)
 
-Yükleme tamamlandığında **Dataset** **Saved Datasets** menüsünde **My Datasets** altına gelecek, sürükleyip ortalığa bırakalım.
+Yükleme tamamlandığında **Saved Datasets** menüsünde **My Datasets** altına gelecek, sürükleyip ortalığa bırakalım.
 
 ![Dataset](/assets/azure-ml-recommend-dataset.jpg)
 
