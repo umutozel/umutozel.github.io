@@ -120,7 +120,7 @@ Artık elimizdeki verileri öğrenmiş bir sistemimiz var, sırada bildiklerine 
 
 ![Score Matchbox Recommender](/assets/azure-ml-recommend-score.jpg)
 
-*Score Matchbox Recommender* için yapabileceğimiz ayarlar ise aşağıdaki gibi.
+**Score Matchbox Recommender** için yapabileceğimiz ayarlar ise aşağıdaki gibi.
 
 ![Score Matchbox Recommender](/assets/azure-ml-recommend-score-options.jpg)
 
