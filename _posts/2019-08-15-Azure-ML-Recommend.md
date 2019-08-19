@@ -6,8 +6,6 @@ redirect_from: "/2019/08/15/Azure-ML-Recommend/"
 permalink: azure-ml-recommend
 ---
 
-# Azure Machine Learning Studio ile "Ne İzlesem?"
-
 Hangi filmi izlesem, seveceğim yeni bir dizi olsa da başlasam diyor musunuz? [imdb.com](http://imdb.com) üzerinde izlediğiniz film ve dizilere puan veriyor musunuz? Haydi o zaman Azure Machine Learning Studio (kısaca Azure ML diyeceğim) ile yeni tavsiyeler yaptıralım.
 
 ## Puanlarımızı indirelim
