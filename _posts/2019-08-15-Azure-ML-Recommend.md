@@ -126,7 +126,7 @@ Artık elimizdeki verileri öğrenmiş bir sistemimiz var, sırada bildiklerine 
 
 **Recommender prediction kind:** Puan tahmini, yakın kullanıcılar ve yakın içerikler seçenekleri de bulunan listeden biz içerik tavsiyesi istediğimiz için *Item Recommendation* seçeneğini seçiyoruz (varsayılan seçenek).
 
-**Recommender item selection:** Algoritmadan tüm seçenekler, puan verdiklerimiz (teyit etmek için) ya da puan vermediğimiz veriler (tavsiye için) için tahmin yürütmesini isteyebiliriz. **From Unrated Items** seçiyoruz.
+**Recommender item selection:** Algoritmadan tüm seçenekler, puan verdiklerimiz (teyit etmek için) ya da puan vermediğimiz veriler (tavsiye için) için tahmin yürütmesini isteyebiliriz. *From Unrated Items* seçiyoruz.
 
 **Maximum number of items to recommend to a user:** Kaç adet tavsiye istediğimiz. 5 değeri kalabilir, daha fazla tavsiye istiyorsanız bu değeri arttırabilirsiniz.
 
