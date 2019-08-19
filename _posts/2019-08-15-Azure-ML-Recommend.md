@@ -136,7 +136,7 @@ Bir bakalım nasıl tavsiyede bulunmuş. Deneyimizi çalıştırıp **Score Matc
 
 ![Score Matchbox Recommender Results](/assets/azure-ml-recommend-score-result.jpg)
 
-5 adet tavsiyeyi görebiliyoruz. Ancak hepsi Film ID değerleri. İsimleri öğrenmemiz lazım, bunun için de verileri yine Azure ML'in bize sağladığı **Movie Titles** bileşeni ile yapacağız. Ancak bir sorun var, verileri **Join** ile birleştirebilmek için yatayda yer alan bu 5 öneriyi dikeye çevirmemiz gerekiyor. Ben bu iş için **Execute Python Script** bileşenini kullandım.
+5 adet tavsiyeyi görebiliyoruz. Ancak hepsi Film ID değerleri. İsimleri öğrenmemiz lazım, bunun için de verileri yine Azure ML'in bize sağladığı **IMDB Movie Titles** bileşeni ile yapacağız. Ancak bir sorun var, verileri **Join** ile birleştirebilmek için yatayda yer alan bu 5 öneriyi dikeye çevirmemiz gerekiyor. Ben bu iş için **Execute Python Script** bileşenini kullandım.
 
 Script aşağıdaki gibi:
 
