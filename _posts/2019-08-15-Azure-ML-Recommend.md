@@ -52,7 +52,7 @@ Yükleme tamamlandığında **Saved Datasets** menüsünde **My Datasets** altı
 
 ## Dataset
 
-Dataset; ayrılmış, json, excel, parquet, pandas DataFrame, SQL sorgusu ve binary formatlarını destekleyen **veriyi temsil eden** bir yapı. Basitçe verileri temsil eden ortak format gibi görebilirsiniz. Bir Dataset oluşturduğumuzda veriye nasıl ulaşılacağı bilgisi ve kaynağın meta bilgisi kopyalanır, veriler kopyalanmaz. Veri esas kaynağında durur, gerektiğinde yorumlanarak okunur böylece ekstra saklama alanı harcanmaz.
+Dataset; ayrılmış, json, excel, parquet, pandas DataFrame, SQL sorgusu ve binary formatlarını destekleyen **veriyi temsil eden** bir yapı. Basitçe ortak veri formatı gibi görebilirsiniz. Bir Dataset oluşturduğumuzda veriye nasıl ulaşılacağı bilgisi ve kaynağın meta bilgisi kopyalanır, veriler kopyalanmaz. Veri esas kaynağında durur, gerektiğinde yorumlanarak okunur böylece ekstra saklama alanı harcanmaz.
 
 Eklediğimiz puanlarımıza sağ tıklayıp **Visualize** diyerek içeriği görebilirsiniz.
 
