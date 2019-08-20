@@ -162,7 +162,7 @@ Son işlem olarak bu listeyi aşağıdaki gibi **IMDB Movie Titles** bileşeni i
 
 Tavsiyeleri ise **Join Data** bileşenini görselleştirerek görebiliriz.
 
-![Join Data](/assets/azure-ml-recommend-join-result.jpg)
+![Join Data Result](/assets/azure-ml-recommend-join-result.jpg)
 
 Sonunda tavsiyelerimi aldım, listeye bakınca izleyip çok sevdiğim ancak puan vermeyi unuttuğum **Lawrance of Arabia**, zaten izleme listemde olan **Witness for the Prosecution** yanında büyük ihtimal seveceğim **The Class of 92**, **Paris, Texas**, **It's a Wonderful Life** gibi filmler yer alıyor. Kesinlikle başarılı tahminler 😊.
 
