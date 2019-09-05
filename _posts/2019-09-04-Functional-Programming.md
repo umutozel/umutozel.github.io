@@ -43,7 +43,7 @@ console.log(`sum of all numbers is ${sumFunc(array)}`)
 
 Örnek programlama dilleri: Prolog, SQL, HTML
 
-Tamam, burada itirazlar gelebilir. İlk örnek için bir **Sum** fonksiyonu yazarak da benzer okunabilirlikte kod elde edebilirdik. Aslında konumuz fonksiyonel programlama ve amacımız fonksiyonel dillerin neredeyse hepsinde olan 3 adet büyülü fonksiyon ile bütün kodlarımızı ikinci örnektekine benzer basitlikte yazabiliyoruz (birazdan geleceğiz). Topluluk bu yaklaşıma **Declarative** diyor, bence kabul edilebilir.
+Tamam, burada itirazlar gelebilir. İlk örnek için bir **Sum** fonksiyonu yazarak da benzer okunabilirlikte kod elde edebilirdik. Aslında konumuz fonksiyonel programlama ve fonksiyonel dillerin neredeyse hepsinde olan 3 adet büyülü fonksiyon ile bütün kodlarımızı ikinci örnektekine benzer basitlikte yazabiliyoruz (birazdan geleceğiz). Topluluk bu yaklaşıma **Declarative** diyor, bence kabul edilebilir.
 
 Ancak gerçek bir declarative yaklaşım örneği görünce anlatılmak istenen tam oturacak:
 
@@ -69,13 +69,13 @@ Tamamdır, daha fazla yaklaşımlar ile kafa karıştırmadan ilerleyelim.
 
 ## Fonksiyonel Programlama
 
-Belki bazılarınız matematik denklemlerini sevmiyor bile olabilir. Aşağıdaki matematiksel denklem yazımı tanıdık geliyor mu?
+Belki bazılarınız matematik denklemlerini sevmiyor bile olabilir ancak yazılım geliştirirken farkında olmadan matematik sanatını icra ediyoruz. Aşağıdaki matematiksel denklem yazımı tanıdık geliyor mu?
 
 ```math
 f(x) = 2x + 1
 ```
 
-Peki bu JavaScript kodu ile benzerliği garip geldi mi?
+Peki bu JavaScript kodu ile benzerliği?
 
 ```javascript
 const f = x => 2*x + 1
@@ -97,7 +97,7 @@ Bir de **Haskell** gibi bir fonksiyonel dilde bu ifadenin nasıl yazıldığın�
 (\ x -> x^2)
 ```
 
-Araştırılması gereken konuları listeledikten sonra bodozlama girelim artık.
+Araştırılması gereken konuları listeledikten sonra esas konumuza girelim artık.
 
 ---
 
@@ -118,7 +118,7 @@ Kavga çıkarmaya çalışmıyorum, ancak aşağıdaki yazılara kesinlikle bir 
 
 ve daha nice yazılarda OOP eleştirilerini görebilirsiniz, ben o kadar sert olmasa da OOP ve genel kod yazış şeklimizden hiç memnun değilim. Birazdan değineceğimiz *global state*, *mutability* her zaman zorlayabildiğimiz konular olmuyor, ben daha çok hibrit bir yaklaşımdan yanayım.
 
-Yine de herkesin espri olarak görüp güldüğü [Enterprise FizzBuzz](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) projesini inceleyip arkadaşlarıyla paylaştıktan sonra çok benzer şekilde fazla karmaşıklaştırılmış projelerine gömüleceklerine eminim.
+Yine de herkesin espri olarak gördüğü [Enterprise FizzBuzz](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition) projesini bir çoğumuzun inceleyip arkadaşlarıyla paylaştıktan sonra benzer şekilde fazla karmaşıklaştırılmış projelerine döneceklerine eminim.
 
 ### First class functions
 
@@ -144,9 +144,7 @@ f2(f('Test'))
 ### Fonksiyonların dönüş değeri olabilirler
 
 ```javascript
-const createFunc = () => {
-  return (m) => console.log(m)
-}
+const createFunc = () => m => console.log(m)
 const f = createFunc()
 f('Test')
 ```
@@ -170,7 +168,7 @@ OOP geçmişinden gelen yazılımcıları en zorlayan konu Immutability olmuştu
 Dürüst olmak gerekirse fonksiyonel dil hayranlarının en sıkı olduğu bu konuya ben daha esnek bakıyorum, John Romero'ya sorulan "Fonksiyonel Programlama hakkında ne düşünüyorsunuz" sorusuna çok sevdiklerini ancak Doom gibi bir oyunu geliştirirken Immutability'nin işleri kolaylaştırmaktan çok uzatacağını ve yavaşlatacağını, bu yüzden "değiştirilebilir bir state" kavramından vazgeçmediklerini söylemişti ([The Early Days of id Software
 ](https://www.youtube.com/watch?v=E2MIpi8pIvY)). Ben de çok benzer bir düşüncedeyim, ancak sağdan soldan değiştirilebilen "state" konusunun yazılımcılar için en büyük kabus olduğuna da katılıyorum.
 
-Peki JavaScript gibi bir dilde ne yapabiliriz bu konuda?
+Peki bu konuda JavaScript gibi bir dilde ne yapabiliriz?
 
 * Değişmeyecek tüm değişkenler **const** kullanın (ES2015 ile geldi)
 * Objelerin üzerine yazmak yerine verileri kopyalayarak taşımayı tercih edin. **Object.assign**'da ES2015 ile eklendi.
@@ -198,7 +196,7 @@ const b = [...a, 3]
 
 ### Purity
 
-Tüm bu yazıdan, hatta fonksiyonel programlama yaklaşımından alınması gereken en önemli derse bence **Purity**. Bir fonksiyon kendisine gelen parametreler (ref ve out olmadığı için referans tipler -dizi, obje gibi- diyebiliriz) üzerinde değişiklik yapmaz. Pure fonksiyonlar kendi dışındaki hiçbir veriyi değiştirmez. Aynı parametreler ile çağırıldığında her zaman aynı çıktıyı üretirler. Düşünsenize, böyle fonksiyonlar için birim testi yazmak ne kadar kolay olur.
+Tüm bu yazıdan, hatta fonksiyonel programlama yaklaşımından alınması gereken en önemli ders bence **Purity**. Bir fonksiyon kendisine gelen parametreler üzerinde değişiklik yapmaz. Pure fonksiyonlar kendi dışındaki hiçbir veriyi değiştirmez. Aynı parametreler ile çağırıldığında her zaman aynı çıktıyı üretirler. Düşünsenize, böyle fonksiyonlar için birim testi yazmak ne kadar kolay olur.
 
 Bu konuda bir çift daha lafım var. Çok uzun süredir C# kullanan birisiyim, yeterince uzun süredir C# ile çalışan herkes bir property'nin ne kadar tehlikeli olabileceğini görmüştür. Aşağıdaki kodu yazmanıza kimse engel olmuyor:
 
@@ -217,7 +215,7 @@ public class Company {
 }
 ```
 
-Tam olarak böyle olmasa da benzer kodları hepimiz görmüşüzdür, işte bu **pure** olmayan olacaksa **pure evil** bir kod. Bu tür hataları görünce dil buna izin vermemeliydi diyor insan.
+Tam olarak böyle olmasa da benzer kodları hepimiz görmüşüzdür, işte bu **pure** olmayan olacaksa **pure evil** bir kod. Bu tür ihtimalleri görünce dil buna izin vermemeliydi diyor insan.
 
 ### Composition
 
@@ -239,14 +237,14 @@ companies.filter(c => c.active).map(c => c.avgSalary * 12).reduce((acc, s) => ac
 hatta JavaScript sınırını biraz aşıp, Array'e bağlı fonksiyonların direk erişilebilir olduğu bir ortamda:
 
 ```javascript
-sum(map(filter(c, c.active), c => c.avgSalary * 12))
+sum(map(filter(c, c.active), c => c.avgSalary * 12))(companies)
 ```
 
 gibi yazabiliriz.
 
 ### Partial Application
 
-Birden fazla parametre alan bir fonksiyonun bazı parametreleri hazırlanmış, ancak tüm parametreleri hazır olmayan, kısaca daha az parametre ile çağırabilir hale getirilmiş haline deniyor. Biraz açalım:
+Birden fazla parametre alan bir fonksiyonun bazı parametreleri hazırlanmış, ancak tüm parametreleri hazır olmayan, kısaca daha az parametre ile çağırabilir hale getirilmesine deniyor. Biraz açalım:
 
 ```javascript
 const calcPerimeter = (a, b, c, d) => a + b + c + d
