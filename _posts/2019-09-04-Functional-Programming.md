@@ -257,4 +257,29 @@ Yukarıda bir dörtgen için çevre hesaplayan fonksiyonumuz 4 adet değişken a
 
 ### Currying
 
-Curried fonksiyon (ne güzel isim değil mi?) çok parametre alan bir fonksiyonun tek parametre alır hale getirilmiş halidir. Yani bir parametre kalacak şekilde **Partial Application** yapılmış fonksiyondur diyebiliriz.
+Curried fonksiyon (ne güzel isim değil mi?) çok parametre alan bir fonksiyonun tek parametre alır hale getirilmiş halidir. Yani bir parametre kalacak şekilde **Partial Application** yapılmış fonksiyondur diyebiliriz. JavaScript dünyasında genelde aşağıdaki gibi yazılırlar:
+
+```javascript
+const calc = discount => tax => credit => price => ((price - discount)*tax/100) - credit
+```
+
+Burada iç içe 4 adet fonksiyon var, kullanımı aşağıdaki gibi oluyor.
+
+```javascript
+const tax = 18
+const employeeDiscount = calc(10)(18)
+const managerDiscount = calc(30)(18)
+
+const userCredit = 100
+const price = 500
+const lastPrice = employeeDiscount(userCredit)(price)
+```
+
+Şimdilik sadece yüzeyi biraz kazıdık, herkes kesinlikle fonksiyonel geliştirme yapmalı demiyorum, ancak hepimiz kesinlikle öğrenmeliyiz.
+Daha fazlası için aşağıdaki kaynaklara göz atmanızı tavsiye ederim.
+
+* [Mostly Adequate Guide](https://github.com/MostlyAdequate/mostly-adequate-guide)
+* [Functional JavaScript: Introducing Functional Programming with Underscore.js](https://www.amazon.com/Functional-JavaScript-Introducing-Programming-Underscore-js-ebook/dp/B00D624AQO)
+* [Functional Programming in JavaScript](https://www.manning.com/books/functional-programming-in-javascript)
+
+Mutlu Kodlamalar.
