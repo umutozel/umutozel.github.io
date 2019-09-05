@@ -6,7 +6,7 @@ redirect_from: "/2019/09/04/Functional-Programming/"
 permalink: functional-programming
 ---
 
-Geliştirme yaparken yazdığımız kodlar ile yapılması gereken işi anlatmaya çalışırız. En temelde bu işi iki farklı yaklaşım ile yapabiliriz, Imperative ve Declarative.
+Geliştirme yaparken yazdığımız kodlar ile bilgisayara yapılması gereken işi anlatmaya çalışırız. En temelde bu işi iki farklı yaklaşım ile yapabiliriz, Imperative ve Declarative.
 
 Imperative Programming işin **nasıl** yapılacağını, Declarative ise **ne** yapılacağını belirttiğimiz yaklaşımlardır.
 
