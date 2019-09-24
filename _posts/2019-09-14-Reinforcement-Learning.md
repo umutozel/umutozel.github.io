@@ -228,7 +228,63 @@ ve daha bir çok algoritma kullanımımıza sunulmuş durumdadır...
 
 ## Kullanım Alanı
 
+Reinforcement Learning yaklaşımını Doğuş Teknoloji bünyesinde aşağıdaki alanlarda kullanabiliriz:
+
+### Sunucu Kümelerinde Kaynak Yönetimi
+
+Sınırlı kaynakları farklı görevlere tahsis etmek için algoritmalar tasarlamak zordur ve insan tarafından üretilen sezgisel tarama gerektirir. Reinforcement Learning ile Kaynak Yönetimi, ortalama bekleme sürelerini en aza indirgemek amacıyla bilgisayar kaynaklarını bekleyen işlere otomatik olarak tahsis etmeyi ve süreci optimize etmeyi hedefler.
+
+Şirketimiz bünyesinde kendi yönettiğimiz bir çok sunucu yanında bulut kaynaklarımız da bulunmakta. Uygulamaların gereksinimlerine göre ölçeklendirilmesi yerine RL kullanılarak çıkarımlarda bulunmak performans ve bütçe konularında çok faydalı olacaktır.
+
+### Robot Sistemleri
+
+Robotik'te RL uygulaması konusunda çok büyük çalışmalar var. Araştırmacılar, ham video görüntülerini robotun eylemleriyle eşleştirmeye yönelik yaklaşımları öğrenmek için bir robotu eğitti. RGB görüntüleri bir CNN'ye (Convolutional Neural Networks - Dönüşümlü Sinir Ağları) beslendi ve sistem bu verileri kullanarak motor tork kontrol çıktıları üretti. RL bileşeni, robotun kendi hareketleri ve sonuçlarında oluşan durumları kendi kendine değerlendirmesi ve öğrenmesini sağladı.
+
+Şirketimizde şimdilik hobi olarak yürütülen otonom araç geliştirmeleri de RL çalışmalarından faydalanabileceğimiz ayrı bir alan.
+
+### Web Sistem Konfigürasyonu
+
+Bir web sisteminde 100'den fazla konfigüre edilebilir parametre vardır ve parametreleri ayarlama işlemi, yetenekli bir operatör ve çok sayıda deneme-yanılma testi gerektirir. Araştırmacıların yaptığı "Çevrimiçi Web Sistemi Otomatik Konfigürasyonuna Reinforcement Learning Yaklaşımı", VM tabanlı dinamik ortamlarda kurulmuş çok katmanlı web sistemlerinde parametrelerin otomatik olarak yeniden yapılandırılması konusunda bu alanda alanındaki başarılı bir çalışma oldu.
+
+Sunucular üzerinde yapılabilecek çalışma web uygulamalarının kendilerinde de yapılabilir. Consul, ZooKeeper gibi sistemler üzerinden okunacak ayarların RL kullanılarak akıllı hale getirilmesi ve projelerin çalışması üzerinde dinamik değişiklikler yapmak ihtimal dahilinde.
+
+### Kişiselleştirilmiş Tavsiye Sistemleri
+
+Haber önerilerinin önceki çalışmaları, haberlerin hızlı değişen dinamiği dahil olmak üzere birçok zorlukla karşılaştı, kullanıcılar kolayca sıkılıyor ve tıklama oranı, kullanıcıların elde tutma oranını yansıtmıyor. Bazı araştırmacılar, problemlerle mücadele etmek için “DRN: DRN: A Deep Reinforcement Learning Framework for News Recommendation” başlıklı bir makalede haber öneri sisteminde RL uygulamıştır.
+
+Doğuş Teknoloji olarak otomotiv ve yeme/içme sektörü müşterilerimize yapacağımız öneriler ve tavsiyeleri geliştirmek adına RL kullanabiliriz.
+
+### Teklif Verme ve Reklamcılık
+
+Alibaba Group araştırmacıları, “Real-Time Bidding with Multi-Agent Reinforcement Learning in Display Advertising” adlı bir bildiri yayınladılar. Taobao platformunda canlı testi. Dağıtılmış küme tabanlı çoklu aracılı teklif çözümlerinin (DCMAB) umut verici sonuçlar elde ettiğini ve bu nedenle Taobao platformunda canlı bir test yapmayı planladıklarını ifade etmişler.
+
+Bir çok kurumsal firma gibi biz de firmalardan ürün ve hizmetler için teklifler alıyoruz ve benzer teklifleri biz de veriyoruz. Piyasada rakiplerin hareketleri ve kararları gibi başka bir çok çevresel etmeni de hesaba katarak bu teklifleri daha akıllı hale getirebiliriz.
+
+Ayrıca web reklamcılığı günümüzdeki çok önemli kullanıcı etkileşim kanalı olmuş durumda. Verilecek reklamların etkileri, nasıl yaklaşım tercih edilmesi gerektiği gibi bir çok konu için RL kullanılabilir.
+
+### Oyunlar
+
+Son zamanlarda Reinforcement Learning ile vidyo oyunlarında insan üstü performanslar, kırılması mümkün görülmeyen rekorların kırılması haberlerini çok duyar olduk.
+
+![RL Oyunlar](/assets/reinforcement-learning-games.png)
+
+Tahminen bunların en ünlüsü AlphaGo ve AlphaGo Zero olmalıdır. Sayısız insan oyunuyla eğitilmiş AlphaGo, yaklaşım olarak değer ağı ve Monte Carlo ağacı araması (MCTS) kullanarak süper insan performansı elde etti. Yine de, araştırmacılar daha sonra tekrar düşündüler ve daha net bir RL yaklaşımı denediler - sıfırdan eğitim. Araştırmacılar, yeni ajan AlphaGo Zero'yu kendi kendine oynatarak eğittiler ve bu yeni sistem AlphaGo (eski) 100-0'u yendi.
+
+Benzer sistemler ile oyun yapay zekaları da eğitilerek akıllı düşmanlar yaratılabilir. Biz de şirket olarak Game Lab insiyatifimizde geliştireceğimiz oyunlarda RL'den faydalanabiliriz.
+
+### Derin Öğrenme
+
+RL ve diğer derin öğrenme mimarisini birleştirmek için her gün giderek daha fazla girişim yapılmakta ve etkileyici sonuçlar elde edilmekte.
+
+RL'deki en etkili çalışmalardan biri, CNN'i RL ile birleştirmek için Deepmind'in öncü çalışmasıdır. Bunu yaparak, ajan çevreyi “yüksek boyutlu duyusal” ile “görme” yeteneğine sahiptir ve daha sonra onunla etkileşime girmeyi öğrenir.
+
+RL ve RNN (Recurrent Neural Network), insanların yeni fikirleri denemek için kullandıkları başka bir kombinasyondur. RNN “hatıraları” olan bir tür sinir ağıdır. RL ile birleştirildiğinde RNN, aracılara işleri ezberleme kabiliyeti verir. Örneğin, Atari 2600 oyunlarını oynamak için Derin Tekrarlayan Q-Ağı (DRQN) oluşturmak üzere LSTM'yi RL ile birleştirdi. Ayrıca kimyasal reaksiyon optimizasyon problemini çözmek için RNN ve RL kullandılar.
+
+Şirket olarak da bünyemizdeki restoranlar için müşteri ve malzeme gereksinimleri tahminlemelerinde RL'den faydalanabiliriz.
+
 ---
+
+RL için daha bir çok kullanım alanı bulunmakta, yakın zamanda araştırmacılardan çılgın sonuçlar görebiliriz.
 
 ## Referanslar
 
@@ -242,3 +298,4 @@ ve daha bir çok algoritma kullanımımıza sunulmuş durumdadır...
 * [https://www.topbots.com/most-important-ai-reinforcement-learning-research/](https://www.topbots.com/most-important-ai-reinforcement-learning-research/)
 * [https://www.oreilly.com/radar/practical-applications-of-reinforcement-learning-in-industry/](https://www.oreilly.com/radar/practical-applications-of-reinforcement-learning-in-industry/)
 * [https://medium.com/deep-learning-turkiye/q-learninge-giri%C5%9F-6742b3c5ed2b](https://medium.com/deep-learning-turkiye/q-learninge-giri%C5%9F-6742b3c5ed2b)
+* [https://towardsdatascience.com/applications-of-reinforcement-learning-in-real-world-1a94955bcd12](https://towardsdatascience.com/applications-of-reinforcement-learning-in-real-world-1a94955bcd12)
