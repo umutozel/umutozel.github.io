@@ -265,7 +265,7 @@ Ayrıca web reklamcılığı günümüzdeki çok önemli kullanıcı etkileşim 
 
 ### Oyunlar
 
-Son zamanlarda Reinforcement Learning ile vidyo oyunlarında insan üstü performanslar, kırılması mümkün görülmeyen rekorların kırılması haberlerini çok duyar olduk.
+Son zamanlarda Reinforcement Learning ile oyunlarında insan üstü performanslar, kırılması mümkün görülmeyen rekorların kırılması haberlerini çok duyar olduk.
 
 ![RL Oyunlar](/assets/reinforcement-learning-games.png)
 
