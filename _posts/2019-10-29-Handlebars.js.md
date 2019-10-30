@@ -5,7 +5,7 @@ comments: true
 redirect_from: "/2019/09/29/Handlebars.js/"
 permalink: handlebars-js
 ---
-
+{% raw %}
 [Handlebars.js](https://handlebarsjs.com/) bir şablon sistemi. Şablon sistemi nedir mi? Belirli yer tutucular ve yardımcı metodlar ile bir şablonu belirli parametreler ile yorumlayarak çıktı üretmemizi sağlayan sistemlerdir.
 
 <sub>Bundan sonra sadece handlebars diyeceğim.<sub>
@@ -59,11 +59,11 @@ T4 veya yaşı tutan ve CodeSmith ile uğraşmış olanara da bu şablon sisteml
 
 ## Değişkenler
 
-Değişkenler ikişer bıyığın (**\{{** ve **\}}**, süslü parantez yerine bıyık diyeceğim) arasına alarak yazılıyor.
+Değişkenler ikişer bıyığın (**{{** ve **}}**, süslü parantez yerine bıyık diyeceğim) arasına alarak yazılıyor.
 
 ```handlebars
-<h1>\{{title\}}</h1>
-<p>\{{body\}}</p>
+<h1>{{title}}</h1>
+<p>{{body}}</p>
 ```
 
 Handlebars bu değerleri bizim ona sağladığımız (aşağıdaki gibi) veriler içinden okuyarak değiştirecek,
@@ -88,9 +88,9 @@ Handlebars'ın mustache ile en büyük farkı fonksiyon çağrılarına izin ver
 
 ```handlebars
 <div>
-\{{#each characters\}}
-  <p>\{{@index\}}. \{{this\}}</p>
-\{{/each\}}
+{{#each characters}}
+  <p>{{@index}}. {{this}}</p>
+{{/each}}
 </div>
 ```
 
@@ -114,18 +114,18 @@ yukarıdaki şablona aşağıdaki veriyi geçelim,
 
 Handlebars yukarıdaki gibi kullanımda değerleri güvenlik amaçlı steril edecek (sanitize). Yani zararlı olabilecek değerleri (Html, JavaScript kodları gibi) temizleyecek.
 
-Eğer bunu istemiyorsak üçlü bıyık kullanmamız gerekiyor (**\{{{** ve **\}}}**).
+Eğer bunu istemiyorsak üçlü bıyık kullanmamız gerekiyor (**{{{** ve **}}}**).
 
 ## Koşul (if)
 
 **if** de bir başka yardımcı fonksiyon. Belirli koşula göre yorumlamamızı değiştirebilmemizi sağlıyor.
 
 ```handlebars
-\{{#if user.admin\}}
+{{#if user.admin}}
     <button class="launch">Çalıştır</button>
-\{{else\}}
+{{else}}
     <button class="disabled">Yetkiniz yok</button>
-\{{/if\}}
+{{/if}}
 ```
 
 şablonunu aşağıdaki veri ile çağırdığımızda,
@@ -151,11 +151,11 @@ Handlebars bize **if** için bir değil operatörü (! gibi) sağlamıyor, ancak
 Yukarıdaki koşul ifademizi **unless** ile yazalım.
 
 ```handlebars
-\{{#unless user.admin\}}
+{{#unless user.admin}}
     <button class="disabled">Yetkiniz yok</button>
-\{{else\}}
+{{else}}
     <button class="launch">Çalıştır</button>
-\{{/unless\}}
+{{/unless}}
 ```
 
 Aynı veri ile çağırdığımızda çıktımız değişmeyecek.
@@ -181,15 +181,15 @@ Aynı veri ile çağırdığımızda çıktımız değişmeyecek.
 **user.contact** altında ulaşmak isteyeceğimiz 4 adet veri var. Her seferinde **user.contact.email** gibi yazmamız çok kalabalık olacak.
 
 ```handlebars
-\{{#with user\}}
-<p>\{{name\}}</p>
-\{{#with contact\}}
-<span>Email: @\{{email\}}</span>
-<span>Github: @\{{github\}}</span>
-<span>Linkedin: @\{{linkedin\}}</span>
-<span>Twitter: @\{{twitter\}}</span>
-\{{/with\}}
-\{{/with\}}
+{{#with user}}
+<p>{{name}}</p>
+{{#with contact}}
+<span>Email: @{{email}}</span>
+<span>Github: @{{github}}</span>
+<span>Linkedin: @{{linkedin}}</span>
+<span>Twitter: @{{twitter}}</span>
+{{/with}}
+{{/with}}
 ```
 
 Yukarıdaki gibi **#with user** ve **#with contact** ile daha az tuşa basarak aynı sonuca ulaşabiliyoruz.
@@ -205,15 +205,15 @@ Yukarıdaki gibi **#with user** ve **#with contact** ile daha az tuşa basarak a
 
 ## Yorumlar
 
-Çıktıda görünmesini istemediğimiz yorumlarımızı da **\{{!--** ve **--\}}** arasına yazıyoruz (HTML'den hatırlayın, yorumlar **\<!--** ve **-->** arasına yazılır).
+Çıktıda görünmesini istemediğimiz yorumlarımızı da **{{!--** ve **--}}** arasına yazıyoruz (HTML'den hatırlayın, yorumlar **\<!--** ve **-->** arasına yazılır).
 
 ```handlebars
-\{{!-- Kullanıcı admin değil ise butonu kapat --\}}
-\{{#unless user.admin\}}
+{{!-- Kullanıcı admin değil ise butonu kapat --}}
+{{#unless user.admin}}
     <button class="disabled">Yetkiniz yok</button>
-\{{else\}}
+{{else}}
     <button class="launch">Çalıştır</button>
-\{{/unless\}}
+{{/unless}}
 ```
 
 ## Yardımcı Fonksiyonlar (Custom Helpers)
@@ -223,7 +223,7 @@ Yardımcı fonksiyonlar **each**, **unless** gibi kullanabileceğimiz komutlar o
 Elimizdeki bir listeyi HTML tablosuna çevirecek bir yardımcı fonksiyon yapalım. Kullanımı aşağıdaki gibi olacak:
 
 ```handlebars
-\{{table items\}}
+{{table items}}
 ```
 
 Ben genelde böyle işler için Node.js tercih ediyorum, o yüzden JavaScript kullanacağım. İsterseniz handlebars desteği olan başka bir dil de kullanabilirsiniz.
@@ -286,14 +286,14 @@ Bazen yazdığınız şablon çok büyüyebiliyor, bazen de birden fazla şablon
 
 ```javascript
 // dosyadan da yükleyebiliriz
-const template = '\{{name\}}';
+const template = '{{name}}';
 Handlebars.registerPartial('myPartial', template)
 ```
 
 Kullanmak için ise aşağıdaki kullanım yeterli:
 
 ```handlebars
-\{{> myPartial \}}
+{{> myPartial }}
 ```
 
 Daha fazla bilgi için [Partials](https://handlebarsjs.com/partials.html) dökümanına bakmanızı tavsiye ederim.
@@ -350,18 +350,18 @@ const handlebars = require('handlebars');
 const template =
     `namespace MyIntegration {
 
-    public sealed class \{{type\}}Integration: TextIntegration<\{{type\}}> {
+    public sealed class {{type}}Integration: TextIntegration<{{type}}> {
 
-        protected \{{type\}}Integration(): base("\{{fileName\}}") {
+        protected {{type}}Integration(): base("{{fileName}}") {
             _fileName = fileName;
         }
 
-        protected override \{{type\}} ConvertLine(string line) {
-            var data = line.Split("\{{separator\}}");
-            return new \{{type\}}() {
-            \{{#each props\}}
-                \{{this\}} = data[\{{@index\}}],
-            \{{/each\}}
+        protected override {{type}} ConvertLine(string line) {
+            var data = line.Split("{{separator}}");
+            return new {{type}}() {
+            {{#each props}}
+                {{this}} = data[{{@index}}],
+            {{/each}}
             };
         }
     }
@@ -410,3 +410,4 @@ Tabii burada dikkate almadığımız bir nokta C# tip dönüşümleri. Yine de o
 Kod üreten projenin kaynak kodlarına [buradan](https://github.com/umutozel/handlebars-article) ulaşabilirsiniz.
 
 Mutlu kodlamalar!
+{% endraw %}
