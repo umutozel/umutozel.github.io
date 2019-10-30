@@ -70,8 +70,8 @@ Handlebars bu değerleri bizim ona sağladığımız (aşağıdaki gibi) veriler
 
 ```json
 {
-  title: "Selam Handlebars",
-  body: "Handlebars çok havalı"
+  "title": "Selam Handlebars",
+  "body": "Handlebars çok havalı"
 }
 ```
 
@@ -132,8 +132,8 @@ Eğer bunu istemiyorsak üçlü bıyık kullanmamız gerekiyor (**{{{** ve **}}}
 
 ```json
 {
-  user: {
-    admin: true
+  "user": {
+    "admin": true
   }
 }
 ```
