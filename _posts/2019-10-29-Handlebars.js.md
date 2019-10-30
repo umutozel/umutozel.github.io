@@ -1,4 +1,4 @@
-****---
+---
 layout: post
 title: Yeni Başlayanlar için Handlebars.js
 comments: true
