@@ -352,7 +352,7 @@ const template =
 
     public sealed class {{type}}Integration: TextIntegration<{{type}}> {
 
-        protected {{type}}Integration("{{fileName}}") {
+        protected {{type}}Integration(): base("{{fileName}}") {
             _fileName = fileName;
         }
 
@@ -381,8 +381,10 @@ const integrations = lines.map(l => {
     }
 })
 
-// out klasörünü oluşturduk
-fs.mkdirSync("out")
+// eğer yoksa out klasörünü oluşturuyoruz
+if (!fs.existsSync("out")) {
+    fs.mkdirSync("out")
+}
 
 // şablonu derledik ve bir fonksiyona çevirdik
 const compiledTemplate = handlebars.compile(template)
