@@ -346,7 +346,7 @@ const fs = require("fs")
 const handlebars = require('handlebars');
 
 // C# üretecek şablonumuz
-// hepsi yukarıda değindiğimiz, burada bilmediğiniz bir şey yok
+// hepsi yukarıda değindiğimiz kullanımlar
 const template =
     `namespace MyIntegration {
 
