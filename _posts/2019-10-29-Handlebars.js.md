@@ -352,8 +352,7 @@ const template =
 
     public sealed class {{type}}Integration: TextIntegration<{{type}}> {
 
-        protected {{type}}Integration(): base("{{fileName}}") {
-            _fileName = fileName;
+        public {{type}}Integration(): base("{{fileName}}") {
         }
 
         protected override {{type}} ConvertLine(string line) {
