@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Jupyter C#
+title: Jupyter Notebook ve C#
 comments: true
 redirect_from: "/2019/09/29/jupyter-csharp.js/"
 permalink: jupyter-csharp
