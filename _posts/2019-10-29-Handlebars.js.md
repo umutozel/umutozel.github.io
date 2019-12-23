@@ -2,7 +2,7 @@
 layout: post
 title: Yeni Başlayanlar için Handlebars.js
 comments: true
-redirect_from: "/2019/09/29/Handlebars.js/"
+redirect_from: "/2019/10/29/Handlebars.js/"
 permalink: handlebars-js
 ---
 {% raw %}
