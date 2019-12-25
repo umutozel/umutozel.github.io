@@ -145,12 +145,14 @@ Frequency=3117197 Hz, Resolution=320.8010 ns, Timer=TSC
   DefaultJob : .NET Core 2.2.2 (CoreCLR 4.6.27317.07, CoreFX 4.6.27318.02), 64bit RyuJIT
 
 
-                    Method |      Mean |     Error |    StdDev | Ratio | Rank | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
--------------------------- |----------:|----------:|----------:|------:|-----:|------------:|------------:|------------:|--------------------:|
-       GetLastNameWithSpan |  14.04 ns | 0.1531 ns | 0.1357 ns |  0.11 |    1 |           - |           - |           - |                   - |
- GetLastNameUsingSubstring |  39.64 ns | 0.8045 ns | 1.0740 ns |  0.32 |    2 |      0.0063 |           - |           - |                40 B |
-               GetLastName | 125.04 ns | 2.4991 ns | 4.2436 ns |  1.00 |    3 |      0.0253 |           - |           - |               160 B |
+                    Method |      Mean |     Error |    StdDev | Ratio |
+-------------------------- |----------:|----------:|----------:|------:|
+       GetLastNameWithSpan |  14.04 ns | 0.1531 ns | 0.1357 ns |  0.11 |
+ GetLastNameUsingSubstring |  39.64 ns | 0.8045 ns | 1.0740 ns |  0.32 |
+               GetLastName | 125.04 ns | 2.4991 ns | 4.2436 ns |  1.00 |
 ```
+<sub>[https://www.stevejgordon.co.uk/an-introduction-to-optimising-code-using-span-t](https://www.stevejgordon.co.uk/an-introduction-to-optimising-code-using-span-t)</sub>
+
 
 ![Span Benchmark](/assets/span-memory-benchmark.png)
 <sub>[https://medium.com/@antao.almada/how-to-use-span-t-and-memory-t-c0b126aae652](https://medium.com/@antao.almada/how-to-use-span-t-and-memory-t-c0b126aae652)</sub>
