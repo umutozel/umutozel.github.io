@@ -198,7 +198,7 @@ public void Dispose() {
 }
 ```
 
-# 5 - StackAlloc ile kısa ömürlü diziler
+## 5 - StackAlloc ile kısa ömürlü diziler
 
 StackAlloc ile Heap'e bulaşmadan Stack üzerinde, dolayısıyla GC baskısı yaratmadan bellek ayırabiliyoruz (çok da hızlı oluyor). Ancak sınıfları (yani genel olarak referans tipleri) kullanamıyoruz, ilkel değerler ve struct'lar (yani değer tipleri) kullanabiliyoruz.
 
@@ -244,7 +244,7 @@ public void WithStackAllocSpan() // When using Span, no need for unsafe context
 
 Fark açık, tabi artık elimizde ```Span```var, ```unsafe``` işlere girmektense ```Span``` kullanmanızı tavsiye ederim. Tesadüfe bakın ki önceden [bu konuda yazmıştım](http://www.umutozel.com/span-memory).
 
-# 6 - StringBuilder dedi statik kod analiz aracı
+## 6 - StringBuilder dedi statik kod analiz aracı
 
 Çoğumuz statik kod analiz araçları kullanmışızdır (Sonarqube, Coverity, Sourcemeter gibi), bu araçların en çok uyarı çıkardığı konu genelde ```string``` birleştirme işini toplama yerine ```StringBuilder``` ile yap oluyordur. Genelde es geçilen bu teknik borçlar hadi artık temizleyelim dediğinizde aylar sürebilir.
 
