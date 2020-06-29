@@ -56,7 +56,7 @@ Yukarıdaki iki örnek için alacağımız sonuçlar aşağıdaki gibi olacak:
 
 Tabi kapasiteyi önceden ayarlayabilmek için bu değeri bilmemiz gerekiyor :)
 
-## 2 - ArrayPool kullanınmı
+## 2 - ArrayPool kullanınmı
 
 Yeni oluşturduğumuz her dizi ileride çöp toplayıcıya bir ek iş çıkaracaktır. Fazla uzun ömürlü olmayan diziler için, nedense yazılımcılar arasında çok da bilinmeyen ve temeli [bir tasarım şablonuna dayanan](https://en.wikipedia.org/wiki/Object_pool_pattern) ```ArrayPool``` kullanarak oluşturduğumuz yükü azaltabiliriz.
 
@@ -147,7 +147,7 @@ public void WithStruct() {
 Ancak aşağıdaki sebeplerden biraz maliyetli:
 
 * Finalizer içeren her sınıf bir nesil atlatılır ([yukarıdaki linki](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals) hala okumadınız mı?). Bu da en hızlı temizlik yapılan Gen 0 ile toplanamayacakları anlamına gelir.
-* Bir de bu sınıflar Finalizer kuyruğuna eklenir. Kuyrukların ne kadar zaman aldığını ülkemizdeki tecrübelerimizden biliyoruz. Dedike edilmiş bir Thread tarafından temizlenir (bankada tek vezne çalışması gibi, bu benzetmeler umarım işe yarıyordur, harcadığım efor ile zayıflıyorum). Bu durum da uzun çalışan Finalizer'ların hata fırlatmasına sebep olabilir.
+* Bir de bu sınıflar Finalizer kuyruğuna eklenir. Kuyrukların ne kadar zaman aldığını ülkemizdeki tecrübelerimizden biliyoruz. Dedike edilmiş bir Thread tarafından temizlenir (bankada tek vezne çalışması gibi, bu benzetmeler umarım işe yarıyordur 😊). Bu durum da uzun çalışan Finalizer'ların hata fırlatmasına sebep olabilir.
 
 Oynatalım Uğurcum:
 
