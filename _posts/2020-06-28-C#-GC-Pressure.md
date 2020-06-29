@@ -185,7 +185,7 @@ public void AllocateSimpleWithFinalizer() {
 
 Bazen Finalizer kaçınılmaz olabiliyor [Dispose Pattern](https://en.wikipedia.org/wiki/Dispose_pattern), bu durumlarda temizliği kendimiz yaparak kapıya "Odamı Temizleme" kağıdı asmamız gerekiyor.
 
-![No Clean Up](https://www.exploratorium.edu/origins/cern/place/images/no_mop.jpg)
+![No Clean Up](https://janeheller.com/wp-content/uploads/2016/06/1454570485307.jpg)
 
 ```csharp
 public void Dispose() {
