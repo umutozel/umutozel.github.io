@@ -313,6 +313,6 @@ private string GetNonLiteral() => s1 + s2;
 
 Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine göre Intern işi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
 
-Yapacağımız her optimizasyon işini bir yerlerden iyi olduğunu duyduğumuz için yapmamalıyız, deneylerimizi yapıp detaylı ölçümlememiz şart.
+Optimizasyon çalışmalarını bir yerlerden faydalı olduğunu duyduğumuz için yapmamalıyız, deneyler ile detaylı ölçümlememiz şart.
 
 Mutlu kodlamalar!
