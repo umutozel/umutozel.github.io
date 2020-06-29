@@ -6,7 +6,7 @@ redirect_from: "/2020/06/28/csharp-gc-pressure/"
 permalink: csharp-gc-pressure
 ---
 
-Bir .Net uygulamasında belleğin yönetimi ve performans arasında çok sıkı bir ilişki vardır, belleği kötü çalışma uygulamanın çalışmasına farklı şekillerde kötü etki edebilir. Buna GC ya da Bellek baskısı (garbage collection pressure) diyebiliriz. Gelişmiş ülkelerde nasıl çöplerini geri dönüşüme uygun bir şekilde ayırıyorlarsa bizim de belleğimizi düzgün yönetmemiz gerekiyor.
+Bir .Net uygulamasında belleğin yönetimi ve performans arasında çok sıkı bir ilişki vardır, belleği kötü kullanmak uygulamanın çalışmasına farklı şekillerde kötü etki edebilir. Buna GC ya da Bellek baskısı (garbage collection pressure) diyebiliriz. Gelişmiş ülkelerde nasıl çöplerini geri dönüşüme uygun bir şekilde ayırıyorlarsa bizim de belleğimizi düzgün yönetmemiz gerekiyor.
 
 GC Pressure, GC belleği yeterince hızlı boşaltamadığında yaşanıyor. Bu baskı oluştuğunda, bellek boşaltmak için harcanan zaman ve bu işlemin sıklığı çok artar.
 
@@ -20,7 +20,7 @@ Peki neler yapabiliriz?
 
 Bu yaklaşımda sık kullanılan bir taktik ikiye katlamadır, kapasite dolduğunda varolan eleman sayısı kadar bellek ile kapasite büyütülür. Örneğin bir ```List```'e ilk elemanı eklediğinizde kapasitesi 4 olacaktır, 4. elemanı eklediğinizde ise kapasite 8 yapılacak vb.. 
 
-Böylece 1000 elamanı bir listeye tek tek eklediğinizde ne kadar sık ekstra bellek isteceğini ve her bellek istemesinin fragmantasyon gibi ek maliyetlere sebep olabileceğini düşündüğünüzde gereksiz çok vakit harcandığını tahmin edersiniz.
+Böylece 1000 elamanı bir listeye tek tek eklediğinizde ne kadar sık ekstra bellek isteneceğini ve her bellek istemesinin fragmantasyon gibi ek maliyetlere sebep olabileceğini düşündüğünüzde gereksiz çok vakit harcandığını tahmin edersiniz.
 
 ```csharp
 [Benchmark]
@@ -54,13 +54,13 @@ Yukarıdaki iki örnek için alacağımız sonuçlar aşağıdaki gibi olacak:
 
 <sub>Bu arada benim gibi MarkDown tablosu oluşturmaya bile üşeniyorsanız [bu siteyi kullanın](https://www.tablesgenerator.com/markdown_tables)</sub>
 
-Tabi kapasiteyi önceden ayarlayabilmek için bu değeri bilmemiz gerekiyor :)
+Tabii kapasiteyi önceden ayarlayabilmek için bu değeri bilmemiz gerekiyor :)
 
 ## 2 - ArrayPool kullanınmı
 
 Yeni oluşturduğumuz her dizi ileride çöp toplayıcıya bir ek iş çıkaracaktır. Fazla uzun ömürlü olmayan diziler için, nedense yazılımcılar arasında çok da bilinmeyen ve temeli [bir tasarım şablonuna dayanan](https://en.wikipedia.org/wiki/Object_pool_pattern) ```ArrayPool``` kullanarak oluşturduğumuz yükü azaltabiliriz.
 
-Programlama dillerinde serileştirme, şifreleme gibi işlemler yaparken bol bol bayt dizilerini oluşturup sağa sola parametre yollamamız gerekir. Bu dizilerde genelde kısa süre sonra gerekli dönüşümü yaşadıktan sonra kullanım dışı kalırlar ve GC tarafından toplanmak üzere bellekte yer işgal ederler.
+Programlama dillerinde serileştirme, şifreleme gibi işlemler yaparken bol bol bayt dizilerini oluşturup sağa sola parametre yollamamız gerekir. Bu dizilerde genelde kısa sürede gerekli dönüşümü yaşadıktan sonra kullanım dışı kalırlar ve GC tarafından toplanmak üzere bellekte yer işgal ederler.
 
 Bu tür durumlarda ```System.Buffers.ArrayPool``` sınıfını kullanarak (genelde daha çok bilinen ```ThreadPool``` ile yaptığımız gibi) işimiz bitince geri teslim etmek üzere bellek kiralayabiliriz.
 
@@ -226,8 +226,7 @@ public unsafe void WithStackAlloc() {
     }
 }
  
-public void WithStackAllocSpan() // When using Span, no need for unsafe context
-{
+public void WithStackAllocSpan() {
     var vectors = stackalloc VectorStruct[5];
     for (var i = 0; i < 5; i++) {
         vectors[i].X = 5;
@@ -242,13 +241,14 @@ public void WithStackAllocSpan() // When using Span, no need for unsafe context
 | WithStackAlloc     |  5.704 ns | 0.0938 ns | 0.0831 ns |
 | WithStackAllocSpan |  5.742 ns | 0.0965 ns | 0.1021 ns |
 
-Fark açık, tabi artık elimizde ```Span```var, ```unsafe``` işlere girmektense ```Span``` kullanmanızı tavsiye ederim. Tesadüfe bakın ki önceden [bu konuda yazmıştım](http://www.umutozel.com/span-memory).
+Fark açık, tabii artık elimizde ```Span```var, ```unsafe``` işlere girmektense ```Span``` kullanmanızı tavsiye ederim. Tesadüfe bakın ki önceden [bu konuda yazmıştım](http://www.umutozel.com/span-memory).
 
 ## 6 - StringBuilder dedi statik kod analiz aracı
 
 Çoğumuz statik kod analiz araçları kullanmışızdır (Sonarqube, Coverity, Sourcemeter gibi), bu araçların en çok uyarı çıkardığı konu genelde ```string``` birleştirme işini toplama yerine ```StringBuilder``` ile yap oluyordur. Genelde es geçilen bu teknik borçlar hadi artık temizleyelim dediğinizde aylar sürebilir.
 
-Öncelikle neden ```string```'leri toplamak sorun oluyor? ```string``` özel bir tip, bir referans tipi ama immutable. Yani her değişikliğinizde eski değer GC'nin temizlemesi için bırakılırken bellekte yepyeni bir alan ayrılıyor. Bu da çok fazla ```string``` işleminde GC üzerinde sağlam baskı olacağını gösteriyor. Şimdi aradığımda tabii ki bulamadığım bir çalışmada uygulamaların harcadığı toplam donanım gücünün %70-80 (yamuluyor olabilirim) civarının ```string``` işlemlerine gittiği yazıyordu.
+Öncelikle neden ```string```'leri toplamak sorun oluyor? ```string``` özel bir tip, bir referans tipi ama immutable. Yani her değişikliğinizde eski değer GC'nin temizlemesi için bırakılırken bellekte yepyeni bir alan ayrılıyor. Bu da çok fazla ```string``` işleminde GC üzerinde sağlam baskı olacağını gösteriyor. 
+Şimdi aradığımda tabii ki bulamadığım bir çalışmada uygulamaların harcadığı toplam donanım gücünün %70-80 (yamuluyor olabilirim) civarının ```string``` işlemlerine gittiği yazıyordu.
 
 Dikkat edilebilecek noktalar:
 
@@ -270,7 +270,7 @@ a ve b iki farklı değişken gibi görünse de aynı belleği gösteren ortak r
 * Aynı değere sahip iki ```string``` için ortak obje kullanarak bellekten kazanıyoruz
 * ```string```'ler karşılaştırılırken öncelikle referans'a sonra değere bakılır. Aynı referansa sahip iki ```string``` karşılaştırıldığında değerlerini karşılaştırmak gerekmeden eşit olduklarını anlayabileceğimizden zaman kazanırız.
 
-Derleyicinin eşit değere sahip ```string```'leri tespit etmesi pahalı bir işlem. Bu yüzden çalışma zamanında bu işlem hiç yapılmaz. Ancak çalışma zamanı bu işi kendimiz el ile yapabiliriz. ```string.Intern(string)``` ile varolan ```string``` ile aynı referansı kullanmasını, ```string.IsInterned(string)``` ile de aynı değeri gösterip göstermediklerini kontrol edebilirsiniz.
+Derleyicinin eşit değere sahip ```string```'leri tespit etmesi pahalı bir işlem. Bu yüzden çalışma zamanında bu işlem hiç yapılmaz. Ancak çalışma zamanı bu işi kendimiz el ile yapabiliriz. ```string.Intern(string)``` varolan ```string``` ile aynı referansı kullanmasını, ```string.IsInterned(string)``` ile de aynı değeri gösterip göstermediklerini kontrol edebilirsiniz.
 
 ```csharp
 private string s1 = "Hello";
@@ -311,7 +311,7 @@ private string GetNonLiteral() => s1 + s2;
 | WithoutInterning   | 68.06 us | 0.6225 us | 0.5198 us | 201.5 ns |
 | WithInterning      | 16.11 us | 0.3288 us | 0.3075 us | 421.0 ns |
 
-Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine göre Intern işi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
+Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine göre Intern işlemi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
 
 Optimizasyon çalışmalarını bir yerlerden faydalı olduğunu duyduğumuz için yapmamalıyız, deneyler ile detaylı ölçümlememiz şart.
 
