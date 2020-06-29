@@ -6,9 +6,9 @@ redirect_from: "/2020/06/28/csharp-gc-pressure/"
 permalink: csharp-gc-pressure
 ---
 
-Bir .Net uygulamasında belleğin yönetimi ve performans arasında çok sıkı bir ilişki vardır, belleği kötü kullanmak uygulamanın çalışmasına farklı şekillerde kötü etki edebilir. Buna GC ya da Bellek baskısı (garbage collection pressure) diyebiliriz. Gelişmiş ülkelerde nasıl çöplerini geri dönüşüme uygun bir şekilde ayırıyorlarsa bizim de belleğimizi düzgün yönetmemiz gerekiyor.
+Bir .Net uygulamasında belleğin yönetimi ve performans arasında çok sıkı bir ilişki vardır, belleği kötü kullanmak uygulamanın çalışmasına farklı şekillerde olumsuz etki edebilir. Buna GC ya da Bellek baskısı (garbage collection pressure) diyebiliriz. Gelişmiş ülkelerde nasıl çöplerini geri dönüşüme uygun bir şekilde ayırıyorlarsa bizim de belleğimizi düzgün yönetmemiz gerekiyor.
 
-GC Pressure, GC belleği yeterince hızlı boşaltamadığında yaşanıyor. Bu baskı oluştuğunda, bellek boşaltmak için harcanan zaman ve bu işlemin sıklığı çok artar.
+GC Pressure, GC belleği yeterince hızlı boşaltamadığında yaşanır. Bu baskı oluştuğunda, bellek boşaltmak için harcanan zaman ve bu işlemin sıklığı çok artar.
 
 Garbage Collection hakkında hızlıca bilgi edinmek için [şu yazıya](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals) bakabilirsiniz.
 
@@ -20,25 +20,21 @@ Peki neler yapabiliriz?
 
 Bu yaklaşımda sık kullanılan bir taktik ikiye katlamadır, kapasite dolduğunda varolan eleman sayısı kadar bellek ile kapasite büyütülür. Örneğin bir ```List```'e ilk elemanı eklediğinizde kapasitesi 4 olacaktır, 4. elemanı eklediğinizde ise kapasite 8 yapılacak vb.. 
 
-Böylece 1000 elamanı bir listeye tek tek eklediğinizde ne kadar sık ekstra bellek isteneceğini ve her bellek istemesinin fragmantasyon gibi ek maliyetlere sebep olabileceğini düşündüğünüzde gereksiz çok vakit harcandığını tahmin edersiniz.
+Böylece 1000 elemanı bir listeye tek tek eklediğinizde ne kadar sık ekstra bellek isteneceğini ve her bellek isteğinin fragmantasyon gibi ek maliyetlere sebep olabileceğini düşündüğünüzde gereksiz çok vakit harcandığını tahmin edersiniz.
 
 ```csharp
 [Benchmark]
-public void Dynamic()
-{
+public void Dynamic() {
     var list = new List<int>();
-    for (var i = 0; i < 1000; i++)
-    {
+    for (var i = 0; i < 1000; i++) {
         list.Add(i);
     }
 }
 
 [Benchmark]
-public void Planned()
-{
+public void Planned() {
     var list = new List<int>(1000);
-    for (var i = 0; i < 1000; i++)
-    {
+    for (var i = 0; i < 1000; i++) {
         list.Add(i);
     }
 }
@@ -60,7 +56,7 @@ Tabii kapasiteyi önceden ayarlayabilmek için bu değeri bilmemiz gerekiyor :)
 
 Yeni oluşturduğumuz her dizi ileride çöp toplayıcıya bir ek iş çıkaracaktır. Fazla uzun ömürlü olmayan diziler için, nedense yazılımcılar arasında çok da bilinmeyen ve temeli [bir tasarım şablonuna dayanan](https://en.wikipedia.org/wiki/Object_pool_pattern) ```ArrayPool``` kullanarak oluşturduğumuz yükü azaltabiliriz.
 
-Programlama dillerinde serileştirme, şifreleme gibi işlemler yaparken bol bol bayt dizilerini oluşturup sağa sola parametre yollamamız gerekir. Bu dizilerde genelde kısa sürede gerekli dönüşümü yaşadıktan sonra kullanım dışı kalırlar ve GC tarafından toplanmak üzere bellekte yer işgal ederler.
+Programlama dillerinde serileştirme, şifreleme gibi işlemler yaparken bol bol bayt dizilerini oluşturup sağa sola parametre yollamamız gerekir. Bu diziler de genelde kısa sürede gerekli dönüşümü yaşadıktan sonra kullanım dışı kalırlar ve GC tarafından toplanmak üzere bellekte yer işgal ederler.
 
 Bu tür durumlarda ```System.Buffers.ArrayPool``` sınıfını kullanarak (genelde daha çok bilinen ```ThreadPool``` ile yaptığımız gibi) işimiz bitince geri teslim etmek üzere bellek kiralayabiliriz.
 
@@ -91,9 +87,9 @@ public void SharedArray() {
 
 * Bir sınıfın parçası olmadıklarında sadece Stack üzerinde yer alırlar, dolayısıyla GC gerektirmez
 * Bir sınıf içinde olduklarında da bellekte takip edilmesi gereken ayrı bir obje olmazlar, veri olarak sınıf için ayrılan bellekte yaşarlar
-* Bazı ileri seviye sebeplerden (MethodTable ve ObjectHeader olmaması gibi, [CLR via C#](https://www.amazon.com/CLR-via-4th-Developer-Reference/dp/0735667454) okumanızı şiddetle tavsiye ederim) daha az bellek harcarlar
+* Bazı arka plan mekanizmalarından dolayı (MethodTable ve ObjectHeader olmaması gibi, [CLR via C#](https://www.amazon.com/CLR-via-4th-Developer-Reference/dp/0735667454) okumanızı şiddetle tavsiye ederim) daha az bellek harcarlar
 
-En önemli nokta ```Struct``` referans değil veri olarak taşınır, yani her atama yaptığınızda yeni bir kopyası oluşur. Dolayısıyla yeni kopya üzerindeki bir alanı değiştirmek eski ```Struct```'ı etkilemez. O yüzden Microsoft bize aşağıdaki kurallar sağlanıyorsa ```Struct``` kullanmamızı tavsiye eder.
+En önemlisi ```Struct``` referans değil veri olarak taşınır, yani her atama yaptığınızda yeni bir kopyası oluşur. Dolayısıyla yeni kopya üzerindeki bir alanı değiştirmek eski ```Struct```'ı etkilemez. O yüzden Microsoft bize aşağıdaki kurallar sağlanıyorsa ```Struct``` kullanmamızı tavsiye eder.
 
 * Eğer boyut 16 bayt ya da daha küçükse (kopyalama maliyeti çok artmasın)
 * Kısa ömürlü ise
@@ -248,13 +244,11 @@ Fark açık, tabii artık elimizde ```Span```var, ```unsafe``` işlere girmekten
 Çoğumuz statik kod analiz araçları kullanmışızdır (Sonarqube, Coverity, Sourcemeter gibi), bu araçların en çok uyarı çıkardığı konu genelde ```string``` birleştirme işini toplama yerine ```StringBuilder``` ile yap oluyordur. Genelde es geçilen bu teknik borçlar hadi artık temizleyelim dediğinizde aylar sürebilir.
 
 Öncelikle neden ```string```'leri toplamak sorun oluyor? ```string``` özel bir tip, bir referans tipi ama immutable. Yani her değişikliğinizde eski değer GC'nin temizlemesi için bırakılırken bellekte yepyeni bir alan ayrılıyor. Bu da çok fazla ```string``` işleminde GC üzerinde sağlam baskı olacağını gösteriyor. 
-Şimdi aradığımda tabii ki bulamadığım bir çalışmada uygulamaların harcadığı toplam donanım gücünün %70-80 (yamuluyor olabilirim) civarının ```string``` işlemlerine gittiği yazıyordu.
-
 Dikkat edilebilecek noktalar:
 
 * Eğer performans arttırmak için bu işe kalkışıyorsanız önce ölçüm yapmalısınız. 10-15 kadar toplama işleminin ```StringBuilder```'dan daha hızlı olabileceğini göreceksiniz.
 * ```StringBuilder``` ilk kapasitesini ayarlayabilirseniz daha da verimli çalışacaktır.
-* Aynı ```StringBuilder``` objesini tekrar tekrar kullanarak daha da performans elde edebilirsiniz. Kodun okunurluğunu azaltmama adına döngü gibi küçük kapsamlı yerlerde kullanmak faydalı olacaktır.
+* Aynı ```StringBuilder``` objesini tekrar tekrar kullanarak daha da performans elde edebilirsiniz. Kodun okunurluğunu azaltmama adına sadece döngü gibi küçük kapsamlı yerlerde kullanmak faydalı olacaktır.
 
 ## 7 - String Interning mi? O nedir?
 
@@ -265,12 +259,12 @@ string a = "Test";
 string b = "Test";
 ```
 
-a ve b iki farklı değişken gibi görünse de aynı belleği gösteren ortak referans olacaklar. Bu işleme String Interning deniyor. Bize iki faydası var:
+a ve b iki farklı değişken gibi görünse de aynı belleği gösteren ortak referanslar olacaklar. Bu işleme String Interning deniyor. Bize iki faydası var:
 
 * Aynı değere sahip iki ```string``` için ortak obje kullanarak bellekten kazanıyoruz
-* ```string```'ler karşılaştırılırken öncelikle referans'a sonra değere bakılır. Aynı referansa sahip iki ```string``` karşılaştırıldığında değerlerini karşılaştırmak gerekmeden eşit olduklarını anlayabileceğimizden zaman kazanırız.
+* ```string```'ler karşılaştırılırken öncelikle referans'a sonra değere bakılır. Aynı referansa sahip iki ```string``` karşılaştırıldığında değerlerini karşılaştırmak gerekmeden eşit olduklarını anlayabileceğimizden zaman kazanıyoruz.
 
-Derleyicinin eşit değere sahip ```string```'leri tespit etmesi pahalı bir işlem. Bu yüzden çalışma zamanında bu işlem hiç yapılmaz. Ancak çalışma zamanı bu işi kendimiz el ile yapabiliriz. ```string.Intern(string)``` varolan ```string``` ile aynı referansı kullanmasını, ```string.IsInterned(string)``` ile de aynı değeri gösterip göstermediklerini kontrol edebilirsiniz.
+Derleyicinin eşit değere sahip ```string```'leri tespit etmesi pahalı bir işlem. Bu yüzden çalışma zamanında bu işlem hiç yapılmaz. Ancak çalışma zamanı bu işi kendimiz el ile yapabiliriz. ```string.Intern(string)``` varolan ```string``` ile aynı referansı kullanmasını sağlayıp, ```string.IsInterned(string)``` ile de aynı değeri gösterip göstermediklerini kontrol edebilirsiniz.
 
 ```csharp
 private string s1 = "Hello";
@@ -311,7 +305,7 @@ private string GetNonLiteral() => s1 + s2;
 | WithoutInterning   | 68.06 us | 0.6225 us | 0.5198 us | 201.5 ns |
 | WithInterning      | 16.11 us | 0.3288 us | 0.3075 us | 421.0 ns |
 
-Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine göre Intern işlemi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
+Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine oranla Intern işlemi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
 
 Optimizasyon çalışmalarını bir yerlerden faydalı olduğunu duyduğumuz için yapmamalıyız, deneyler ile detaylı ölçümlememiz şart.
 
