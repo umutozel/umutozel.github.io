@@ -298,10 +298,10 @@ private string GetNonLiteral () => s1 + s2;
 
 10 tekrarlı bir ölçüm yaptığımızda ise:
 
-| Method             |     Mean |     Error |    StdDev |   Median |
-|--------------------|---------:|----------:|----------:|---------:|
-| WithoutInterning   | 68.06 us | 0.6225 us | 0.5198 us | 201.5 ns |
-| WithInterning      | 16.11 us | 0.3288 us | 0.3075 us | 421.0 ns |
+|           Method |     Mean |     Error |    StdDev |
+|----------------- |---------:|----------:|----------:|
+| WithoutInterning | 8.272 us | 0.1629 us | 0.2060 us |
+|    WithInterning | 1.718 us | 0.0319 us | 0.0266 us |
 
 Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine oranla Intern işlemi arttığında ciddi performans kaybı yaşadığımızı görebiliriz.
 
