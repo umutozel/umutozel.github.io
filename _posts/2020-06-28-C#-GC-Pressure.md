@@ -6,9 +6,7 @@ redirect_from: "/2020/06/28/csharp-gc-pressure/"
 permalink: csharp-gc-pressure
 ---
 
-Bir .Net uygulamasında belleğin yönetimi ve performans arasında çok sıkı bir ilişki vardır, belleği kötü kullanmak uygulamanın çalışmasına farklı şekillerde olumsuz etki edebilir. Buna GC ya da Bellek baskısı (garbage collection pressure) diyebiliriz. Gelişmiş ülkelerde nasıl çöplerini geri dönüşüme uygun bir şekilde ayırıyorlarsa bizim de belleğimizi düzgün yönetmemiz gerekiyor.
-
-GC Pressure, GC belleği yeterince hızlı boşaltamadığında yaşanır. Bu baskı oluştuğunda, bellek boşaltmak için harcanan zaman ve bu işlemin sıklığı çok artar.
+.Net gibi yönetilen dillerde bellek genellikle hunharca kullanılır, nasıl olsa arkamızdan temizleyen var. Bu temizliği yapan Çöp Toplayıcısı (Garbage Collector - GC) oluyor. Heap üzerinde oluşturduğumuz objelere yapılmış referansları takip edip, belli durumlarda kullanım dışı kalanları bizim için bellekten atıyor. Ancak düşük bellekli sistemlerde, çok yoğun obje oluşturulan programlarda bu yaklaşım performansa gözle görülür etki edebiliyor.
 
 Garbage Collection hakkında hızlıca bilgi edinmek için [şu yazıya](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals) bakabilirsiniz.
 
@@ -24,29 +22,28 @@ Böylece 1000 elemanı bir listeye tek tek eklediğinizde ne kadar sık ekstra b
 
 ```csharp
 [Benchmark]
-public void Dynamic() {
-    var list = new List<int>();
+public void Dynamic () {
+    var list = new List<int> ();
     for (var i = 0; i < 1000; i++) {
-        list.Add(i);
+        list.Add (i);
     }
 }
 
 [Benchmark]
-public void Planned() {
-    var list = new List<int>(1000);
+public void Planned () {
+    var list = new List<int> (1000);
     for (var i = 0; i < 1000; i++) {
-        list.Add(i);
+        list.Add (i);
     }
 }
 ```
 
 Yukarıdaki iki örnek için alacağımız sonuçlar aşağıdaki gibi olacak:
 
- 
-| Method  | Mean     | Error     | StdDev    |
-|---------|---------:|----------:|----------:|
-| Dynamic | 3.415 us | 0.0687 us | 0.1240 us |
-| Planned | 2.422 us | 0.0219 us | 0.0183 us |
+|  Method |     Mean |     Error |    StdDev |   Median |
+|-------- |---------:|----------:|----------:|---------:|
+| Dynamic | 2.234 us | 0.0356 us | 0.0333 us | 2.234 us |
+| Planned | 1.700 us | 0.0348 us | 0.0600 us | 1.674 us |
 
 <sub>Bu arada benim gibi MarkDown tablosu oluşturmaya bile üşeniyorsanız [bu siteyi kullanın](https://www.tablesgenerator.com/markdown_tables)</sub>
 
@@ -62,24 +59,25 @@ Bu tür durumlarda ```System.Buffers.ArrayPool``` sınıfını kullanarak (genel
 
 ```csharp
 [Benchmark]
-public void RegularArray() {
+public void RegularArray () {
     var array = new int[1000];
 }
- 
+
 [Benchmark]
-public void SharedArray() {
-    var array = ArrayPool<int>.Shared.Rent(1000);
+public void SharedArray () {
+    var pool = ArrayPool<int>.Shared;
+    var array = pool.Rent (1000);
     // işimiz bitince diziyi iade ediyoruz
-    pool.Return(array);
+    pool.Return (array);
 }
 ```
 
 1000 elemanlık bir liste için aşağıdaki gibi bir performans alıyoruz:
 
-| Method       |      Mean |    Error |    StdDev |
-|--------------|----------:|---------:|----------:|
-| RegularArray | 404.53 ns | 8.074 ns | 18.872 ns |
-| SharedArray  |  51.71 ns | 1.354 ns |  1.505 ns |
+|       Method |      Mean |    Error |   StdDev |
+|------------- |----------:|---------:|---------:|
+| RegularArray | 181.30 ns | 3.510 ns | 4.043 ns |
+|  SharedArray |  46.21 ns | 0.316 ns | 0.296 ns |
 
 ## 3 - Class yerine Struct (aman dikkat, sadece doğru yerlerde)
 
@@ -99,42 +97,42 @@ En önemlisi ```Struct``` referans değil veri olarak taşınır, yani her atama
 Doğru kullanıldığında nasıl etkisi oluyormuş görelim:
 
 ```csharp
-class VectorClass {
+ class VectorClass {
     public int X { get; set; }
     public int Y { get; set; }
 }
- 
+
 struct VectorStruct {
     public int X { get; set; }
     public int Y { get; set; }
 }
- 
+
 [Benchmark]
-public void WithClass() {
+public void WithClass () {
     var vectors = new VectorClass[1000];
     for (int i = 0; i < 1000; i++) {
         // her seferinde Heap üzerinden bellek alınıyor
-        vectors[i] = new VectorClass();
+        vectors[i] = new VectorClass ();
         vectors[i].X = 5;
         vectors[i].Y = 10;
     }
 }
- 
+
 [Benchmark]
-public void WithStruct() {
+public void WithStruct () {
     // bu aşamada tüm bellek hazır, tekrar yer istenmiyor
     var vectors = new VectorStruct[1000];
-    for (int i = 0; i < ITEMS; i++) {
+    for (int i = 0; i < 1000; i++) {
         vectors[i].X = 5;
         vectors[i].Y = 10;
     }
 }
 ```
 
-| Method     |     Mean |     Error |    StdDev |
-|------------|---------:|----------:|----------:|
-| WithClass  | 77.97 us | 1.5528 us | 2.6785 us |
-| WithStruct | 12.97 us | 0.2564 us | 0.6094 us |
+|     Method |       Mean |     Error |    StdDev |
+|----------- |-----------:|----------:|----------:|
+|  WithClass | 8,089.7 ns | 174.35 ns | 244.41 ns |
+| WithStruct |   987.0 ns |  18.92 ns |  16.77 ns |
 
 ## 4 - Sonlandırıcı (Finalizer) kullanmaktan kaçının
 
@@ -151,37 +149,36 @@ Oynatalım Uğurcum:
 class Simple {
     public int X { get; set; }
 }
- 
+
 class SimpleWithFinalizer {
 
-    ~SimpleWithFinalizer() {
-    }
+    ~SimpleWithFinalizer () { }
 
     public int X { get; set; }
 }
- 
+
 private static Simple _instance1;
 private static SimpleWithFinalizer _instance2;
- 
+
 [Benchmark]
-public void AllocateSimple() {
+public void AllocateSimple () {
     for (int i = 0; i < 100000; i++) {
-        _instance1 = new Simple();
+        _instance1 = new Simple ();
     }
 }
- 
+
 [Benchmark]
-public void AllocateSimpleWithFinalizer() {
+public void AllocateSimpleWithFinalizer () {
     for (int i = 0; i < 100000; i++) {
-        _instance2 = new SimpleWithFinalizer();
+        _instance2 = new SimpleWithFinalizer ();
     }
 }
 ```
 
-| Method                      |         Mean |        Error |      StdDev |
-|-----------------------------|-------------:|-------------:|------------:|
-| AllocateSimple              |     409.9 us |     9.063 us |    17.24 us |
-| AllocateSimpleWithFinalizer | 128,796.8 us | 2,520.871 us | 2,588.75 us |
+|                      Method |        Mean |     Error |    StdDev |
+|---------------------------- |------------:|----------:|----------:|
+|              AllocateSimple |    604.3 us |   7.39 us |   6.92 us |
+| AllocateSimpleWithFinalizer | 21,462.7 us | 317.89 us | 297.36 us |
 
 Bazen Finalizer kaçınılmaz olabiliyor [Dispose Pattern](https://en.wikipedia.org/wiki/Dispose_pattern), bu durumlarda temizliği kendimiz yaparak kapıya "Odamı Temizleme" kağıdı asmamız gerekiyor.
 
@@ -203,27 +200,28 @@ struct VectorStruct {
     public int X { get; set; }
     public int Y { get; set; }
 }
- 
+
 [Benchmark]
-public void WithNew() {
+public void WithNew () {
     var vectors = new VectorStruct[5];
     for (var i = 0; i < 5; i++) {
         vectors[i].X = 5;
         vectors[i].Y = 10;
     }
 }
- 
+
 [Benchmark]
-public unsafe void WithStackAlloc() {
+public unsafe void WithStackAlloc () {
     var vectors = stackalloc VectorStruct[5];
     for (var i = 0; i < 5; i++) {
         vectors[i].X = 5;
         vectors[i].Y = 10;
     }
 }
- 
-public void WithStackAllocSpan() {
-    var vectors = stackalloc VectorStruct[5];
+
+[Benchmark]
+public void WithSpan () {
+    Span<VectorStruct> vectors = stackalloc VectorStruct[5];
     for (var i = 0; i < 5; i++) {
         vectors[i].X = 5;
         vectors[i].Y = 10;
@@ -231,11 +229,11 @@ public void WithStackAllocSpan() {
 }
 ```
 
-| Method             |      Mean |     Error |    StdDev |
-|--------------------|----------:|----------:|----------:|
-| WithNew            | 10.372 ns | 0.1531 ns | 0.1432 ns |
-| WithStackAlloc     |  5.704 ns | 0.0938 ns | 0.0831 ns |
-| WithStackAllocSpan |  5.742 ns | 0.0965 ns | 0.1021 ns |
+|         Method |      Mean |     Error |    StdDev |
+|--------------- |----------:|----------:|----------:|
+|        WithNew |  8.851 ns | 0.2134 ns | 0.2095 ns |
+| WithStackAlloc |  4.839 ns | 0.0467 ns | 0.0414 ns |
+|       WithSpan | 36.387 ns | 0.7538 ns | 0.7741 ns |
 
 Fark açık, tabii artık elimizde ```Span```var, ```unsafe``` işlere girmektense ```Span``` kullanmanızı tavsiye ederim. Tesadüfe bakın ki önceden [bu konuda yazmıştım](http://www.umutozel.com/span-memory).
 
@@ -267,28 +265,28 @@ a ve b iki farklı değişken gibi görünse de aynı belleği gösteren ortak r
 Derleyicinin eşit değere sahip ```string```'leri tespit etmesi pahalı bir işlem. Bu yüzden çalışma zamanında bu işlem hiç yapılmaz. Ancak çalışma zamanı bu işi kendimiz el ile yapabiliriz. ```string.Intern(string)``` varolan ```string``` ile aynı referansı kullanmasını sağlayıp, ```string.IsInterned(string)``` ile de aynı değeri gösterip göstermediklerini kontrol edebilirsiniz.
 
 ```csharp
-private string s1 = "Hello";
-private string s2 = " World";
- 
+private readonly string s1 = "Hello";
+private readonly string s2 = " World";
+
 [Benchmark]
-public void WithoutInterning() {
-    var s1 = GetNonLiteral();
-    var s2 = GetNonLiteral();
-    for (var i = 0; i < Size; i++) {
-        var x = s1.Equals(s2);
+public void WithoutInterning () {
+    var s1 = GetNonLiteral ();
+    var s2 = GetNonLiteral ();
+    for (var i = 0; i < 1000; i++) {
+        var x = s1.Equals (s2);
     }
 }
- 
+
 [Benchmark]
-public void WithInterning() {
-    var s1 = string.Intern(GetNonLiteral());
-    var s2 = string.Intern(GetNonLiteral());
-    for (var i = 0; i < Size; i++) {
-        var x = s1.Equals(s2);
+public void WithInterning () {
+    var s1 = string.Intern (GetNonLiteral ());
+    var s2 = string.Intern (GetNonLiteral ());
+    for (var i = 0; i < 1000; i++) {
+        var x = s1.Equals (s2);
     }
 }
- 
-private string GetNonLiteral() => s1 + s2;
+
+private string GetNonLiteral () => s1 + s2;
 ```
 
 100 tekrarlı bir ölçüm yaptığımızda:
@@ -309,4 +307,14 @@ Buradan Intern işleminin çok maliyetli olduğunu ve karşılaştırma işine o
 
 Optimizasyon çalışmalarını bir yerlerden faydalı olduğunu duyduğumuz için yapmamalıyız, deneyler ile detaylı ölçümlememiz şart.
 
+Kodlar burada: [https://github.com/umutozel/gc-pressure-benchmark](https://github.com/umutozel/gc-pressure-benchmark)
+
+Yabancı birçok kaynakta bulunabilecek tavsiyeleri kendimce yorumlamaya çalıştım, umarım faydalı olmuştur.
+
 Mutlu kodlamalar!
+
+## Referanslar
+
+* [Pro .NET Performance: Optimize Your C# Applications (Expert's Voice in .NET)](https://amzn.to/2BWDlkZ)
+* [Michael Shpilt'in yazısı](https://michaelscodingspot.com/avoid-gc-pressure/)
+* [CLR via C#](https://amzn.to/3dNTjeb)
