@@ -311,6 +311,8 @@ Kodlar burada: [https://github.com/umutozel/gc-pressure-benchmark](https://githu
 
 Yabancı birçok kaynakta bulunabilecek tavsiyeleri kendimce yorumlamaya çalıştım, umarım faydalı olmuştur.
 
+Michael Shpilt'e yazısı ve başlıkları kullanmama izin verdiği için teşekkürler.
+
 Mutlu kodlamalar!
 
 ## Referanslar
