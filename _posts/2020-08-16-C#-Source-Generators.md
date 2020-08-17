@@ -210,7 +210,7 @@ Source Generator'ü projemize bir analyzer olarak eklememiz gerekiyor.
 
 Artık yukarıdaki kullanıcı projesi Source Generator metodunu çağırabilecek ve ekrana önce "Hello World!" sonra da derlemeye dahil olan dosyaların listesi basılacak.
 
-Yapabileceklerimiz hayal gücümüz ile sınırlı. Aklıma ilk gelen WPF zamanlarında çok haşır neşir olduğumuz sınıflara otomatik INotifyPropertyChanged uygulamak oldu. Tüh sadece yeni dosyalar ekleyebiliyoruz bu tür işleri yapamayız diye düşünürken Microsoft örneklerinde ```partial``` sınıflar ile hallettiklerini gördüm, ```partial``` tamamen aklımdan çıkmış :)
+Yapabileceklerimiz hayal gücümüz ile sınırlı. Aklıma ilk gelen WPF zamanlarında çok haşır neşir olduğumuz INotifyPropertyChanged arayüzünü sınıflara otomatik uygulamak oldu. Tüh sadece yeni dosyalar ekleyebiliyoruz bu tür işleri yapamayız diye düşünürken Microsoft örneklerinde ```partial``` sınıflar ile hallettiklerini gördüm, ```partial``` tamamen aklımdan çıkmış :)
 
 Daha neler neler yapılır incelemek isterseniz hemen [Tarif Kitabı](https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.cookbook.md)'na göz atın. Ayrıca [github üzerinde de örnekler var](https://github.com/dotnet/roslyn-sdk/tree/master/samples/CSharp/SourceGenerators).
 
