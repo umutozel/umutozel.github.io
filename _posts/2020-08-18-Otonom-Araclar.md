@@ -166,7 +166,7 @@ Dünya çapındaki otomobil üreticileri, önümüzdeki iki ila üç yıl içind
 * **Saldırganlar**. Sektöre sonradan dahil olan ve "tamamen yeni" araç mimarileri geliştiren yeni sektör oyuncuları, hacimleri hızlı bir şekilde yakalamak ve yardımcı iş modellerini sürdürmek için "erişilebilir mobilite" ile tüketici segmentine odaklanacak.
 * **Hızlı takipçiler**. Bu üreticilerin önemli teknik ve ticari kökleri vardır. Büyük olasılıkla otonom araç araştırmalarına yatırım yapacaklar ve daha sonra üst segmentlerdeki penetrasyonlarını artırırken temel teknolojilerin araç seviyesi maliyetlerinin düşmesini bekleyecekler.
 
-#### Yeni Mobilite
+#### Yeni Mobilite
 
 Üreticiler otonom araçlar geliştirirken, diğer çeşitli ulaşım-mobilite yenilikleri şimdiden yola çıktı. Bunların çoğu, araç paylaşımı, "e-taksi" taksi alternatifleri ve eşler arası araç kiralama gibi kullanım başına ödeme modelleri şeklini alıyor. Bu girişimler yatırımları çekiyor ve etkileyici büyüme oranları yakalıyorlar. Özellikle e-taksi modeli, hem yıllık yatırım finansmanı hem de pazar penetrasyonu göz önüne alındığında güçlü bir büyüme yaşadı.
 
